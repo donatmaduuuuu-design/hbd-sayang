@@ -26,8 +26,8 @@
     .card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(12px);
-      padding: 30px 25px;
-      border-radius: 20px;
+      padding: 30px 22px;
+      border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       text-align: center;
@@ -48,109 +48,23 @@
     }
     h1 {
       color: #fb7185;
-      font-size: 1.7rem;
-      margin-bottom: 8px;
+      font-size: 1.65rem;
+      margin-bottom: 6px;
     }
     p.intro {
       color: #e2e8f0;
       font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 15px;
-    }
-
-    /* PETA ANIMASI TERBANG LOMBOK KE JAWA */
-    .map-card {
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 16px;
-      padding: 16px;
+      line-height: 1.5;
       margin-bottom: 20px;
-      border: 1px solid rgba(251, 113, 133, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-    .map-title {
-      font-size: 0.85rem;
-      color: #fda4af;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-    .map-canvas {
-      position: relative;
-      width: 100%;
-      height: 130px;
-      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    /* SVG Route Curve */
-    .flight-svg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .flight-line {
-      fill: none;
-      stroke: #fb7185;
-      stroke-width: 2.5;
-      stroke-dasharray: 6 4;
-      animation: dashMove 2s linear infinite;
-    }
-    /* Pins on Map */
-    .pin {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 3;
-    }
-    .pin-lombok {
-      right: 18px;
-      bottom: 22px;
-    }
-    .pin-jawa {
-      left: 20px;
-      top: 35px;
-    }
-    .pin-icon {
-      font-size: 20px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-    }
-    .pin-label {
-      font-size: 0.7rem;
-      font-weight: bold;
-      color: #e2e8f0;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 2px 6px;
-      border-radius: 8px;
-      margin-top: 2px;
-    }
-    /* Animated Airplane */
-    .animated-plane {
-      position: absolute;
-      font-size: 20px;
-      z-index: 5;
-      offset-path: path("M 290 85 Q 170 15 50 50");
-      animation: flyFromLombokToJawa 4s ease-in-out infinite;
-    }
-    /* Heart pulse at Jawa destination */
-    .destination-heart {
-      position: absolute;
-      left: 38px;
-      top: 18px;
-      font-size: 16px;
-      z-index: 4;
-      animation: heartPop 4s ease-in-out infinite;
     }
 
-    /* Player Piringan Hitam */
+    /* 1. PLAYER PIRINGAN HITAM */
     .player-container {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 16px;
-      padding: 15px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -160,7 +74,7 @@
       position: relative;
       width: 110px;
       height: 110px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     .vinyl {
       width: 100%;
@@ -208,7 +122,7 @@
     .song-title {
       font-size: 0.82rem;
       color: #e2e8f0;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       font-weight: 500;
     }
     .visualizer {
@@ -232,17 +146,137 @@
     .playing .bar:nth-child(4) { animation-delay: 0.5s; }
     .playing .bar:nth-child(5) { animation-delay: 0.4s; }
 
+    /* 2. KUTIPAN LIRIK LAGU */
     .lyrics-quote {
       font-style: italic;
       color: #fda4af;
-      font-size: 0.9rem;
-      margin-bottom: 20px;
+      font-size: 0.88rem;
+      margin-bottom: 15px;
       background: rgba(0, 0, 0, 0.25);
-      padding: 12px;
+      padding: 12px 15px;
       border-radius: 12px;
       border-left: 3px solid #fb7185;
+      line-height: 1.4;
     }
 
+    /* 3. ALASAN PILIH LAGU (DENGAN PERNAK-PERNIK) */
+    .song-reason-box {
+      background: rgba(251, 113, 133, 0.08);
+      border: 1px dashed rgba(251, 113, 133, 0.35);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 20px;
+      position: relative;
+      text-align: left;
+    }
+    .reason-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #fb7185;
+      margin-bottom: 6px;
+    }
+    .reason-text {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+    .reason-ornament-left {
+      position: absolute;
+      top: -10px;
+      left: 12px;
+      font-size: 14px;
+    }
+    .reason-ornament-right {
+      position: absolute;
+      bottom: -10px;
+      right: 12px;
+      font-size: 14px;
+    }
+
+    /* 4. PETA ANIMASI TERBANG LOMBOK KE JAWA */
+    .map-card {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .map-canvas {
+      position: relative;
+      width: 100%;
+      height: 130px;
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    /* SVG Route Curve */
+    .flight-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .flight-line {
+      fill: none;
+      stroke: #fb7185;
+      stroke-width: 2.5;
+      stroke-dasharray: 6 4;
+      animation: dashMove 2s linear infinite;
+    }
+    /* Pins on Map */
+    .pin {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 3;
+    }
+    .pin-lombok {
+      right: 20px;
+      bottom: 20px;
+    }
+    .pin-jawa {
+      left: 20px;
+      top: 35px;
+    }
+    .pin-icon {
+      font-size: 20px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+    .pin-label {
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #e2e8f0;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 2px 7px;
+      border-radius: 8px;
+      margin-top: 2px;
+    }
+    /* Animated Airplane (Arah di-flip/rotasi agar moncong terbang ke Jawa) */
+    .animated-plane {
+      position: absolute;
+      font-size: 20px;
+      z-index: 5;
+      offset-path: path("M 280 85 Q 160 15 50 50");
+      animation: flyFromLombokToJawa 4s ease-in-out infinite;
+    }
+    /* Heart pulse at Jawa destination */
+    .destination-heart {
+      position: absolute;
+      left: 38px;
+      top: 18px;
+      font-size: 16px;
+      z-index: 4;
+      animation: heartPop 4s ease-in-out infinite;
+    }
+
+    /* TOMBOL-TOMBOL & INTERAKSI */
     .btn-group {
       display: flex;
       flex-direction: column;
@@ -284,7 +318,7 @@
       animation: fadeIn 0.5s ease-in-out;
     }
     .coupon-title {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: #fbbf24;
       font-weight: bold;
       margin-bottom: 10px;
@@ -372,11 +406,12 @@
     @keyframes dashMove {
       to { stroke-dashoffset: -20; }
     }
+    /* Moncong pesawat di-rotasi (rotate(45deg)) agar menghadap depan ke arah Jawa */
     @keyframes flyFromLombokToJawa {
-      0% { offset-distance: 0%; opacity: 0; transform: scale(0.6) rotate(-135deg); }
-      10% { opacity: 1; transform: scale(1) rotate(-135deg); }
-      85% { opacity: 1; transform: scale(1) rotate(-135deg); }
-      100% { offset-distance: 100%; opacity: 0; transform: scale(0.6) rotate(-135deg); }
+      0% { offset-distance: 0%; opacity: 0; transform: scale(0.6) rotate(45deg); }
+      12% { opacity: 1; transform: scale(1) rotate(45deg); }
+      85% { opacity: 1; transform: scale(1) rotate(45deg); }
+      100% { offset-distance: 100%; opacity: 0; transform: scale(0.6) rotate(45deg); }
     }
     @keyframes heartPop {
       0%, 80% { transform: scale(0); opacity: 0; }
@@ -411,14 +446,48 @@
     <h1>Happy Early Birthday! 🎉✨</h1>
     <p class="intro">Spesial buat <b>Abdul Latif Hidayatulloh</b> 🤍</p>
 
-    <!-- Visual Peta Penerbangan Lombok -> Jawa -->
+    <!-- 1. PLAYER PIRINGAN HITAM -->
+    <div class="player-container">
+      <div class="vinyl-box">
+        <div id="vinylRecord" class="vinyl">
+          <div class="vinyl-center">🎵</div>
+        </div>
+        <div id="tonearm" class="tonearm"></div>
+      </div>
+      <div class="song-title">🎶 Nuca - Masa Ini, Nanti, & Masa Indah Lainnya</div>
+      <div id="visualizer" class="visualizer">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+
+    <!-- 2. KUTIPAN LIRIK -->
+    <div class="lyrics-quote">
+      "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
+    </div>
+
+    <!-- 3. ALASAN PILIH LAGU (DENGAN PERNAK-PERNIK) -->
+    <div class="song-reason-box">
+      <span class="reason-ornament-left">🎀</span>
+      <span class="reason-ornament-right">✨</span>
+      <div class="reason-header">
+        <span>💌</span> Kenapa Aku Pilih Lagu Ini?
+      </div>
+      <div class="reason-text">
+        Lagu ini rasanya pas banget menggambarkan perasaan aku. Di setiap liriknya, aku selalu ingat gimana bersyukurnya aku punya kamu di hidupku. Dari masa ini, nanti, sampai masa-masa indah kita ke depannya! 🤍
+      </div>
+    </div>
+
+    <!-- 4. PETA VISUAL PENERBANGAN LOMBOK -> JAWA -->
     <div class="map-card">
-      <div class="map-title">✈️ Flying From Lombok to Jawa — Finally Together! 💖</div>
       <div class="map-canvas">
         
         <!-- Flight Arc Curve SVG -->
         <svg class="flight-svg" viewBox="0 0 340 130">
-          <path class="flight-line" d="M 290 85 Q 170 15 50 50" />
+          <path class="flight-line" d="M 280 85 Q 160 15 50 50" />
         </svg>
 
         <!-- Lombok Pin -->
@@ -442,29 +511,7 @@
       </div>
     </div>
 
-    <!-- Player Piringan Hitam -->
-    <div class="player-container">
-      <div class="vinyl-box">
-        <div id="vinylRecord" class="vinyl">
-          <div class="vinyl-center">🎵</div>
-        </div>
-        <div id="tonearm" class="tonearm"></div>
-      </div>
-      <div class="song-title">🎶 Nuca - Masa Ini, Nanti, & Masa Indah Lainnya</div>
-      <div id="visualizer" class="visualizer">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
-    </div>
-
-    <!-- Kutipan Lirik -->
-    <div class="lyrics-quote">
-      "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
-    </div>
-
+    <!-- TOMBOL INTERAKSI -->
     <div class="btn-group">
       <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu</button>
       <button class="btn btn-hearts" onclick="sendHearts()">💖 Tabur Love Buat Kamu!</button>
