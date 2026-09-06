@@ -464,7 +464,7 @@
       font-style: italic;
     }
 
-    /* FITUR BARU: GALERI FOTO KENANGAN */
+    /* GALERI FOTO KENANGAN (SEBELUM PESAN INTI) */
     .gallery-section {
       background: rgba(0, 0, 0, 0.3);
       border-radius: 18px;
@@ -517,7 +517,7 @@
       text-align: center;
     }
 
-    /* FITUR BARU: MINI GAME LOVE METER */
+    /* MINI GAME LOVE METER (SEBELUM PESAN INTI) */
     .game-section {
       background: rgba(244, 63, 94, 0.1);
       border: 1px dashed rgba(244, 63, 94, 0.4);
@@ -582,6 +582,10 @@
     .btn-coupon {
       background: linear-gradient(135deg, #f59e0b, #d97706);
     }
+    .btn-secret {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    }
 
     /* KUPON */
     .coupon-section {
@@ -621,7 +625,7 @@
       font-size: 0.75rem;
     }
 
-    /* SURAT */
+    /* SURAT INTI */
     .envelope-wrapper {
       display: none;
       margin-top: 20px;
@@ -666,6 +670,73 @@
       font-weight: bold;
       color: #e11d48;
       margin-top: 15px;
+    }
+
+    /* MODAL PESAN RAHASIA LDR (BEDA HALAMAN / POPUP FULL) */
+    .secret-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(20px);
+      z-index: 200;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .secret-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .secret-content-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(251, 113, 133, 0.3);
+      border-radius: 24px;
+      padding: 25px 20px;
+      max-width: 420px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      text-align: left;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      color: #f1f5f9;
+      position: relative;
+    }
+    .secret-title {
+      font-size: 1.2rem;
+      color: #f472b6;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 15px;
+      border-bottom: 1px dashed rgba(244, 114, 182, 0.3);
+      padding-bottom: 10px;
+    }
+    .secret-text {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: #e2e8f0;
+    }
+    .secret-text p {
+      margin-bottom: 14px;
+    }
+    .btn-close-secret {
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+      text-align: center;
     }
 
     .floating-heart {
@@ -853,35 +924,38 @@
       <div class="status-text">Akhirnya ketemu kamu! 🪂✨</div>
     </div>
 
-    <!-- FITUR BARU: GALERI FOTO KENANGAN -->
+    <!-- 1. GALERI FOTO KENANGAN (SEBELUM PESAN INTI) -->
     <div class="gallery-section">
       <div class="gallery-title">📸 Snapshots of Us 🤍</div>
       <div class="photo-grid">
         <div class="photo-card">
-          <!-- Ganti 'foto1.jpg' dengan nama file fotomu -->
+          <!-- Ganti link gambar dengan nama file foto kamu -->
           <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&auto=format&fit=crop&q=80" alt="Moment 1">
           <div class="photo-caption">Momen Favorit ✨</div>
         </div>
         <div class="photo-card">
-          <!-- Ganti 'foto2.jpg' dengan nama file fotomu -->
+          <!-- Ganti link gambar dengan nama file foto kamu -->
           <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&auto=format&fit=crop&q=80" alt="Moment 2">
           <div class="photo-caption">Ketemu Kamu! 💖</div>
         </div>
       </div>
     </div>
 
-    <!-- FITUR BARU: MINI GAME LOVE METER -->
+    <!-- 2. MINI GAME LOVE METER (SEBELUM PESAN INTI) -->
     <div class="game-section">
       <div class="game-title">🎰 Cek Berapa Poin Sayang Kamu Hari Ini?</div>
       <button class="game-btn" onclick="playLoveMeter()">Hitung Poin Cinta 💘</button>
       <div id="gameResult" class="game-result"></div>
     </div>
 
-    <!-- TOMBOL UTAMA -->
+    <!-- 3. TOMBOL UTAMA & PESAN RAHASIA DI AKHIR -->
     <div class="btn-group">
       <button class="btn btn-hearts" onclick="sendHearts()">💖 Tabur Love Buat Kamu!</button>
       <button class="btn btn-coupon" onclick="toggleCoupons()">🎟️ Klaim Kupon Spesial Ultah!</button>
       <button class="btn" onclick="showEnvelope()">Buka Surat Kejutan ✉️🎁</button>
+      
+      <!-- TOMBOL PESAN RAHASIA TERPISAH -->
+      <button class="btn btn-secret" onclick="openSecretModal()">🔒 Baca Pesan Rahasia LDR 🤍</button>
     </div>
 
     <!-- Area Kupon -->
@@ -901,7 +975,7 @@
       </div>
     </div>
 
-    <!-- Area Amplop & Surat Rahasia -->
+    <!-- Area Surat Inti -->
     <div id="envelopeWrapper" class="envelope-wrapper">
       <div id="envelopeBtn" class="envelope" onclick="openLetter()">
         <div class="envelope-title">📩 Ada Surat Khusus Buat Kamu!</div>
@@ -918,6 +992,22 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- MODAL BEDA HALAMAN UNTUK PESAN RAHASIA LDR -->
+  <div id="secretModal" class="secret-modal">
+    <div class="secret-content-card">
+      <div class="secret-title">🤍 Curahan Hati & Pesan Rahasia LDR</div>
+      <div class="secret-text">
+        <p>Haiii sayang... 🥺🤍</p>
+        <p>Jujur, menjalani LDR itu nggak pernah gampang ya. Kadang ada momen di mana aku merasa capek banget, kangen yang menumpuk sampai rasanya pengen nangis sendirian karena cuma bisa natap layar HP dan dengar suara kamu dari jauh.</p>
+        <p>Tapi tahu nggak? Di balik semua rasa capek dan tangisan itu, jumlah bahagianya jauh... jauh lebih banyak. Punya kamu di hidup aku itu adalah berkah yang luar biasa besar.</p>
+        <p>Jarak Lombok–Jawa ini memang memisahkan fisik kita, tapi sama sekali nggak mengurangi rasa sayang aku ke kamu. Malah setiap hari rasa sayang ini rasanya makin bertambah dan makin amat sangat dalam.</p>
+        <p>Terima kasih ya sudah bertahan, sudah terus berusaha, dan selalu menguatkan aku. Hari ini, saat kita bisa ketemu langsung begini, rasa capek dan kangen itu rasanya langsung terbayar tuntas!</p>
+        <p>Aku sayang banget sama kamu, A. Latif. H. Selalu dan akan seterusnya begitu. 💖✨</p>
+      </div>
+      <button class="btn-close-secret" onclick="closeSecretModal()">Tutup Pesan Rahasia 🤍</button>
+    </div>
   </div>
 
   <audio id="bgMusic" loop preload="auto">
@@ -973,14 +1063,13 @@
       }
     }
 
-    /* MINI GAME FUNCTION */
     function playLoveMeter() {
       const resultDiv = document.getElementById('gameResult');
       resultDiv.style.display = 'block';
       resultDiv.innerText = "Sedang menghitung...";
       
       setTimeout(() => {
-        const score = Math.floor(Math.random() * 900) + 99900; // Poin besar random
+        const score = Math.floor(Math.random() * 900) + 99900;
         resultDiv.innerText = `🎉 Poin Cinta: ${score.toLocaleString()} %! (Tercatat Maksimal! ✨)`;
         triggerCelebration();
         sendHearts();
@@ -1034,6 +1123,17 @@
         envelopeBtn.querySelector('.envelope-hint').innerText = 'Selamat membaca!';
         triggerCelebration();
       }
+    }
+
+    /* FUNGSI KONTROL PESAN RAHASIA LDR (MODAL) */
+    function openSecretModal() {
+      document.getElementById('secretModal').classList.add('active');
+      triggerCelebration();
+      sendHearts();
+    }
+
+    function closeSecretModal() {
+      document.getElementById('secretModal').classList.remove('active');
     }
 
     function triggerCelebration() {
