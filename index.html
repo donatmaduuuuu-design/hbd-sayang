@@ -209,24 +209,7 @@
       color: #e2e8f0;
       font-size: 0.95rem;
       line-height: 1.5;
-      margin-bottom: 15px;
-    }
-
-    /* COUNTDOWN HARI H */
-    .countdown-box {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 12px;
-      padding: 8px 12px;
       margin-bottom: 20px;
-      border: 1px dashed rgba(255, 255, 255, 0.2);
-      font-size: 0.78rem;
-      color: #cbd5e1;
-    }
-    .countdown-timer {
-      font-weight: bold;
-      color: #fb7185;
-      font-size: 0.85rem;
-      margin-top: 3px;
     }
 
     /* PLAYER PIRINGAN HITAM */
@@ -469,7 +452,7 @@
       font-style: italic;
     }
 
-    /* GALERI FOTO FLIP CARD (BISA DIBALIK PAS DI-KLIK) */
+    /* GALERI FOTO FLIP CARD */
     .gallery-section {
       background: rgba(0, 0, 0, 0.3);
       border-radius: 18px;
@@ -545,37 +528,6 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
-    /* BUCKET LIST / PAPAN HARAPAN */
-    .bucket-section {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 22px;
-      text-align: left;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .bucket-title {
-      font-size: 0.88rem;
-      color: #38bdf8;
-      font-weight: bold;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-    .bucket-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.8rem;
-      color: #e2e8f0;
-      margin-bottom: 8px;
-      cursor: pointer;
-    }
-    .bucket-item input {
-      accent-color: #fb7185;
-      width: 16px;
-      height: 16px;
-    }
-
     /* MINI GAME LOVE METER */
     .game-section {
       background: rgba(244, 63, 94, 0.1);
@@ -619,6 +571,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      margin-bottom: 22px;
     }
     .btn {
       background: linear-gradient(135deg, #e11d48, #be123c);
@@ -649,7 +602,7 @@
     /* KUPON */
     .coupon-section {
       display: none;
-      margin-top: 20px;
+      margin-bottom: 20px;
       background: rgba(0, 0, 0, 0.3);
       padding: 15px;
       border-radius: 15px;
@@ -687,7 +640,7 @@
     /* SURAT INTI */
     .envelope-wrapper {
       display: none;
-      margin-top: 20px;
+      margin-bottom: 20px;
       animation: fadeIn 0.5s ease-in-out;
     }
     .envelope {
@@ -729,6 +682,37 @@
       font-weight: bold;
       color: #e11d48;
       margin-top: 15px;
+    }
+
+    /* BUCKET LIST DIPINDAH KE PALING BAWAH */
+    .bucket-section {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 18px;
+      padding: 16px;
+      margin-top: 10px;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .bucket-title {
+      font-size: 0.88rem;
+      color: #38bdf8;
+      font-weight: bold;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .bucket-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .bucket-item input {
+      accent-color: #fb7185;
+      width: 16px;
+      height: 16px;
     }
 
     /* MODAL PESAN RAHASIA LDR */
@@ -898,12 +882,6 @@
     <h1>Happy Early Birthday! 🎉✨</h1>
     <p class="intro">Spesial buat <b>Abdul Latif Hidayatulloh</b> 🤍</p>
 
-    <!-- COUNTDOWN KE ULTAN ASLI (DESEMBER) -->
-    <div class="countdown-box">
-      ⏳ Menuju Hari-H Ultah Asli (Desember):
-      <div id="countdownTimer" class="countdown-timer">Menghitung waktu...</div>
-    </div>
-
     <!-- PLAYER PIRINGAN HITAM -->
     <div class="player-container">
       <div class="vinyl-box">
@@ -996,15 +974,6 @@
       </div>
     </div>
 
-    <!-- BUCKET LIST KETEMUAN -->
-    <div class="bucket-section">
-      <div class="bucket-title">📝 Next Meeting Bucket List 🤍</div>
-      <label class="bucket-item"><input type="checkbox" checked disabled> Kulineran bareng seharian 🍜</label>
-      <label class="bucket-item"><input type="checkbox"> Nonton bioskop / movie date 🍿</label>
-      <label class="bucket-item"><input type="checkbox"> Jalan-jalan sore tanpa mikirin waktu 🌅</label>
-      <label class="bucket-item"><input type="checkbox"> Foto box berdua buat kenang-kenangan 📸</label>
-    </div>
-
     <!-- MINI GAME LOVE METER -->
     <div class="game-section">
       <div class="game-title">🎰 Cek Berapa Poin Sayang Kamu Hari Ini?</div>
@@ -1054,6 +1023,16 @@
       </div>
     </div>
 
+    <!-- BUCKET LIST DIPINDAH KE PALING BAWAH -->
+    <div class="bucket-section">
+      <div class="bucket-title">🗺️ Lombok Trip Bucket List With You 🤍</div>
+      <label class="bucket-item"><input type="checkbox"> Explore indahnya Lombok bareng 🏝️</label>
+      <label class="bucket-item"><input type="checkbox"> Main & nikmati udara sejuk Sembalun ⛰️</label>
+      <label class="bucket-item"><input type="checkbox"> Savor pemandangan gagah Gunung Rinjani 🌋</label>
+      <label class="bucket-item"><input type="checkbox"> Nyantai & bersepeda di Gili Trawangan 🌊</label>
+      <label class="bucket-item"><input type="checkbox"> Basah-basahan & foto di Air Terjun 🌊✨</label>
+    </div>
+
   </div>
 
   <!-- MODAL PESAN RAHASIA LDR -->
@@ -1082,28 +1061,6 @@
     const vinyl = document.getElementById('vinylRecord');
     const tonearm = document.getElementById('tonearm');
     const visualizer = document.getElementById('visualizer');
-
-    /* FUNGSINYA RUNNING AUTOMATIS COUNTDOWN KE 1 DESEMBER */
-    function startCountdown() {
-      const targetDate = new Date("December 1, 2026 00:00:00").getTime();
-      
-      setInterval(() => {
-        const now = new Date().getTime();
-        const difference = targetDate - now;
-
-        if (difference > 0) {
-          const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-          const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-          document.getElementById('countdownTimer').innerText = `${days} Hari ${hours} Jam ${minutes} Mnt ${seconds} Detik`;
-        } else {
-          document.getElementById('countdownTimer').innerText = "🎉 Hari H Ulang Tahun Tiba!";
-        }
-      }, 1000);
-    }
-    startCountdown();
 
     function goToIntroStep2() {
       document.getElementById('introStep1').style.display = 'none';
