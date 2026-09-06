@@ -19,13 +19,13 @@
       align-items: center;
       min-height: 100vh;
       padding: 20px;
-      overflow: hidden;
+      overflow-x: hidden;
       color: #fff;
     }
     .card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(12px);
-      padding: 30px;
+      padding: 30px 25px;
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -39,7 +39,7 @@
       font-size: 1.8rem;
       margin-bottom: 12px;
     }
-    p {
+    p.intro {
       color: #e2e8f0;
       font-size: 1rem;
       line-height: 1.6;
@@ -50,9 +50,10 @@
       color: #fda4af;
       font-size: 0.9rem;
       margin-bottom: 20px;
-      background: rgba(0, 0, 0, 0.2);
-      padding: 10px;
-      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 12px;
+      border-radius: 12px;
+      border-left: 3px solid #fb7185;
     }
     .btn-group {
       display: flex;
@@ -77,19 +78,66 @@
     .btn-music {
       background: linear-gradient(135deg, #0284c7, #0369a1);
     }
-    .secret-message {
+
+    /* Styling Amplop & Surat Rahasia */
+    .envelope-wrapper {
       display: none;
-      margin-top: 20px;
-      padding: 15px;
-      background: rgba(244, 63, 94, 0.2);
-      border: 1px dashed #fda4af;
-      border-radius: 12px;
-      color: #ffe4e6;
+      margin-top: 25px;
+      perspective: 1000px;
       animation: fadeIn 0.5s ease-in-out;
     }
+    .envelope {
+      background: #f43f5e;
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+    .envelope:hover {
+      transform: scale(1.02);
+    }
+    .envelope-title {
+      font-weight: bold;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+    .envelope-hint {
+      font-size: 0.8rem;
+      color: #ffe4e6;
+      margin-top: 5px;
+    }
+    .letter-content {
+      display: none;
+      background: rgba(255, 255, 255, 0.95);
+      color: #1e293b;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 15px;
+      text-align: left;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      animation: openLetter 0.6s ease-out forwards;
+    }
+    .letter-content p {
+      margin-bottom: 12px;
+    }
+    .letter-footer {
+      text-align: right;
+      font-weight: bold;
+      color: #e11d48;
+      margin-top: 15px;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes openLetter {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
     }
   </style>
 </head>
@@ -97,7 +145,7 @@
 
   <div class="card">
     <h1>Selamat Ulang Tahun! 🎉✨</h1>
-    <p>Semoga di usia yang baru ini semua impian, cita-cita, dan hal baik yang sedang kamu usahakan segera tercapai!</p>
+    <p class="intro">Semoga di usia yang baru ini semua impian, cita-cita, dan hal baik yang sedang kamu usahakan segera tercapai!</p>
 
     <div class="lyrics-quote">
       "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
@@ -105,17 +153,29 @@
 
     <div class="btn-group">
       <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu (Nuca)</button>
-      <button class="btn" onclick="triggerCelebration()">Klik Kejutan 🎁</button>
+      <button class="btn" onclick="showEnvelope()">Buka Surat Kejutan ✉️🎁</button>
     </div>
 
-    <div id="message" class="secret-message">
-      Semangat terus buat semua prosesnya ya. Terima kasih sudah ada di masa ini, nanti, dan masa indah lainnya! 🥳🤍
+    <!-- Area Amplop & Surat Rahasia -->
+    <div id="envelopeWrapper" class="envelope-wrapper">
+      <div id="envelopeBtn" class="envelope" onclick="openLetter()">
+        <div class="envelope-title">📩 Ada Surat Khusus Buat Kamu!</div>
+        <div class="envelope-hint">(Klik amplop ini untuk membuka suratnya)</div>
+      </div>
+
+      <div id="letterContent" class="letter-content">
+        <p>Selamat ulang tahun ya! Terima kasih sudah hadir dan jadi salah satu alasan terbaik aku tersenyum setiap hari.</p>
+        <p>Semoga di usia baru ini, semua proses, kerja keras, dan impian yang lagi kamu perjuangkan dipermudah dan membuahkan hasil terbaik.</p>
+        <p>Aku bakal selalu ada buat dukung kamu di masa ini, nanti, dan masa indah lainnya. 🤍</p>
+        <div class="letter-footer">Happy Birthday! 🥳✨</div>
+      </div>
     </div>
+
   </div>
 
   <!-- Audio Lagu Nuca -->
-  <audio id="bgMusic" loop>
-    <source src="https://files.catbox.moe/w8m8z4.mp3" type="audio/mpeg">
+  <audio id="bgMusic" loop preload="auto">
+    <source src="Nuca_-_Masa_ini_Nanti_dan_Masa_Indah_Lainnya_(mp3.pm).mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -142,10 +202,28 @@
       }
     }
 
-    function triggerCelebration() {
-      document.getElementById('message').style.display = 'block';
+    function showEnvelope() {
+      document.getElementById('envelopeWrapper').style.display = 'block';
+      // Auto scroll ke arah amplop jika di HP
+      document.getElementById('envelopeWrapper').scrollIntoView({ behavior: 'smooth' });
+    }
 
-      // Efek Kembang Api / Confetti
+    function openLetter() {
+      const letter = document.getElementById('letterContent');
+      const envelopeBtn = document.getElementById('envelopeBtn');
+
+      if (letter.style.display !== 'block') {
+        letter.style.display = 'block';
+        envelopeBtn.style.background = '#be123c';
+        envelopeBtn.querySelector('.envelope-title').innerText = '💌 Surat Terbuka';
+        envelopeBtn.querySelector('.envelope-hint').innerText = 'Selamat membaca!';
+        
+        // Pemicu Efek Kembang Api Meriah
+        triggerCelebration();
+      }
+    }
+
+    function triggerCelebration() {
       var count = 200;
       var defaults = { origin: { y: 0.7 } };
 
