@@ -23,6 +23,168 @@
       color: #fff;
       position: relative;
     }
+
+    /* ====================================
+       1. STYLES OVERLAY INTRO (3 STEP)
+    ==================================== */
+    .intro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(15px);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .intro-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .intro-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
+      padding: 25px 20px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Step 1: Scan Nama */
+    .scan-icon {
+      font-size: 45px;
+      margin-bottom: 15px;
+      animation: pulse 2s infinite;
+    }
+    .scan-title {
+      font-size: 0.85rem;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .scan-name {
+      font-size: 1.3rem;
+      color: #fb7185;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    /* Step 2: Boarding Pass Tiket */
+    .boarding-pass {
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 16px;
+      padding: 18px;
+      text-align: left;
+      margin-bottom: 20px;
+      position: relative;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .pass-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px dashed #cbd5e1;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .pass-title {
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #e11d48;
+      text-transform: uppercase;
+    }
+    .pass-flight {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: bold;
+    }
+    .pass-route {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .city {
+      text-align: center;
+    }
+    .city-code {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .city-name {
+      font-size: 0.7rem;
+      color: #64748b;
+    }
+    .flight-icon {
+      font-size: 20px;
+      color: #fb7185;
+    }
+    .pass-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-size: 0.75rem;
+      background: #f8fafc;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .detail-label {
+      color: #64748b;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+    }
+    .detail-val {
+      font-weight: bold;
+      color: #0f172a;
+    }
+
+    /* Step 3: Gembok Kado */
+    .gift-box-icon {
+      font-size: 55px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      animation: bounce 1.5s infinite alternate;
+    }
+
+    /* Tombol Intro */
+    .btn-intro {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 0.9rem;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+      transition: transform 0.2s;
+    }
+    .btn-intro:hover {
+      transform: scale(1.02);
+    }
+    .btn-intro-pink {
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
+    }
+
+
+    /* ====================================
+       2. STYLES HALAMAN UTAMA
+    ==================================== */
     .card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(12px);
@@ -58,7 +220,7 @@
       margin-bottom: 20px;
     }
 
-    /* 1. PLAYER PIRINGAN HITAM */
+    /* Player Piringan Hitam */
     .player-container {
       background: rgba(0, 0, 0, 0.35);
       border-radius: 18px;
@@ -139,7 +301,7 @@
       border-radius: 2px;
     }
     .playing .bar {
-      animation: bounce 0.8s ease-in-out infinite alternate;
+      animation: bounceBar 0.8s ease-in-out infinite alternate;
     }
     .playing .bar:nth-child(1) { animation-delay: 0.1s; }
     .playing .bar:nth-child(2) { animation-delay: 0.3s; }
@@ -147,7 +309,6 @@
     .playing .bar:nth-child(4) { animation-delay: 0.5s; }
     .playing .bar:nth-child(5) { animation-delay: 0.4s; }
 
-    /* Tombol Putar Lagu di dalam Player */
     .btn-play-inside {
       background: linear-gradient(135deg, #0284c7, #0369a1);
       color: white;
@@ -164,7 +325,7 @@
       transform: scale(1.05);
     }
 
-    /* 2. KUTIPAN LIRIK LAGU */
+    /* Kutipan Lirik */
     .lyrics-quote {
       font-style: italic;
       color: #fda4af;
@@ -177,7 +338,7 @@
       line-height: 1.4;
     }
 
-    /* 3. ALASAN PILIH LAGU */
+    /* Alasan Pilih Lagu */
     .song-reason-box {
       background: rgba(251, 113, 133, 0.08);
       border: 1px dashed rgba(251, 113, 133, 0.35);
@@ -214,7 +375,7 @@
       font-size: 14px;
     }
 
-    /* 4. PETA ANIMASI TERBANG LOMBOK KE JAWA */
+    /* Peta Animasi Terbang Lombok ke Jawa */
     .map-card {
       background: rgba(15, 23, 42, 0.6);
       border-radius: 18px;
@@ -290,7 +451,7 @@
       animation: heartPop 4s ease-in-out infinite;
     }
 
-    /* 5. STATUS PENERBANGAN DI BAWAH PETA */
+    /* Status Penerbangan di bawah peta */
     .flight-status-card {
       background: rgba(16, 185, 129, 0.1);
       border: 1px solid rgba(16, 185, 129, 0.3);
@@ -314,7 +475,7 @@
       font-style: italic;
     }
 
-    /* TOMBOL-TOMBOL UTAMA */
+    /* Tombol Utama */
     .btn-group {
       display: flex;
       flex-direction: column;
@@ -438,6 +599,11 @@
     }
 
     /* Keyframe Animations */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
     @keyframes dashMove {
       to { stroke-dashoffset: -20; }
     }
@@ -455,9 +621,13 @@
     @keyframes spin {
       100% { transform: rotate(360deg); }
     }
-    @keyframes bounce {
+    @keyframes bounceBar {
       0% { height: 4px; }
       100% { height: 16px; }
+    }
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
     }
     @keyframes floatUp {
       0% { transform: translateY(0) scale(1); opacity: 1; }
@@ -475,6 +645,76 @@
 </head>
 <body>
 
+  <!-- ====================================
+       OVERLAY INTRO (3 LANGKAH INTERAKTIF)
+  ==================================== -->
+  <div id="introOverlay" class="intro-overlay">
+    
+    <!-- Step 1: Validasi Nama Akses -->
+    <div id="introStep1" class="intro-card">
+      <div class="scan-icon">🔒</div>
+      <div class="scan-title">Akses Kejutan Khusus</div>
+      <div class="scan-name">Abdul Latif Hidayatulloh</div>
+      <p style="font-size: 0.82rem; color: #cbd5e1; margin-bottom: 20px;">
+        Halaman ini dibuat khusus hanya untuk kamu. Siap membuka kejutannya? ✨
+      </p>
+      <button class="btn-intro" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
+    </div>
+
+    <!-- Step 2: Boarding Pass Digital -->
+    <div id="introStep2" class="intro-card" style="display: none;">
+      <div style="font-size: 0.85rem; color: #fb7185; font-weight: bold; margin-bottom: 12px;">
+        🎟️ Boarding Pass Special Flight
+      </div>
+
+      <div class="boarding-pass">
+        <div class="pass-header">
+          <span class="pass-title">LOVE AIRWAYS ✈️</span>
+          <span class="pass-flight">FLIGHT #2026</span>
+        </div>
+        <div class="pass-route">
+          <div class="city">
+            <div class="city-code">LOP</div>
+            <div class="city-name">Lombok</div>
+          </div>
+          <div class="flight-icon">✈️ ➔</div>
+          <div class="city">
+            <div class="city-code">JWG</div>
+            <div class="city-name">Jawa</div>
+          </div>
+        </div>
+        <div class="pass-details">
+          <div>
+            <div class="detail-label">Passenger</div>
+            <div class="detail-val">A. L. Hidayatulloh</div>
+          </div>
+          <div>
+            <div class="detail-label">Destination</div>
+            <div class="detail-val">Ketemu Kamu ❤️</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-intro btn-intro-pink" onclick="goToIntroStep3()">Terima Tiket & Buka Kado 🎁</button>
+    </div>
+
+    <!-- Step 3: Buka Gembok Kado -->
+    <div id="introStep3" class="intro-card" style="display: none;">
+      <div class="gift-box-icon" onclick="finishIntro()">🎁</div>
+      <div style="font-size: 1.1rem; color: #fb7185; font-weight: bold; margin-bottom: 8px;">
+        Pesan Siap Dibuka!
+      </div>
+      <p style="font-size: 0.82rem; color: #cbd5e1; margin-bottom: 20px;">
+        Klik kado di atas atau tombol di bawah ini untuk memulai lagu dan masuk ke kejutannya! ✨
+      </p>
+      <button class="btn-intro btn-intro-pink" onclick="finishIntro()">Buka Kejutan Sekarang 🎉</button>
+    </div>
+
+  </div>
+
+  <!-- ====================================
+       HALAMAN UTAMA (KARTU UCAPAN & LAGU)
+  ==================================== -->
   <div class="card">
     <div class="special-badge">✨ Special Day With You ✨</div>
     <h1>Happy Early Birthday! 🎉✨</h1>
@@ -497,7 +737,7 @@
         <div class="bar"></div>
       </div>
       
-      <!-- Tombol Putar Lagu Pindah Ke Sini -->
+      <!-- Tombol Putar Lagu di dalam Player -->
       <button class="btn-play-inside" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu</button>
     </div>
 
@@ -608,14 +848,29 @@
     const tonearm = document.getElementById('tonearm');
     const visualizer = document.getElementById('visualizer');
 
-    document.body.addEventListener('click', function startAudioOnFirstClick() {
-      if (music.paused) {
-        music.play().then(() => {
-          updatePlayerUI(true);
-        }).catch(() => {});
-      }
-      document.body.removeEventListener('click', startAudioOnFirstClick);
-    });
+    /* FUNGSI INTRO NAVIGATION */
+    function goToIntroStep2() {
+      document.getElementById('introStep1').style.display = 'none';
+      document.getElementById('introStep2').style.display = 'block';
+    }
+
+    function goToIntroStep3() {
+      document.getElementById('introStep2').style.display = 'none';
+      document.getElementById('introStep3').style.display = 'block';
+    }
+
+    function finishIntro() {
+      // Sembunyikan Intro Overlay
+      document.getElementById('introOverlay').classList.add('hidden');
+      
+      // Putar Musik Otomatis Setelah Klik Terakhir
+      music.play().then(() => {
+        updatePlayerUI(true);
+      }).catch(() => {});
+
+      // Efek Confetti Perayaan
+      triggerCelebration();
+    }
 
     function toggleMusic() {
       if (music.paused) {
