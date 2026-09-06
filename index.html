@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday My Love! ❤️</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e1b4b);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      overflow: hidden;
+      color: #fff;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      z-index: 10;
+    }
+    h1 {
+      color: #fb7185;
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+    p {
+      color: #e2e8f0;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .lyrics-quote {
+      font-style: italic;
+      color: #fda4af;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn {
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn:hover {
+      transform: scale(1.03);
+      opacity: 0.9;
+    }
+    .btn-music {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+    }
+    .secret-message {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(244, 63, 94, 0.2);
+      border: 1px dashed #fda4af;
+      border-radius: 12px;
+      color: #ffe4e6;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Selamat Ulang Tahun! 🎉✨</h1>
+    <p>Semoga di usia yang baru ini semua impian, cita-cita, dan hal baik yang sedang kamu usahakan segera tercapai!</p>
+
+    <div class="lyrics-quote">
+      "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu (Nuca)</button>
+      <button class="btn" onclick="triggerCelebration()">Klik Kejutan 🎁</button>
+    </div>
+
+    <div id="message" class="secret-message">
+      Semangat terus buat semua prosesnya ya. Terima kasih sudah ada di masa ini, nanti, dan masa indah lainnya! 🥳🤍
+    </div>
+  </div>
+
+  <!-- Audio Lagu Nuca -->
+  <audio id="bgMusic" loop>
+    <source src="https://files.catbox.moe/w8m8z4.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+
+    // Otomatis memutar lagu saat ada sentuhan/klik pertama di mana saja di layar
+    document.body.addEventListener('click', function startAudioOnFirstClick() {
+      if (music.paused) {
+        music.play().then(() => {
+          musicBtn.innerText = "⏸ Pause Lagu";
+        }).catch(() => {});
+      }
+      document.body.removeEventListener('click', startAudioOnFirstClick);
+    });
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        musicBtn.innerText = "⏸ Pause Lagu";
+      } else {
+        music.pause();
+        musicBtn.innerText = "🎵 Putar Lagu";
+      }
+    }
+
+    function triggerCelebration() {
+      document.getElementById('message').style.display = 'block';
+
+      // Efek Kembang Api / Confetti
+      var count = 200;
+      var defaults = { origin: { y: 0.7 } };
+
+      function fire(particleRatio, opts) {
+        confetti(Object.assign({}, defaults, opts, {
+          particleCount: Math.floor(count * particleRatio)
+        }));
+      }
+
+      fire(0.25, { spread: 26, startVelocity: 55 });
+      fire(0.2, { spread: 60 });
+      fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+      fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+      fire(0.1, { spread: 120, startVelocity: 45 });
+    }
+  </script>
+
+</body>
+</html>
