@@ -24,9 +24,7 @@
       position: relative;
     }
 
-    /* ====================================
-       1. STYLES OVERLAY INTRO (3 STEP)
-    ==================================== */
+    /* OVERLAY INTRO */
     .intro-overlay {
       position: fixed;
       top: 0;
@@ -59,7 +57,6 @@
       animation: fadeIn 0.5s ease-out;
     }
 
-    /* Step 1: Scan Nama */
     .scan-icon {
       font-size: 45px;
       margin-bottom: 15px;
@@ -80,7 +77,7 @@
       margin-bottom: 20px;
     }
 
-    /* Step 2: Boarding Pass Tiket */
+    /* BOARDING PASS */
     .boarding-pass {
       background: #ffffff;
       color: #0f172a;
@@ -151,7 +148,6 @@
       color: #0f172a;
     }
 
-    /* Step 3: Gembok Kado */
     .gift-box-icon {
       font-size: 55px;
       margin-bottom: 10px;
@@ -159,7 +155,6 @@
       animation: bounce 1.5s infinite alternate;
     }
 
-    /* Tombol Intro */
     .btn-intro {
       background: linear-gradient(135deg, #0284c7, #0369a1);
       color: white;
@@ -181,10 +176,7 @@
       box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
     }
 
-
-    /* ====================================
-       2. STYLES HALAMAN UTAMA
-    ==================================== */
+    /* HALAMAN UTAMA */
     .card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(12px);
@@ -220,7 +212,7 @@
       margin-bottom: 20px;
     }
 
-    /* Player Piringan Hitam */
+    /* PLAYER PIRINGAN HITAM */
     .player-container {
       background: rgba(0, 0, 0, 0.35);
       border-radius: 18px;
@@ -325,7 +317,6 @@
       transform: scale(1.05);
     }
 
-    /* Kutipan Lirik */
     .lyrics-quote {
       font-style: italic;
       color: #fda4af;
@@ -338,7 +329,6 @@
       line-height: 1.4;
     }
 
-    /* Alasan Pilih Lagu */
     .song-reason-box {
       background: rgba(251, 113, 133, 0.08);
       border: 1px dashed rgba(251, 113, 133, 0.35);
@@ -375,7 +365,7 @@
       font-size: 14px;
     }
 
-    /* Peta Animasi Terbang Lombok ke Jawa */
+    /* PETA LOMBOK -> JAWA */
     .map-card {
       background: rgba(15, 23, 42, 0.6);
       border-radius: 18px;
@@ -451,7 +441,6 @@
       animation: heartPop 4s ease-in-out infinite;
     }
 
-    /* Status Penerbangan di bawah peta */
     .flight-status-card {
       background: rgba(16, 185, 129, 0.1);
       border: 1px solid rgba(16, 185, 129, 0.3);
@@ -475,7 +464,98 @@
       font-style: italic;
     }
 
-    /* Tombol Utama */
+    /* FITUR BARU: GALERI FOTO KENANGAN */
+    .gallery-section {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .gallery-title {
+      font-size: 0.9rem;
+      color: #f472b6;
+      font-weight: bold;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .photo-card {
+      background: #fff;
+      padding: 8px 8px 12px 8px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transform: rotate(-2deg);
+      transition: transform 0.3s;
+    }
+    .photo-card:nth-child(even) {
+      transform: rotate(2deg);
+    }
+    .photo-card:hover {
+      transform: scale(1.05) rotate(0deg);
+      z-index: 2;
+    }
+    .photo-card img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+    .photo-caption {
+      font-size: 0.7rem;
+      color: #334155;
+      font-weight: bold;
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    /* FITUR BARU: MINI GAME LOVE METER */
+    .game-section {
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px dashed rgba(244, 63, 94, 0.4);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 22px;
+    }
+    .game-title {
+      font-size: 0.9rem;
+      color: #fb7185;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .game-btn {
+      background: linear-gradient(135deg, #f43f5e, #e11d48);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      border-radius: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(244, 63, 94, 0.3);
+      transition: transform 0.2s;
+    }
+    .game-btn:hover {
+      transform: scale(1.05);
+    }
+    .game-result {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #f472b6;
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    /* TOMBOL UTAMA */
     .btn-group {
       display: flex;
       flex-direction: column;
@@ -503,7 +583,7 @@
       background: linear-gradient(135deg, #f59e0b, #d97706);
     }
 
-    /* Section Kupon */
+    /* KUPON */
     .coupon-section {
       display: none;
       margin-top: 20px;
@@ -541,7 +621,7 @@
       font-size: 0.75rem;
     }
 
-    /* Surat */
+    /* SURAT */
     .envelope-wrapper {
       display: none;
       margin-top: 20px;
@@ -598,7 +678,6 @@
       animation: floatUp 3s linear forwards;
     }
 
-    /* Keyframe Animations */
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.1); }
@@ -645,12 +724,10 @@
 </head>
 <body>
 
-  <!-- ====================================
-       OVERLAY INTRO (3 LANGKAH INTERAKTIF)
-  ==================================== -->
+  <!-- OVERLAY INTRO -->
   <div id="introOverlay" class="intro-overlay">
     
-    <!-- Step 1: Validasi Nama Akses -->
+    <!-- Step 1 -->
     <div id="introStep1" class="intro-card">
       <div class="scan-icon">🔒</div>
       <div class="scan-title">Akses Kejutan Khusus</div>
@@ -661,7 +738,7 @@
       <button class="btn-intro" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
     </div>
 
-    <!-- Step 2: Boarding Pass Digital -->
+    <!-- Step 2 -->
     <div id="introStep2" class="intro-card" style="display: none;">
       <div style="font-size: 0.85rem; color: #fb7185; font-weight: bold; margin-bottom: 12px;">
         🎟️ Boarding Pass Special Flight
@@ -698,7 +775,7 @@
       <button class="btn-intro btn-intro-pink" onclick="goToIntroStep3()">Terima Tiket & Buka Kado 🎁</button>
     </div>
 
-    <!-- Step 3: Buka Gembok Kado -->
+    <!-- Step 3 -->
     <div id="introStep3" class="intro-card" style="display: none;">
       <div class="gift-box-icon" onclick="finishIntro()">🎁</div>
       <div style="font-size: 1.1rem; color: #fb7185; font-weight: bold; margin-bottom: 8px;">
@@ -712,15 +789,13 @@
 
   </div>
 
-  <!-- ====================================
-       HALAMAN UTAMA (KARTU UCAPAN & LAGU)
-  ==================================== -->
+  <!-- HALAMAN UTAMA -->
   <div class="card">
     <div class="special-badge">✨ Special Day With You ✨</div>
     <h1>Happy Early Birthday! 🎉✨</h1>
     <p class="intro">Spesial buat <b>Abdul Latif Hidayatulloh</b> 🤍</p>
 
-    <!-- 1. PLAYER PIRINGAN HITAM -->
+    <!-- PLAYER PIRINGAN HITAM -->
     <div class="player-container">
       <div class="vinyl-box">
         <div id="vinylRecord" class="vinyl">
@@ -736,17 +811,13 @@
         <div class="bar"></div>
         <div class="bar"></div>
       </div>
-      
-      <!-- Tombol Putar Lagu di dalam Player -->
       <button class="btn-play-inside" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu</button>
     </div>
 
-    <!-- 2. KUTIPAN LIRIK -->
     <div class="lyrics-quote">
       "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
     </div>
 
-    <!-- 3. ALASAN PILIH LAGU -->
     <div class="song-reason-box">
       <span class="reason-ornament-left">🎀</span>
       <span class="reason-ornament-right">✨</span>
@@ -758,43 +829,55 @@
       </div>
     </div>
 
-    <!-- 4. PETA VISUAL PENERBANGAN LOMBOK -> JAWA -->
+    <!-- PETA LOMBOK -> JAWA -->
     <div class="map-card">
       <div class="map-canvas">
-        
-        <!-- Flight Arc Curve SVG -->
         <svg class="flight-svg" viewBox="0 0 340 130">
           <path class="flight-line" d="M 280 85 Q 160 15 50 50" />
         </svg>
-
-        <!-- Lombok Pin -->
         <div class="pin pin-lombok">
           <div class="pin-icon">🏝️</div>
           <div class="pin-label">Lombok</div>
         </div>
-
-        <!-- Jawa Pin -->
         <div class="pin pin-jawa">
           <div class="pin-icon">🏞️</div>
           <div class="pin-label">Jawa</div>
         </div>
-
-        <!-- Animated Airplane -->
         <div class="animated-plane">✈️</div>
-
-        <!-- Heart Pop Effect at Jawa -->
         <div class="destination-heart">💖</div>
-
       </div>
     </div>
 
-    <!-- 5. STATUS PENERBANGAN DI BAWAH PETA -->
     <div class="flight-status-card">
       <div class="status-badge">🟢 Status: Landed Safely</div>
       <div class="status-text">Akhirnya ketemu kamu! 🪂✨</div>
     </div>
 
-    <!-- TOMBOL INTERAKSI UTAMA -->
+    <!-- FITUR BARU: GALERI FOTO KENANGAN -->
+    <div class="gallery-section">
+      <div class="gallery-title">📸 Snapshots of Us 🤍</div>
+      <div class="photo-grid">
+        <div class="photo-card">
+          <!-- Ganti 'foto1.jpg' dengan nama file fotomu -->
+          <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&auto=format&fit=crop&q=80" alt="Moment 1">
+          <div class="photo-caption">Momen Favorit ✨</div>
+        </div>
+        <div class="photo-card">
+          <!-- Ganti 'foto2.jpg' dengan nama file fotomu -->
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&auto=format&fit=crop&q=80" alt="Moment 2">
+          <div class="photo-caption">Ketemu Kamu! 💖</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FITUR BARU: MINI GAME LOVE METER -->
+    <div class="game-section">
+      <div class="game-title">🎰 Cek Berapa Poin Sayang Kamu Hari Ini?</div>
+      <button class="game-btn" onclick="playLoveMeter()">Hitung Poin Cinta 💘</button>
+      <div id="gameResult" class="game-result"></div>
+    </div>
+
+    <!-- TOMBOL UTAMA -->
     <div class="btn-group">
       <button class="btn btn-hearts" onclick="sendHearts()">💖 Tabur Love Buat Kamu!</button>
       <button class="btn btn-coupon" onclick="toggleCoupons()">🎟️ Klaim Kupon Spesial Ultah!</button>
@@ -848,7 +931,6 @@
     const tonearm = document.getElementById('tonearm');
     const visualizer = document.getElementById('visualizer');
 
-    /* FUNGSI INTRO NAVIGATION */
     function goToIntroStep2() {
       document.getElementById('introStep1').style.display = 'none';
       document.getElementById('introStep2').style.display = 'block';
@@ -860,15 +942,10 @@
     }
 
     function finishIntro() {
-      // Sembunyikan Intro Overlay
       document.getElementById('introOverlay').classList.add('hidden');
-      
-      // Putar Musik Otomatis Setelah Klik Terakhir
       music.play().then(() => {
         updatePlayerUI(true);
       }).catch(() => {});
-
-      // Efek Confetti Perayaan
       triggerCelebration();
     }
 
@@ -894,6 +971,20 @@
         tonearm.classList.remove('playing');
         visualizer.classList.remove('playing');
       }
+    }
+
+    /* MINI GAME FUNCTION */
+    function playLoveMeter() {
+      const resultDiv = document.getElementById('gameResult');
+      resultDiv.style.display = 'block';
+      resultDiv.innerText = "Sedang menghitung...";
+      
+      setTimeout(() => {
+        const score = Math.floor(Math.random() * 900) + 99900; // Poin besar random
+        resultDiv.innerText = `🎉 Poin Cinta: ${score.toLocaleString()} %! (Tercatat Maksimal! ✨)`;
+        triggerCelebration();
+        sendHearts();
+      }, 800);
     }
 
     function sendHearts() {
@@ -941,7 +1032,6 @@
         envelopeBtn.style.background = '#be123c';
         envelopeBtn.querySelector('.envelope-title').innerText = '💌 Surat Terbuka';
         envelopeBtn.querySelector('.envelope-hint').innerText = 'Selamat membaca!';
-        
         triggerCelebration();
       }
     }
