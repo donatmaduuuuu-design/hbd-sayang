@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday My Love! ❤️</title>
+  <title>Happy Early Birthday My Love! ❤️</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     * {
@@ -21,6 +21,7 @@
       padding: 20px;
       overflow-x: hidden;
       color: #fff;
+      position: relative;
     }
     .card {
       background: rgba(255, 255, 255, 0.1);
@@ -34,14 +35,25 @@
       width: 100%;
       z-index: 10;
     }
+    .ldr-badge {
+      display: inline-block;
+      background: rgba(251, 113, 133, 0.2);
+      color: #fda4af;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      border: 1px solid rgba(251, 113, 133, 0.4);
+    }
     h1 {
       color: #fb7185;
-      font-size: 1.8rem;
-      margin-bottom: 12px;
+      font-size: 1.7rem;
+      margin-bottom: 8px;
     }
     p.intro {
       color: #e2e8f0;
-      font-size: 1rem;
+      font-size: 0.95rem;
       line-height: 1.6;
       margin-bottom: 15px;
     }
@@ -49,12 +61,47 @@
       font-style: italic;
       color: #fda4af;
       font-size: 0.9rem;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       background: rgba(0, 0, 0, 0.25);
       padding: 12px;
       border-radius: 12px;
       border-left: 3px solid #fb7185;
     }
+    .reasons-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(253, 164, 175, 0.3);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      text-align: left;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+    }
+    .reasons-box h3 {
+      color: #fb7185;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .reasons-box ul {
+      list-style: none;
+      padding-left: 5px;
+    }
+    .reasons-box li {
+      margin-bottom: 6px;
+    }
+    
+    /* Pernak-Pernik Tambahan Baru */
+    .countdown-box {
+      background: rgba(251, 113, 133, 0.15);
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 0.85rem;
+      color: #fecdd3;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
     .btn-group {
       display: flex;
       flex-direction: column;
@@ -65,7 +112,7 @@
       color: white;
       border: none;
       padding: 12px 20px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       border-radius: 25px;
       cursor: pointer;
       font-weight: bold;
@@ -78,25 +125,22 @@
     .btn-music {
       background: linear-gradient(135deg, #0284c7, #0369a1);
     }
+    .btn-hug {
+      background: linear-gradient(135deg, #d946ef, #a21caf);
+    }
 
-    /* Styling Amplop & Surat Rahasia */
     .envelope-wrapper {
       display: none;
-      margin-top: 25px;
-      perspective: 1000px;
+      margin-top: 20px;
       animation: fadeIn 0.5s ease-in-out;
     }
     .envelope {
       background: #f43f5e;
       border-radius: 12px;
-      padding: 20px;
+      padding: 18px;
       cursor: pointer;
       box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
       transition: transform 0.3s ease;
-      position: relative;
-    }
-    .envelope:hover {
-      transform: scale(1.02);
     }
     .envelope-title {
       font-weight: bold;
@@ -116,7 +160,7 @@
       border-radius: 15px;
       margin-top: 15px;
       text-align: left;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       line-height: 1.7;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       animation: openLetter 0.6s ease-out forwards;
@@ -131,6 +175,21 @@
       margin-top: 15px;
     }
 
+    /* Animasi Heart Floating */
+    .floating-heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      user-select: none;
+      pointer-events: none;
+      z-index: 999;
+      animation: floatUp 3s linear forwards;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -144,15 +203,33 @@
 <body>
 
   <div class="card">
-    <h1>Selamat Ulang Tahun! 🎉✨</h1>
-    <p class="intro">Semoga di usia yang baru ini semua impian, cita-cita, dan hal baik yang sedang kamu usahakan segera tercapai!</p>
+    <div class="ldr-badge">✈️ Jawa ⇄ Lombok 🏝️</div>
+    <h1>Happy Early Birthday! 🎉✨</h1>
+    <p class="intro">Spesial buat <b>Abdul Latif Hidayatulloh</b> 🤍</p>
 
+    <!-- Kutipan Lirik -->
     <div class="lyrics-quote">
       "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
     </div>
 
+    <!-- Countdown Momen Ketemu -->
+    <div class="countdown-box">
+      🗓️ Countdown: Momen Ketemu & Rayain Langsung di Jawa (Oktober)! 🤍
+    </div>
+
+    <!-- Kotak Kenapa Spesial -->
+    <div class="reasons-box">
+      <h3>✨ Why You're Special:</h3>
+      <ul>
+        <li>🤍 Selalu sabar melintasi jarak Lombok - Jawa.</li>
+        <li>🤍 Sosok yang selalu bikin tenang & nyaman.</li>
+        <li>🤍 Penjelas dari setiap doa-doa baikku.</li>
+      </ul>
+    </div>
+
     <div class="btn-group">
       <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu (Nuca)</button>
+      <button class="btn btn-hug" onclick="sendHug()">🤗 Klik Buat Kirim Peluk Jarak Jauh!</button>
       <button class="btn" onclick="showEnvelope()">Buka Surat Kejutan ✉️🎁</button>
     </div>
 
@@ -164,16 +241,17 @@
       </div>
 
       <div id="letterContent" class="letter-content">
-        <p>Selamat ulang tahun ya! Terima kasih sudah hadir dan jadi salah satu alasan terbaik aku tersenyum setiap hari.</p>
-        <p>Semoga di usia baru ini, semua proses, kerja keras, dan impian yang lagi kamu perjuangkan dipermudah dan membuahkan hasil terbaik.</p>
-        <p>Aku bakal selalu ada buat dukung kamu di masa ini, nanti, dan masa indah lainnya. 🤍</p>
-        <div class="letter-footer">Happy Birthday! 🥳✨</div>
+        <p><b>Hai, Abdul Latif Hidayatulloh!</b></p>
+        <p>Meskipun ulang tahunmu baru di bulan Desember nanti, aku sengaja mau nyuri start buat rayain ini lebih awal selagi kita bisa ketemu langsung di Jawa! 🥳✨</p>
+        <p>Terima kasih ya sudah bertahan melintasi jarak Lombok - Jawa sejauh ini. Terima kasih selalu sabar, dewasa, dan jadi sosok yang bikin aku merasa tenang walau kita terpisah jarak.</p>
+        <p>Semoga di usia yang baru nanti, semua proses, kerja keras, dan impian yang lagi kamu usahakan dipermudah dan membawa hasil yang paling indah.</p>
+        <p>Aku bakal selalu ada buat dukung kamu—di masa ini, nanti, dan masa indah lainnya. Selamat merayakan momen ini bareng aku ya! 🤍</p>
+        <div class="letter-footer">Happy Early Birthday! 🥳✨</div>
       </div>
     </div>
 
   </div>
 
-  <!-- Audio Lagu Nuca -->
   <audio id="bgMusic" loop preload="auto">
     <source src="Nuca_-_Masa_ini_Nanti_dan_Masa_Indah_Lainnya_(mp3.pm).mp3" type="audio/mpeg">
   </audio>
@@ -182,7 +260,6 @@
     const music = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicBtn');
 
-    // Otomatis memutar lagu saat ada sentuhan/klik pertama di mana saja di layar
     document.body.addEventListener('click', function startAudioOnFirstClick() {
       if (music.paused) {
         music.play().then(() => {
@@ -202,9 +279,24 @@
       }
     }
 
+    function sendHug() {
+      const emojis = ['💖', '❤️', '✨', '🧸', '🤍', '🤗'];
+      for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('div');
+          heart.classList.add('floating-heart');
+          heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+          heart.style.left = Math.random() * 80 + 10 + 'vw';
+          heart.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
+          document.body.appendChild(heart);
+
+          setTimeout(() => { heart.remove(); }, 3000);
+        }, i * 100);
+      }
+    }
+
     function showEnvelope() {
       document.getElementById('envelopeWrapper').style.display = 'block';
-      // Auto scroll ke arah amplop jika di HP
       document.getElementById('envelopeWrapper').scrollIntoView({ behavior: 'smooth' });
     }
 
@@ -218,7 +310,6 @@
         envelopeBtn.querySelector('.envelope-title').innerText = '💌 Surat Terbuka';
         envelopeBtn.querySelector('.envelope-hint').innerText = 'Selamat membaca!';
         
-        // Pemicu Efek Kembang Api Meriah
         triggerCelebration();
       }
     }
