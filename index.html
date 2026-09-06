@@ -93,7 +93,49 @@
     .btn-hearts {
       background: linear-gradient(135deg, #d946ef, #a21caf);
     }
+    .btn-coupon {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
 
+    /* Section Kupon */
+    .coupon-section {
+      display: none;
+      margin-top: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 15px;
+      border-radius: 15px;
+      border: 1px dashed #f59e0b;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .coupon-title {
+      font-size: 1rem;
+      color: #fbbf24;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .coupon-card {
+      background: #fff;
+      color: #1e293b;
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+    .claim-btn {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
+
+    /* Surat */
     .envelope-wrapper {
       display: none;
       margin-top: 20px;
@@ -171,6 +213,7 @@
     <h1>Happy Early Birthday! 🎉✨</h1>
     <p class="intro">Spesial buat <b>Abdul Latif Hidayatulloh</b> 🤍</p>
 
+    <!-- Kutipan Lirik -->
     <div class="lyrics-quote">
       "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
     </div>
@@ -178,9 +221,28 @@
     <div class="btn-group">
       <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu (Nuca)</button>
       <button class="btn btn-hearts" onclick="sendHearts()">💖 Tabur Love Buat Kamu!</button>
+      <button class="btn btn-coupon" onclick="toggleCoupons()">🎟️ Klaim Kupon Spesial Ultah!</button>
       <button class="btn" onclick="showEnvelope()">Buka Surat Kejutan ✉️🎁</button>
     </div>
 
+    <!-- Area Kupon -->
+    <div id="couponSection" class="coupon-section">
+      <div class="coupon-title">🎟️ Birthday Vouchers (Klaim Sekarang!)</div>
+      <div class="coupon-card">
+        <span>🍦 Ditraktir Es Krim / Snack</span>
+        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
+      </div>
+      <div class="coupon-card">
+        <span>💆‍♂️ Pijat Bahu 10 Menit</span>
+        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
+      </div>
+      <div class="coupon-card">
+        <span>👑 Bebas Pilih Nonton / Aktivitas</span>
+        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
+      </div>
+    </div>
+
+    <!-- Area Amplop & Surat Rahasia -->
     <div id="envelopeWrapper" class="envelope-wrapper">
       <div id="envelopeBtn" class="envelope" onclick="openLetter()">
         <div class="envelope-title">📩 Ada Surat Khusus Buat Kamu!</div>
@@ -242,6 +304,21 @@
       }
     }
 
+    function toggleCoupons() {
+      const section = document.getElementById('couponSection');
+      section.style.display = section.style.display === 'block' ? 'none' : 'block';
+      if (section.style.display === 'block') {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function claimCoupon(btn) {
+      btn.innerText = "Terklaim! ✅";
+      btn.style.background = "#6b7280";
+      btn.disabled = true;
+      triggerCelebration();
+    }
+
     function showEnvelope() {
       document.getElementById('envelopeWrapper').style.display = 'block';
       document.getElementById('envelopeWrapper').scrollIntoView({ behavior: 'smooth' });
@@ -262,7 +339,7 @@
     }
 
     function triggerCelebration() {
-      var count = 200;
+      var count = 150;
       var defaults = { origin: { y: 0.7 } };
 
       function fire(particleRatio, opts) {
@@ -274,8 +351,6 @@
       fire(0.25, { spread: 26, startVelocity: 55 });
       fire(0.2, { spread: 60 });
       fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-      fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-      fire(0.1, { spread: 120, startVelocity: 45 });
     }
   </script>
 
