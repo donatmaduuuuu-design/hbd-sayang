@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Early Birthday My Love! ❤️</title>
+  <title>Happy Birthday My Love! ❤️</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     * {
@@ -35,11 +35,11 @@
       width: 100%;
       z-index: 10;
     }
-    .ldr-badge {
+    .special-badge {
       display: inline-block;
       background: rgba(251, 113, 133, 0.2);
       color: #fda4af;
-      padding: 6px 16px;
+      padding: 6px 18px;
       border-radius: 20px;
       font-size: 0.85rem;
       font-weight: bold;
@@ -61,47 +61,12 @@
       font-style: italic;
       color: #fda4af;
       font-size: 0.9rem;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       background: rgba(0, 0, 0, 0.25);
       padding: 12px;
       border-radius: 12px;
       border-left: 3px solid #fb7185;
     }
-    .reasons-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px dashed rgba(253, 164, 175, 0.3);
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 15px;
-      text-align: left;
-      font-size: 0.85rem;
-      color: #cbd5e1;
-    }
-    .reasons-box h3 {
-      color: #fb7185;
-      font-size: 0.9rem;
-      margin-bottom: 8px;
-      text-align: center;
-    }
-    .reasons-box ul {
-      list-style: none;
-      padding-left: 5px;
-    }
-    .reasons-box li {
-      margin-bottom: 6px;
-    }
-    
-    /* Pernak-Pernik Tambahan Baru */
-    .countdown-box {
-      background: rgba(251, 113, 133, 0.15);
-      border-radius: 12px;
-      padding: 10px;
-      font-size: 0.85rem;
-      color: #fecdd3;
-      margin-bottom: 15px;
-      font-weight: bold;
-    }
-
     .btn-group {
       display: flex;
       flex-direction: column;
@@ -125,7 +90,7 @@
     .btn-music {
       background: linear-gradient(135deg, #0284c7, #0369a1);
     }
-    .btn-hug {
+    .btn-hearts {
       background: linear-gradient(135deg, #d946ef, #a21caf);
     }
 
@@ -175,7 +140,6 @@
       margin-top: 15px;
     }
 
-    /* Animasi Heart Floating */
     .floating-heart {
       position: fixed;
       bottom: -20px;
@@ -203,37 +167,20 @@
 <body>
 
   <div class="card">
-    <div class="ldr-badge">✈️ Jawa ⇄ Lombok 🏝️</div>
+    <div class="special-badge">✨ Special Day With You ✨</div>
     <h1>Happy Early Birthday! 🎉✨</h1>
     <p class="intro">Spesial buat <b>Abdul Latif Hidayatulloh</b> 🤍</p>
 
-    <!-- Kutipan Lirik -->
     <div class="lyrics-quote">
       "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
     </div>
 
-    <!-- Countdown Momen Ketemu -->
-    <div class="countdown-box">
-      🗓️ Countdown: Momen Ketemu & Rayain Langsung di Jawa (Oktober)! 🤍
-    </div>
-
-    <!-- Kotak Kenapa Spesial -->
-    <div class="reasons-box">
-      <h3>✨ Why You're Special:</h3>
-      <ul>
-        <li>🤍 Selalu sabar melintasi jarak Lombok - Jawa.</li>
-        <li>🤍 Sosok yang selalu bikin tenang & nyaman.</li>
-        <li>🤍 Penjelas dari setiap doa-doa baikku.</li>
-      </ul>
-    </div>
-
     <div class="btn-group">
       <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu (Nuca)</button>
-      <button class="btn btn-hug" onclick="sendHug()">🤗 Klik Buat Kirim Peluk Jarak Jauh!</button>
+      <button class="btn btn-hearts" onclick="sendHearts()">💖 Tabur Love Buat Kamu!</button>
       <button class="btn" onclick="showEnvelope()">Buka Surat Kejutan ✉️🎁</button>
     </div>
 
-    <!-- Area Amplop & Surat Rahasia -->
     <div id="envelopeWrapper" class="envelope-wrapper">
       <div id="envelopeBtn" class="envelope" onclick="openLetter()">
         <div class="envelope-title">📩 Ada Surat Khusus Buat Kamu!</div>
@@ -242,11 +189,11 @@
 
       <div id="letterContent" class="letter-content">
         <p><b>Hai, Abdul Latif Hidayatulloh!</b></p>
-        <p>Meskipun ulang tahunmu baru di bulan Desember nanti, aku sengaja mau nyuri start buat rayain ini lebih awal selagi kita bisa ketemu langsung di Jawa! 🥳✨</p>
-        <p>Terima kasih ya sudah bertahan melintasi jarak Lombok - Jawa sejauh ini. Terima kasih selalu sabar, dewasa, dan jadi sosok yang bikin aku merasa tenang walau kita terpisah jarak.</p>
-        <p>Semoga di usia yang baru nanti, semua proses, kerja keras, dan impian yang lagi kamu usahakan dipermudah dan membawa hasil yang paling indah.</p>
+        <p>Meskipun ulang tahunmu sebenarnya baru di bulan Desember nanti, aku sengaja banget mau nyuri start buat merayakannya lebih awal khusus hari ini, mumpung kita akhirnya bisa duduk berdua dan ketemu langsung secara nyata! 🥳✨</p>
+        <p>Terima kasih ya sudah hadir dan jadi salah satu alasan terbaik aku tersenyum setiap hari. Terima kasih selalu sabar, dewasa, dan bikin aku merasa beruntung punya kamu.</p>
+        <p>Semoga di usia yang baru nanti, semua proses, kerja keras, dan impian yang lagi kamu usahakan dipermudah dan membuahkan hasil terbaik.</p>
         <p>Aku bakal selalu ada buat dukung kamu—di masa ini, nanti, dan masa indah lainnya. Selamat merayakan momen ini bareng aku ya! 🤍</p>
-        <div class="letter-footer">Happy Early Birthday! 🥳✨</div>
+        <div class="letter-footer">Happy Birthday, Sayang! 🥳✨</div>
       </div>
     </div>
 
@@ -279,8 +226,8 @@
       }
     }
 
-    function sendHug() {
-      const emojis = ['💖', '❤️', '✨', '🧸', '🤍', '🤗'];
+    function sendHearts() {
+      const emojis = ['💖', '❤️', '✨', '🧸', '🤍', '🥳'];
       for (let i = 0; i < 12; i++) {
         setTimeout(() => {
           const heart = document.createElement('div');
