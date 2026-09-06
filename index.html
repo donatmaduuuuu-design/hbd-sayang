@@ -57,6 +57,157 @@
       line-height: 1.6;
       margin-bottom: 15px;
     }
+
+    /* Section Peta & Kartun LDR ke Pertemuan */
+    .map-container {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      padding: 18px 10px;
+      margin-bottom: 20px;
+      border: 1px dashed rgba(251, 113, 133, 0.4);
+      position: relative;
+    }
+    .map-title {
+      font-size: 0.85rem;
+      color: #fda4af;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .map-route {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      padding: 0 15px;
+    }
+    .location-pin {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+    }
+    .avatar-icon {
+      font-size: 28px;
+      animation: floatAvatar 2s ease-in-out infinite alternate;
+    }
+    .location-name {
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .flight-path {
+      flex: 1;
+      height: 2px;
+      background: repeating-linear-gradient(90deg, #fb7185 0, #fb7185 6px, transparent 6px, transparent 12px);
+      position: relative;
+      margin: 0 10px;
+    }
+    .plane-icon {
+      position: absolute;
+      top: -12px;
+      font-size: 18px;
+      animation: flyAcross 3s ease-in-out infinite;
+    }
+    .meet-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+    }
+    .heart-burst {
+      font-size: 26px;
+      animation: pulseHeart 1.2s ease-in-out infinite;
+    }
+
+    /* Styles Vinyl Player & Visualizer */
+    .player-container {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .vinyl-box {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      margin-bottom: 10px;
+    }
+    .vinyl {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #333 18%, #111 20%, #111 35%, #222 36%, #111 50%, #222 51%, #000 70%);
+      border-radius: 50%;
+      border: 3px solid #333;
+      box-shadow: 0 0 15px rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.5s ease;
+    }
+    .vinyl-center {
+      width: 36px;
+      height: 36px;
+      background: #fb7185;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+    }
+    .spinning {
+      animation: spin 4s linear infinite;
+    }
+    .tonearm {
+      position: absolute;
+      top: -5px;
+      right: 5px;
+      width: 30px;
+      height: 55px;
+      border-top: 3px solid #cbd5e1;
+      border-right: 3px solid #cbd5e1;
+      border-top-right-radius: 10px;
+      transform-origin: top right;
+      transform: rotate(-30deg);
+      transition: transform 0.5s ease;
+      pointer-events: none;
+    }
+    .tonearm.playing {
+      transform: rotate(10deg);
+    }
+    .song-title {
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .visualizer {
+      display: flex;
+      gap: 4px;
+      height: 16px;
+      align-items: flex-end;
+    }
+    .bar {
+      width: 4px;
+      height: 4px;
+      background: #fb7185;
+      border-radius: 2px;
+    }
+    .playing .bar {
+      animation: bounce 0.8s ease-in-out infinite alternate;
+    }
+    .playing .bar:nth-child(1) { animation-delay: 0.1s; }
+    .playing .bar:nth-child(2) { animation-delay: 0.3s; }
+    .playing .bar:nth-child(3) { animation-delay: 0.2s; }
+    .playing .bar:nth-child(4) { animation-delay: 0.5s; }
+    .playing .bar:nth-child(5) { animation-delay: 0.4s; }
+
     .lyrics-quote {
       font-style: italic;
       color: #fda4af;
@@ -67,6 +218,7 @@
       border-radius: 12px;
       border-left: 3px solid #fb7185;
     }
+
     .btn-group {
       display: flex;
       flex-direction: column;
@@ -192,6 +344,30 @@
       animation: floatUp 3s linear forwards;
     }
 
+    /* Animasi Keyframes */
+    @keyframes flyAcross {
+      0% { left: 0%; transform: scaleX(1); }
+      48% { transform: scaleX(1); }
+      50% { left: 85%; transform: scaleX(-1); }
+      98% { transform: scaleX(-1); }
+      100% { left: 0%; transform: scaleX(1); }
+    }
+    @keyframes pulseHeart {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+      100% { transform: scale(1); }
+    }
+    @keyframes floatAvatar {
+      from { transform: translateY(0); }
+      to { transform: translateY(-6px); }
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes bounce {
+      0% { height: 4px; }
+      100% { height: 16px; }
+    }
     @keyframes floatUp {
       0% { transform: translateY(0) scale(1); opacity: 1; }
       100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
@@ -213,13 +389,60 @@
     <h1>Happy Early Birthday! 🎉✨</h1>
     <p class="intro">Spesial buat <b>Abdul Latif Hidayatulloh</b> 🤍</p>
 
+    <!-- Visual Kartun Peta LDR -> Ketemu -->
+    <div class="map-container">
+      <div class="map-title">✈️ Dari Lombok ⇄ Jawa, Akhirnya Ketemu Berdua! 💖</div>
+      <div class="map-route">
+        <div class="location-pin">
+          <div class="avatar-icon">👦🏻</div>
+          <div class="location-name">Lombok 🏝️</div>
+        </div>
+
+        <div class="flight-path">
+          <div class="plane-icon">✈️</div>
+        </div>
+
+        <div class="meet-center">
+          <div class="heart-burst">💖</div>
+          <div class="location-name">Ketemu! 🎉</div>
+        </div>
+
+        <div class="flight-path">
+          <div class="plane-icon" style="animation-delay: 1.5s;">✈️</div>
+        </div>
+
+        <div class="location-pin">
+          <div class="avatar-icon">👧🏻</div>
+          <div class="location-name">Jawa 🏞️</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player Piringan Hitam -->
+    <div class="player-container">
+      <div class="vinyl-box">
+        <div id="vinylRecord" class="vinyl">
+          <div class="vinyl-center">🎵</div>
+        </div>
+        <div id="tonearm" class="tonearm"></div>
+      </div>
+      <div class="song-title">🎶 Nuca - Masa Ini, Nanti, & Masa Indah Lainnya</div>
+      <div id="visualizer" class="visualizer">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+
     <!-- Kutipan Lirik -->
     <div class="lyrics-quote">
       "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
     </div>
 
     <div class="btn-group">
-      <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu (Nuca)</button>
+      <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu</button>
       <button class="btn btn-hearts" onclick="sendHearts()">💖 Tabur Love Buat Kamu!</button>
       <button class="btn btn-coupon" onclick="toggleCoupons()">🎟️ Klaim Kupon Spesial Ultah!</button>
       <button class="btn" onclick="showEnvelope()">Buka Surat Kejutan ✉️🎁</button>
@@ -268,11 +491,14 @@
   <script>
     const music = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicBtn');
+    const vinyl = document.getElementById('vinylRecord');
+    const tonearm = document.getElementById('tonearm');
+    const visualizer = document.getElementById('visualizer');
 
     document.body.addEventListener('click', function startAudioOnFirstClick() {
       if (music.paused) {
         music.play().then(() => {
-          musicBtn.innerText = "⏸ Pause Lagu";
+          updatePlayerUI(true);
         }).catch(() => {});
       }
       document.body.removeEventListener('click', startAudioOnFirstClick);
@@ -281,10 +507,24 @@
     function toggleMusic() {
       if (music.paused) {
         music.play();
-        musicBtn.innerText = "⏸ Pause Lagu";
+        updatePlayerUI(true);
       } else {
         music.pause();
+        updatePlayerUI(false);
+      }
+    }
+
+    function updatePlayerUI(isPlaying) {
+      if (isPlaying) {
+        musicBtn.innerText = "⏸ Pause Lagu";
+        vinyl.classList.add('spinning');
+        tonearm.classList.add('playing');
+        visualizer.classList.add('playing');
+      } else {
         musicBtn.innerText = "🎵 Putar Lagu";
+        vinyl.classList.remove('spinning');
+        tonearm.classList.remove('playing');
+        visualizer.classList.remove('playing');
       }
     }
 
