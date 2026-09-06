@@ -209,7 +209,24 @@
       color: #e2e8f0;
       font-size: 0.95rem;
       line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    /* COUNTDOWN HARI H */
+    .countdown-box {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      padding: 8px 12px;
       margin-bottom: 20px;
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      font-size: 0.78rem;
+      color: #cbd5e1;
+    }
+    .countdown-timer {
+      font-weight: bold;
+      color: #fb7185;
+      font-size: 0.85rem;
+      margin-top: 3px;
     }
 
     /* PLAYER PIRINGAN HITAM */
@@ -352,18 +369,6 @@
       color: #cbd5e1;
       line-height: 1.5;
     }
-    .reason-ornament-left {
-      position: absolute;
-      top: -10px;
-      left: 12px;
-      font-size: 14px;
-    }
-    .reason-ornament-right {
-      position: absolute;
-      bottom: -10px;
-      right: 12px;
-      font-size: 14px;
-    }
 
     /* PETA LOMBOK -> JAWA */
     .map-card {
@@ -464,7 +469,7 @@
       font-style: italic;
     }
 
-    /* GALERI FOTO KENANGAN (SEBELUM PESAN INTI) */
+    /* GALERI FOTO FLIP CARD (BISA DIBALIK PAS DI-KLIK) */
     .gallery-section {
       background: rgba(0, 0, 0, 0.3);
       border-radius: 18px;
@@ -477,47 +482,101 @@
       color: #f472b6;
       font-weight: bold;
       margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
     }
     .photo-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 12px;
     }
-    .photo-card {
-      background: #fff;
-      padding: 8px 8px 12px 8px;
+    .flip-card {
+      background-color: transparent;
+      height: 150px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
       border-radius: 12px;
+      overflow: hidden;
+    }
+    .flip-card-front {
+      background: #fff;
+      padding: 6px 6px 10px 6px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transform: rotate(-2deg);
-      transition: transform 0.3s;
     }
-    .photo-card:nth-child(even) {
-      transform: rotate(2deg);
-    }
-    .photo-card:hover {
-      transform: scale(1.05) rotate(0deg);
-      z-index: 2;
-    }
-    .photo-card img {
+    .flip-card-front img {
       width: 100%;
       height: 110px;
       object-fit: cover;
       border-radius: 8px;
-      display: block;
     }
     .photo-caption {
       font-size: 0.7rem;
       color: #334155;
       font-weight: bold;
-      margin-top: 6px;
-      text-align: center;
+      margin-top: 4px;
+    }
+    .flip-card-back {
+      background: linear-gradient(135deg, #fb7185, #e11d48);
+      color: white;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
-    /* MINI GAME LOVE METER (SEBELUM PESAN INTI) */
+    /* BUCKET LIST / PAPAN HARAPAN */
+    .bucket-section {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 22px;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .bucket-title {
+      font-size: 0.88rem;
+      color: #38bdf8;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .bucket-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .bucket-item input {
+      accent-color: #fb7185;
+      width: 16px;
+      height: 16px;
+    }
+
+    /* MINI GAME LOVE METER */
     .game-section {
       background: rgba(244, 63, 94, 0.1);
       border: 1px dashed rgba(244, 63, 94, 0.4);
@@ -672,7 +731,7 @@
       margin-top: 15px;
     }
 
-    /* MODAL PESAN RAHASIA LDR (BEDA HALAMAN / POPUP FULL) */
+    /* MODAL PESAN RAHASIA LDR */
     .secret-modal {
       position: fixed;
       top: 0;
@@ -749,48 +808,21 @@
       animation: floatUp 3s linear forwards;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-    @keyframes dashMove {
-      to { stroke-dashoffset: -20; }
-    }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    @keyframes dashMove { to { stroke-dashoffset: -20; } }
     @keyframes flyFromLombokToJawa {
       0% { offset-distance: 0%; opacity: 0; transform: scale(0.6) rotate(45deg); }
       12% { opacity: 1; transform: scale(1) rotate(45deg); }
       85% { opacity: 1; transform: scale(1) rotate(45deg); }
       100% { offset-distance: 100%; opacity: 0; transform: scale(0.6) rotate(45deg); }
     }
-    @keyframes heartPop {
-      0%, 80% { transform: scale(0); opacity: 0; }
-      90% { transform: scale(1.3); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
-    @keyframes bounceBar {
-      0% { height: 4px; }
-      100% { height: 16px; }
-    }
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-10px); }
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes openLetter {
-      from { opacity: 0; transform: scale(0.9) translateY(20px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
+    @keyframes heartPop { 0%, 80% { transform: scale(0); opacity: 0; } 90% { transform: scale(1.3); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes bounceBar { 0% { height: 4px; } 100% { height: 16px; } }
+    @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+    @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes openLetter { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
   </style>
 </head>
 <body>
@@ -866,6 +898,12 @@
     <h1>Happy Early Birthday! 🎉✨</h1>
     <p class="intro">Spesial buat <b>Abdul Latif Hidayatulloh</b> 🤍</p>
 
+    <!-- COUNTDOWN KE ULTAN ASLI (DESEMBER) -->
+    <div class="countdown-box">
+      ⏳ Menuju Hari-H Ultah Asli (Desember):
+      <div id="countdownTimer" class="countdown-timer">Menghitung waktu...</div>
+    </div>
+
     <!-- PLAYER PIRINGAN HITAM -->
     <div class="player-container">
       <div class="vinyl-box">
@@ -890,8 +928,6 @@
     </div>
 
     <div class="song-reason-box">
-      <span class="reason-ornament-left">🎀</span>
-      <span class="reason-ornament-right">✨</span>
       <div class="reason-header">
         <span>💌</span> Kenapa Aku Pilih Lagu Ini?
       </div>
@@ -924,37 +960,63 @@
       <div class="status-text">Akhirnya ketemu kamu! 🪂✨</div>
     </div>
 
-    <!-- 1. GALERI FOTO KENANGAN (SEBELUM PESAN INTI) -->
+    <!-- GALERI FOTO BISA DIBALIK (FLIP CARD) -->
     <div class="gallery-section">
-      <div class="gallery-title">📸 Snapshots of Us 🤍</div>
+      <div class="gallery-title">📸 Snapshots of Us (Klik Foto Buat Balik) 🤍</div>
       <div class="photo-grid">
-        <div class="photo-card">
-          <!-- Ganti link gambar dengan nama file foto kamu -->
-          <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&auto=format&fit=crop&q=80" alt="Moment 1">
-          <div class="photo-caption">Momen Favorit ✨</div>
+        
+        <!-- Card Foto 1 -->
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&auto=format&fit=crop&q=80" alt="Moment 1">
+              <div class="photo-caption">Momen Favorit ✨</div>
+            </div>
+            <div class="flip-card-back">
+              <b>Foto Kunjungan Pertama! 💖</b><br>
+              <span style="font-size: 0.68rem; margin-top:4px;">"Selalu suka senyum kamu tiap kali kita pertama ketemu!"</span>
+            </div>
+          </div>
         </div>
-        <div class="photo-card">
-          <!-- Ganti link gambar dengan nama file foto kamu -->
-          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&auto=format&fit=crop&q=80" alt="Moment 2">
-          <div class="photo-caption">Ketemu Kamu! 💖</div>
+
+        <!-- Card Foto 2 -->
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&auto=format&fit=crop&q=80" alt="Moment 2">
+              <div class="photo-caption">Ketemu Kamu! 💖</div>
+            </div>
+            <div class="flip-card-back">
+              <b>Hari Ini! 🥳</b><br>
+              <span style="font-size: 0.68rem; margin-top:4px;">"Akhirnya bisa duduk berdua begini tanpa terhalang jarak!"</span>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
 
-    <!-- 2. MINI GAME LOVE METER (SEBELUM PESAN INTI) -->
+    <!-- BUCKET LIST KETEMUAN -->
+    <div class="bucket-section">
+      <div class="bucket-title">📝 Next Meeting Bucket List 🤍</div>
+      <label class="bucket-item"><input type="checkbox" checked disabled> Kulineran bareng seharian 🍜</label>
+      <label class="bucket-item"><input type="checkbox"> Nonton bioskop / movie date 🍿</label>
+      <label class="bucket-item"><input type="checkbox"> Jalan-jalan sore tanpa mikirin waktu 🌅</label>
+      <label class="bucket-item"><input type="checkbox"> Foto box berdua buat kenang-kenangan 📸</label>
+    </div>
+
+    <!-- MINI GAME LOVE METER -->
     <div class="game-section">
       <div class="game-title">🎰 Cek Berapa Poin Sayang Kamu Hari Ini?</div>
       <button class="game-btn" onclick="playLoveMeter()">Hitung Poin Cinta 💘</button>
       <div id="gameResult" class="game-result"></div>
     </div>
 
-    <!-- 3. TOMBOL UTAMA & PESAN RAHASIA DI AKHIR -->
+    <!-- TOMBOL UTAMA -->
     <div class="btn-group">
       <button class="btn btn-hearts" onclick="sendHearts()">💖 Tabur Love Buat Kamu!</button>
       <button class="btn btn-coupon" onclick="toggleCoupons()">🎟️ Klaim Kupon Spesial Ultah!</button>
       <button class="btn" onclick="showEnvelope()">Buka Surat Kejutan ✉️🎁</button>
-      
-      <!-- TOMBOL PESAN RAHASIA TERPISAH -->
       <button class="btn btn-secret" onclick="openSecretModal()">🔒 Baca Pesan Rahasia LDR 🤍</button>
     </div>
 
@@ -994,7 +1056,7 @@
 
   </div>
 
-  <!-- MODAL BEDA HALAMAN UNTUK PESAN RAHASIA LDR -->
+  <!-- MODAL PESAN RAHASIA LDR -->
   <div id="secretModal" class="secret-modal">
     <div class="secret-content-card">
       <div class="secret-title">🤍 Curahan Hati & Pesan Rahasia LDR</div>
@@ -1020,6 +1082,28 @@
     const vinyl = document.getElementById('vinylRecord');
     const tonearm = document.getElementById('tonearm');
     const visualizer = document.getElementById('visualizer');
+
+    /* FUNGSINYA RUNNING AUTOMATIS COUNTDOWN KE 1 DESEMBER */
+    function startCountdown() {
+      const targetDate = new Date("December 1, 2026 00:00:00").getTime();
+      
+      setInterval(() => {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference > 0) {
+          const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+          document.getElementById('countdownTimer').innerText = `${days} Hari ${hours} Jam ${minutes} Mnt ${seconds} Detik`;
+        } else {
+          document.getElementById('countdownTimer').innerText = "🎉 Hari H Ulang Tahun Tiba!";
+        }
+      }, 1000);
+    }
+    startCountdown();
 
     function goToIntroStep2() {
       document.getElementById('introStep1').style.display = 'none';
@@ -1125,7 +1209,6 @@
       }
     }
 
-    /* FUNGSI KONTROL PESAN RAHASIA LDR (MODAL) */
     function openSecretModal() {
       document.getElementById('secretModal').classList.add('active');
       triggerCelebration();
