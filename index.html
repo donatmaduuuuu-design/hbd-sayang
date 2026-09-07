@@ -2,202 +2,15 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday My Love! ❤️</title>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: linear-gradient(135deg, #0f172a, #1e1b4b); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; color: #fff; position: relative; }
-
-    /* --- OVERLAY INTRO (HALAMAN PEMBUKA) --- */
-    .intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(15px); z-index: 1000; display: flex; justify-content: center; align-items: center; padding: 20px; transition: opacity 0.8s ease, visibility 0.8s ease; }
-    .intro-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .intro-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; padding: 30px 20px; max-width: 380px; width: 100%; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.6); animation: fadeIn 0.5s ease-out; }
-
-    /* Icon Scan */
-    .scan-icon { font-size: 50px; margin-bottom: 20px; animation: pulse 2s infinite; }
-    .scan-title { font-size: 0.9rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; margin-bottom: 10px; }
-    .scan-name { font-size: 1.4rem; color: #fb7185; font-weight: bold; margin-bottom: 25px; }
-
-    /* Boarding Pass */
-    .boarding-pass { background: #ffffff; color: #0f172a; border-radius: 16px; padding: 18px; text-align: left; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
-    .pass-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #cbd5e1; padding-bottom: 10px; margin-bottom: 12px; }
-    .pass-title { font-size: 0.75rem; font-weight: bold; color: #e11d48; text-transform: uppercase; }
-    .pass-route { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .city-code { font-size: 1.5rem; font-weight: 800; }
-    .city-name { font-size: 0.75rem; color: #64748b; }
-    .flight-icon { font-size: 20px; color: #fb7185; }
-    .pass-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.8rem; background: #f8fafc; padding: 10px; border-radius: 10px; }
-    .detail-label { color: #64748b; font-size: 0.7rem; text-transform: uppercase; }
-    .detail-val { font-weight: bold; }
-
-    /* Gift Box */
-    .gift-box-icon { font-size: 60px; margin-bottom: 15px; cursor: pointer; animation: bounce 1.5s infinite alternate; }
-
-    /* Tombol Utama Intro */
-    .btn-intro { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 15px 25px; font-size: 1rem; border-radius: 25px; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); transition: transform 0.2s; position: relative; z-index: 1100; /* Pastikan paling atas */ }
-    .btn-intro:hover { transform: scale(1.02); }
-    .btn-intro:active { transform: scale(0.98); } /* Efek tekan */
-    
-    .btn-intro-pink { background: linear-gradient(135deg, #e11d48, #be123c); box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4); }
-
-
-    /* --- KONTEN UTAMA (HALAMAN-HALAMAN KADO) --- */
-    .main-container { max-width: 420px; width: 100%; display: none; flex-direction: column; align-items: center; gap: 15px; z-index: 10; animation: fadeInPage 1s ease-in-out; }
-    .main-container.active { display: flex; }
-
-    /* Gaya dasar card halaman */
-    .card-page { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); padding: 30px 22px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.2); text-align: center; width: 100%; display: none; }
-    .card-page.active { display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.5s ease-out; }
-
-    .special-badge { display: inline-block; background: rgba(251, 113, 133, 0.2); color: #fda4af; padding: 6px 18px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-bottom: 15px; border: 1px solid rgba(251, 113, 133, 0.4); }
-    h1 { color: #fb7185; font-size: 1.7rem; margin-bottom: 6px; }
-    p.intro-text { color: #e2e8f0; font-size: 1rem; margin-bottom: 20px; }
-
-    /* Player Musik */
-    .player-container { background: rgba(0, 0, 0, 0.35); border-radius: 18px; padding: 16px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.12); display: flex; flex-direction: column; align-items: center; position: relative; }
-    .vinyl-box { position: relative; width: 110px; height: 110px; margin-bottom: 12px; }
-    .vinyl { width: 100%; height: 100%; background: radial-gradient(circle, #333 18%, #111 20%, #111 35%, #222 36%, #111 50%, #222 51%, #000 70%); border-radius: 50%; border: 3px solid #333; box-shadow: 0 0 15px rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; }
-    .vinyl-center { width: 36px; height: 36px; background: #fb7185; border-radius: 50%; border: 3px solid #fff; font-size: 12px; display: flex; justify-content: center; align-items: center; }
-    .spinning { animation: spinVinyl 4s linear infinite; }
-    .tonearm { position: absolute; top: -5px; right: 5px; width: 30px; height: 55px; border-top: 3px solid #cbd5e1; border-right: 3px solid #cbd5e1; border-top-right-radius: 10px; transform-origin: top right; transform: rotate(-30deg); transition: transform 0.5s ease; pointer-events: none; }
-    .tonearm.playing { transform: rotate(10deg); }
-    .visualizer { display: flex; gap: 4px; height: 16px; align-items: flex-end; }
-    .bar { width: 4px; height: 4px; background: #fb7185; border-radius: 2px; }
-    .playing .bar { animation: bounceBar 0.8s ease-in-out infinite alternate; }
-
-    /* Kutipan Lirik */
-    .lyrics-quote { font-style: italic; color: #fda4af; font-size: 0.9rem; margin-bottom: 15px; background: rgba(0, 0, 0, 0.25); padding: 12px 15px; border-radius: 12px; border-left: 3px solid #fb7185; line-height: 1.4; }
-    .song-reason-box { background: rgba(251, 113, 133, 0.08); border: 1px dashed rgba(251, 113, 133, 0.35); border-radius: 16px; padding: 14px; text-align: left; }
-    .reason-text { font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; }
-
-    /* Peta Animasi */
-    .map-card { background: rgba(15, 23, 42, 0.6); border-radius: 18px; padding: 14px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; }
-    .map-canvas { position: relative; width: 100%; height: 130px; background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%); border-radius: 12px; }
-    .flight-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-    .flight-line { fill: none; stroke: #fb7185; stroke-width: 2.5; stroke-dasharray: 6 4; animation: dashMoveSVG 2s linear infinite; }
-    .pin { position: absolute; display: flex; flex-direction: column; align-items: center; z-index: 3; }
-    .pin-lombok { right: 20px; bottom: 20px; }
-    .pin-jawa { left: 20px; top: 35px; }
-    .animated-plane { position: absolute; font-size: 20px; z-index: 5; offset-path: path("M 280 85 Q 160 15 50 50"); animation: flyFromLombokToJawaAnimation 4s ease-in-out infinite; }
-    .flight-status-card { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; }
-    .status-badge { color: #10b981; font-weight: bold; }
-
-    /* Snapshots (Flip Cards) */
-    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-    .flip-card { background-color: transparent; height: 150px; perspective: 1000px; cursor: pointer; }
-    .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
-    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-    .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; overflow: hidden; }
-    .flip-card-front { background: #fff; padding: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-    .flip-card-front img { width: 100%; height: 115px; object-fit: cover; border-radius: 8px; }
-    .photo-caption { font-size: 0.7rem; color: #334155; font-weight: bold; margin-top: 4px; }
-    .flip-card-back { background: linear-gradient(135deg, #fb7185, #e11d48); color: white; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; font-size: 0.75rem; line-height: 1.4; }
-
-    /* Mini Game */
-    .game-section { background: rgba(244, 63, 94, 0.1); border: 1px dashed rgba(244, 63, 94, 0.4); border-radius: 18px; padding: 16px; margin-bottom: 22px; width: 100%; }
-    .game-btn { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; border: none; padding: 10px 18px; font-size: 0.85rem; border-radius: 15px; font-weight: bold; cursor: pointer; }
-    .game-result { margin-top: 10px; font-size: 1.1rem; font-weight: bold; color: #f472b6; display: none; }
-
-    /* Kupon */
-    .coupon-section { background: rgba(0, 0, 0, 0.3); padding: 15px; border-radius: 15px; border: 1px dashed #f59e0b; margin-bottom: 20px; opacity: 0.5; pointer-events: none; transition: opacity 0.5s ease; width: 100%; }
-    .coupon-section.active { opacity: 1; pointer-events: auto; }
-    .coupon-card { background: #fff; color: #1e293b; padding: 10px 15px; border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: bold; }
-    .claim-btn { background: #10b981; color: white; border: none; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
-
-    /* Bucket List */
-    .bucket-section { background: rgba(255, 255, 255, 0.05); border-radius: 18px; padding: 16px; margin-bottom: 22px; text-align: left; border: 1px solid rgba(255, 255, 255, 0.1); width: 100%; }
-    .bucket-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #e2e8f0; margin-bottom: 8px; cursor: pointer; }
-    .bucket-item input { accent-color: #fb7185; width: 16px; height: 16px; }
-
-    /* Tombol Navigasi Halaman */
-    .btn-nav-group { display: flex; gap: 10px; width: 100%; margin-top: 20px; }
-    .btn-page-nav { background: #4b5563; padding: 12px; font-size: 0.9rem; flex: 1; }
-    .btn-page-nav:hover { background: #6b7280; }
-
-    /* Modal Pesan Rahasia LDR */
-    .secret-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(20px); z-index: 1500; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s ease; }
-    .secret-modal.active { opacity: 1; visibility: visible; }
-    .secret-content-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(251, 113, 133, 0.3); border-radius: 24px; padding: 25px 20px; max-width: 420px; width: 100%; color: #f1f5f9; text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
-    .secret-text { font-size: 0.9rem; line-height: 1.8; }
-    .secret-text p { margin-bottom: 14px; }
-
-    /* Modal Teka-Teki */
-    .riddle-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(20px); z-index: 1600; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s ease; }
-    .riddle-modal.active { opacity: 1; visibility: visible; }
-    .riddle-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 24px; padding: 25px 20px; max-width: 380px; width: 100%; text-align: center; }
-    .riddle-question { font-size: 0.95rem; color: #e2e8f0; font-style: italic; line-height: 1.7; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; border-left: 3px solid #f59e0b; margin-bottom: 15px; }
-    .riddle-input { width: 100%; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 12px; border-radius: 12px; font-size: 0.9rem; margin-bottom: 10px; }
-    .riddle-error { color: #f87171; font-size: 0.8rem; margin-bottom: 10px; display: none; }
-
-    /* Lainnya */
-    .floating-heart { position: fixed; bottom: -20px; font-size: 24px; pointer-events: none; animation: floatUp 3s linear forwards; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInPage { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-    @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
-    @keyframes dashMoveSVG { to { stroke-dashoffset: -20; } }
-    @keyframes spinVinyl { 100% { transform: rotate(360deg); } }
-    @keyframes bounceBar { 0% { height: 4px; } 100% { height: 16px; } }
-    @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
-  </style>
-</head>
-<body>
-
-  <!-- ====================================
-       OVERLAY INTRO (HALAMAN PEMBUKA)
-  ==================================== -->
-  <div id="introOverlay" class="intro-overlay">
-    
-    <!-- Step 1: Validasi Akses -->
-    <div id="introStep1" class="intro-card">
-      <div class="scan-icon">🔒</div>
-      <div class="scan-title">Akses Kejutan Khusus</div>
-      <div class="scan-name">Abdul Latif Hidayatulloh</div>
-      <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 25px;">Halaman ini dibuat khusus hanya untuk kamu. Siap membuka kejutannya? ✨</p>
-      <!-- GUNAKAN ONCLICK LANGSUNG DI HTML UNTUK KEANDALAN TERBAIK -->
-      <button class="btn-intro" id="btnContinue" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
-    </div>
-
-    <!-- Step 2: Boarding Pass -->
-    <div id="introStep2" class="intro-card" style="display: none;">
-      <div style="font-size: 0.9rem; color: #fb7185; font-weight: bold; margin-bottom: 12px;">🎟️ Boarding Pass Special Flight</div>
-      <div class="boarding-pass">
-        <div class="pass-header"><span class="pass-title">LOVE AIRWAYS ✈️</span><span style="font-size: 0.75rem;">#2026</span></div>
-        <div class="pass-route">
-          <div class="city"><div class="city-code">LOP</div><div class="city-name">Lombok</div></div>
-          <div class="flight-icon">✈️ ➔</div>
-          <div class="city"><div class="city-code">JWG</div><div class="city-name">Jawa</div></div>
-        </div>
-        <div class="pass-details">
-          <div><div class="detail-label">Passenger</div><div class="detail-val">Abdul Latif H.</div></div>
-          <div><div class="detail-label">Destination</div><div class="detail-val">Meylinda ❤️</div></div>
-        </div>
-      </div>
-      <button class="btn-intro btn-intro-pink" id="btnAcceptTicket" onclick="goToIntroStep3()">Terima Tiket & Buka Kado 🎁</button>
-    </div>
-
-    <!-- Step 3: Buka Kado -->
-    <div id="introStep3" class="intro-card" style="display: none;">
-      <div class="gift-box-icon" id="giftBox" onclick="finishIntro()">🎁</div>
-      <div style="font-size: 1.15rem; color: #fb7185; font-weight: bold; margin-bottom: 10px;">Pesan Siap Dibuka!Tentu! Ini adalah kode terbaru yang sudah saya perbaiki. Saya telah mengubah metode deteksi klik agar lebih andal di perangkat HP dan memastikan tombolnya berada di lapisan paling atas agar tidak terhalang.
-
-Maaf atas ketidaknyamanannya. Silakan *copy* seluruh kode di bawah ini dan gunakan untuk mengganti isi file `index.html` kamu di GitHub:
-
-```html
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Happy Birthday My Love! ❤️</title>
-  <script src="[https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js](https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js)"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent; /* Hilangkan highlight abu-abu di HP */
+      -webkit-tap-highlight-color: transparent;
     }
     body {
       background: linear-gradient(135deg, #0f172a, #1e1b4b);
@@ -206,31 +19,27 @@ Maaf atas ketidaknyamanannya. Silakan *copy* seluruh kode di bawah ini dan gunak
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
-      overflow-x: hidden;
+      padding: 15px;
       color: #fff;
       position: relative;
+      overflow-x: hidden;
     }
 
-    /* ====================================
-       OVERLAY INTRO (HALAMAN PEMBUKA)
-       DIPERBAIKI UNTUK HP
-    ==================================== */
+    /* --- OVERLAY INTRO (HALAMAN PEMBUKA) --- */
     .intro-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(15, 23, 42, 0.98); /* Lebih gelap sedikit */
+      background: rgba(15, 23, 42, 0.98);
       backdrop-filter: blur(15px);
-      z-index: 2000; /* Z-index sangat tinggi */
+      z-index: 2000;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-      touch-action: none; /* Cegah scroll background */
+      transition: opacity 0.6s ease, visibility 0.6s ease;
     }
     .intro-overlay.hidden {
       opacity: 0;
@@ -241,179 +50,86 @@ Maaf atas ketidaknyamanannya. Silakan *copy* seluruh kode di bawah ini dan gunak
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 24px;
-      padding: 30px 20px;
+      padding: 25px 20px;
       max-width: 380px;
       width: 100%;
       text-align: center;
       box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-      animation: fadeInIntro 0.5s ease-out;
       position: relative;
       z-index: 2001;
     }
 
-    /* Icon Scan */
-    .scan-icon {
-      font-size: 50px;
-      margin-bottom: 20px;
-      animation: pulse 2s infinite;
-      display: inline-block;
-    }
-    .scan-title {
-      font-size: 0.9rem;
-      color: #38bdf8;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .scan-name {
-      font-size: 1.4rem;
-      color: #fb7185;
-      font-weight: bold;
-      margin-bottom: 25px;
-      word-wrap: break-word;
-    }
+    .scan-icon { font-size: 50px; margin-bottom: 15px; animation: pulse 2s infinite; display: inline-block; }
+    .scan-title { font-size: 0.85rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; margin-bottom: 8px; }
+    .scan-name { font-size: 1.3rem; color: #fb7185; font-weight: bold; margin-bottom: 20px; }
 
     /* Boarding Pass */
     .boarding-pass {
       background: #ffffff;
       color: #0f172a;
       border-radius: 16px;
-      padding: 18px;
+      padding: 16px;
       text-align: left;
       margin-bottom: 20px;
-      position: relative;
       box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
-    .pass-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px dashed #cbd5e1;
-      padding-bottom: 10px;
-      margin-bottom: 12px;
-    }
-    .pass-title {
-      font-size: 0.75rem;
-      font-weight: bold;
-      color: #e11d48;
-      text-transform: uppercase;
-    }
-    .pass-route {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    .city-code {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #0f172a;
-    }
-    .city-name {
-      font-size: 0.75rem;
-      color: #64748b;
-    }
-    .flight-icon {
-      font-size: 20px;
-      color: #fb7185;
-    }
-    .pass-details {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      font-size: 0.8rem;
-      background: #f8fafc;
-      padding: 10px;
-      border-radius: 10px;
-    }
-    .detail-label {
-      color: #64748b;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-    }
-    .detail-val {
-      font-weight: bold;
-      color: #0f172a;
-    }
+    .pass-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #cbd5e1; padding-bottom: 8px; margin-bottom: 10px; }
+    .pass-title { font-size: 0.75rem; font-weight: bold; color: #e11d48; text-transform: uppercase; }
+    .pass-route { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .city-code { font-size: 1.4rem; font-weight: 800; color: #0f172a; }
+    .city-name { font-size: 0.7rem; color: #64748b; }
+    .flight-icon { font-size: 18px; color: #fb7185; }
+    .pass-details { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.75rem; background: #f8fafc; padding: 8px; border-radius: 8px; }
+    .detail-label { color: #64748b; font-size: 0.65rem; text-transform: uppercase; }
+    .detail-val { font-weight: bold; color: #0f172a; }
 
-    /* Gift Box */
-    .gift-box-icon {
-      font-size: 60px;
-      margin-bottom: 15px;
-      cursor: pointer;
-      animation: bounceGift 1.5s infinite alternate;
-      display: inline-block;
-      position: relative;
-      z-index: 2002;
-    }
+    .gift-box-icon { font-size: 60px; margin-bottom: 15px; cursor: pointer; animation: bounceGift 1.5s infinite alternate; display: inline-block; }
 
-    /* Tombol Utama Intro - DIPERBAIKI UTK TOUCH */
+    /* Tombol Utama Intro */
     .btn-intro {
       background: linear-gradient(135deg, #0284c7, #0369a1);
       color: white;
       border: none;
-      padding: 16px 25px; /* Sedikit lebih besar */
-      font-size: 1rem;
+      padding: 15px 20px;
+      font-size: 0.95rem;
       border-radius: 25px;
       font-weight: bold;
       cursor: pointer;
       width: 100%;
       box-shadow: 0 5px 15px rgba(2, 132, 199, 0.4);
-      transition: transform 0.1s, box-shadow 0.1s;
-      position: relative;
-      z-index: 2005; /* Paling atas di kartunya */
       display: block;
-      -webkit-appearance: none; /* Matikan style default iOS */
+      -webkit-appearance: none;
     }
-    
-    /* Efek aktif saat disentuh di HP */
-    .btn-intro:active {
-      transform: scale(0.97) translateY(2px);
-      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.5);
-    }
-    
+    .btn-intro:active { transform: scale(0.97); }
     .btn-intro-pink {
       background: linear-gradient(135deg, #e11d48, #be123c);
       box-shadow: 0 5px 15px rgba(225, 29, 72, 0.4);
     }
-    .btn-intro-pink:active {
-      box-shadow: 0 2px 10px rgba(225, 29, 72, 0.5);
-    }
 
-
-    /* ====================================
-       STRUKTUR HALAMAN INTI (CARD STYLES)
-    ==================================== */
+    /* --- HALAMAN UTAMA --- */
     .main-container {
       max-width: 420px;
       width: 100%;
-      display: none; /* Hidden until intro finished */
+      display: none;
       flex-direction: column;
       align-items: center;
-      gap: 15px; /* Jarak antar card */
+      gap: 15px;
       z-index: 10;
-      animation: fadeInPageContainer 1s ease-in-out;
       padding-bottom: 30px;
     }
-    /* Aktif setelah intro selesai */
-    .main-container.active {
-      display: flex;
-    }
+    .main-container.active { display: flex; }
 
-    /* Gaya dasar untuk card/halaman */
     .card-page {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(12px);
-      padding: 30px 22px;
+      padding: 25px 18px;
       border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       text-align: center;
       width: 100%;
-      display: none; /* Hidden initially */
+      display: none;
     }
-    /* Aktif untuk halaman yang sedang dilihat */
     .card-page.active {
       display: flex;
       flex-direction: column;
@@ -425,620 +141,336 @@ Maaf atas ketidaknyamanannya. Silakan *copy* seluruh kode di bawah ini dan gunak
       display: inline-block;
       background: rgba(251, 113, 133, 0.2);
       color: #fda4af;
-      padding: 6px 18px;
+      padding: 5px 14px;
       border-radius: 20px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: bold;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       border: 1px solid rgba(251, 113, 133, 0.4);
     }
 
-    h1 {
-      color: #fb7185;
-      font-size: 1.7rem;
-      margin-bottom: 6px;
-    }
-    p.intro-text {
-      color: #e2e8f0;
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
+    h1 { color: #fb7185; font-size: 1.5rem; margin-bottom: 6px; }
+    p.intro-text { color: #e2e8f0; font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px; }
 
-    /* Player Piringan Hitam */
+    /* Player Musik */
     .player-container {
       background: rgba(0, 0, 0, 0.35);
       border-radius: 18px;
-      padding: 16px;
+      padding: 15px;
       margin-bottom: 15px;
       border: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: relative;
-    }
-    .vinyl-box {
-      position: relative;
-      width: 110px;
-      height: 110px;
-      margin-bottom: 12px;
-    }
-    .vinyl {
       width: 100%;
-      height: 100%;
+    }
+    .vinyl-box { position: relative; width: 100px; height: 100px; margin-bottom: 10px; }
+    .vinyl {
+      width: 100%; height: 100%;
       background: radial-gradient(circle, #333 18%, #111 20%, #111 35%, #222 36%, #111 50%, #222 51%, #000 70%);
-      border-radius: 50%;
-      border: 3px solid #333;
-      box-shadow: 0 0 15px rgba(0,0,0,0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.5s ease;
+      border-radius: 50%; border: 3px solid #333;
+      display: flex; justify-content: center; align-items: center;
     }
-    .vinyl-center {
-      width: 36px;
-      height: 36px;
-      background: #fb7185;
-      border-radius: 50%;
-      border: 3px solid #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 12px;
-    }
-    .spinning {
-      animation: spinVinyl 4s linear infinite;
-    }
-    .tonearm {
-      position: absolute;
-      top: -5px;
-      right: 5px;
-      width: 30px;
-      height: 55px;
-      border-top: 3px solid #cbd5e1;
-      border-right: 3px solid #cbd5e1;
-      border-top-right-radius: 10px;
-      transform-origin: top right;
-      transform: rotate(-30deg);
-      transition: transform 0.5s ease;
-      pointer-events: none;
-    }
-    .tonearm.playing {
-      transform: rotate(10deg);
-    }
-    .song-title {
-      font-size: 0.85rem;
-      color: #e2e8f0;
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-    .visualizer {
-      display: flex;
-      gap: 4px;
-      height: 16px;
-      align-items: flex-end;
-    }
-    .bar {
-      width: 4px;
-      height: 4px;
-      background: #fb7185;
-      border-radius: 2px;
-    }
-    .playing .bar {
-      animation: bounceBar 0.8s ease-in-out infinite alternate;
-    }
-    .playing .bar:nth-child(1) { animation-delay: 0.1s; }
-    .playing .bar:nth-child(2) { animation-delay: 0.3s; }
-    .playing .bar:nth-child(3) { animation-delay: 0.2s; }
-    .playing .bar:nth-child(4) { animation-delay: 0.5s; }
-    .playing .bar:nth-child(5) { animation-delay: 0.4s; }
+    .vinyl-center { width: 32px; height: 32px; background: #fb7185; border-radius: 50%; border: 3px solid #fff; }
+    .spinning { animation: spinVinyl 4s linear infinite; }
+    .visualizer { display: flex; gap: 4px; height: 16px; align-items: flex-end; }
+    .bar { width: 4px; height: 4px; background: #fb7185; border-radius: 2px; }
+    .playing .bar { animation: bounceBar 0.8s ease-in-out infinite alternate; }
 
-    /* Kutipan Lirik */
+    /* Lyrics & Reason */
     .lyrics-quote {
-      font-style: italic;
-      color: #fda4af;
-      font-size: 0.9rem;
-      margin-bottom: 15px;
-      background: rgba(0, 0, 0, 0.25);
-      padding: 12px 15px;
-      border-radius: 12px;
-      border-left: 3px solid #fb7185;
-      line-height: 1.4;
+      font-style: italic; color: #fda4af; font-size: 0.85rem; margin-bottom: 12px;
+      background: rgba(0, 0, 0, 0.25); padding: 10px 12px; border-radius: 12px;
+      border-left: 3px solid #fb7185; line-height: 1.4; text-align: left; width: 100%;
     }
-
-    /* Alasan Pilih Lagu */
     .song-reason-box {
-      background: rgba(251, 113, 133, 0.08);
-      border: 1px dashed rgba(251, 113, 133, 0.35);
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 20px;
-      text-align: left;
+      background: rgba(251, 113, 133, 0.08); border: 1px dashed rgba(251, 113, 133, 0.35);
+      border-radius: 14px; padding: 12px; margin-bottom: 15px; text-align: left; width: 100%;
     }
-    .reason-header {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      color: #fb7185;
-      margin-bottom: 6px;
-    }
-    .reason-text {
-      font-size: 0.85rem;
-      color: #cbd5e1;
-      line-height: 1.5;
-    }
+    .reason-text { font-size: 0.8rem; color: #cbd5e1; line-height: 1.4; }
 
-    /* Peta Animasi Lombok ke Jawa */
+    /* Peta Animasi */
     .map-card {
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 18px;
-      padding: 14px;
-      margin-bottom: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      overflow: hidden;
+      background: rgba(15, 23, 42, 0.6); border-radius: 16px; padding: 10px;
+      margin-bottom: 12px; border: 1px solid rgba(255, 255, 255, 0.1); width: 100%;
     }
     .map-canvas {
-      position: relative;
-      width: 100%;
-      height: 130px;
-      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-      border-radius: 12px;
+      position: relative; width: 100%; height: 110px;
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%); border-radius: 10px;
     }
-    .flight-svg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .flight-line {
-      fill: none;
-      stroke: #fb7185;
-      stroke-width: 2.5;
-      stroke-dasharray: 6 4;
-      animation: dashMoveSVG 2s linear infinite;
-    }
-    .pin {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 3;
-    }
-    .pin-lombok {
-      right: 20px;
-      bottom: 20px;
-    }
-    .pin-jawa {
-      left: 20px;
-      top: 35px;
-    }
-    .animated-plane {
-      position: absolute;
-      font-size: 20px;
-      z-index: 5;
-      offset-path: path("M 280 85 Q 160 15 50 50");
-      animation: flyFromLombokToJawaAnimation 4s ease-in-out infinite;
-    }
+    .flight-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .flight-line { fill: none; stroke: #fb7185; stroke-width: 2.5; stroke-dasharray: 6 4; animation: dashMoveSVG 2s linear infinite; }
     .flight-status-card {
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      border-radius: 12px;
-      padding: 10px 14px;
-      margin-bottom: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.85rem;
-    }
-    .status-badge {
-      color: #10b981;
-      font-weight: bold;
+      background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 10px; padding: 8px 12px; margin-bottom: 15px; display: flex;
+      align-items: center; justify-content: space-between; font-size: 0.8rem; width: 100%;
     }
 
-    /* Snapshots (Flip Cards) */
-    .photo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .flip-card {
-      background-color: transparent;
-      height: 150px;
-      perspective: 1000px;
-      cursor: pointer;
-    }
-    .flip-card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-    }
-    .flip-card.flipped .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-    .flip-card-front, .flip-card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .flip-card-front {
-      background: #fff;
-      padding: 6px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-    .flip-card-front img {
-      width: 100%;
-      height: 115px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .photo-caption {
-      font-size: 0.7rem;
-      color: #334155;
-      font-weight: bold;
-      margin-top: 4px;
-    }
-    .flip-card-back {
-      background: linear-gradient(135deg, #fb7185, #e11d48);
-      color: white;
-      transform: rotateY(180deg);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 10px;
-      font-size: 0.8rem;
-      line-height: 1.4;
-    }
+    /* Flip Cards Фото */
+    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; width: 100%; }
+    .flip-card { background-color: transparent; height: 140px; perspective: 1000px; cursor: pointer; }
+    .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; overflow: hidden; }
+    .flip-card-front { background: #fff; padding: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    .flip-card-front img { width: 100%; height: 105px; object-fit: cover; border-radius: 8px; }
+    .photo-caption { font-size: 0.65rem; color: #334155; font-weight: bold; margin-top: 3px; }
+    .flip-card-back { background: linear-gradient(135deg, #fb7185, #e11d48); color: white; transform: rotateY(180deg); display: flex; justify-content: center; align-items: center; padding: 8px; font-size: 0.75rem; line-height: 1.3; }
 
-    /* Mini Game */
-    .game-section {
-      background: rgba(244, 63, 94, 0.1);
-      border: 1px dashed rgba(244, 63, 94, 0.4);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 22px;
-      width: 100%;
-    }
-    .game-btn {
-      background: linear-gradient(135deg, #f43f5e, #e11d48);
-      color: white;
-      border: none;
-      padding: 12px 18px;
-      font-size: 0.9rem;
-      border-radius: 15px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .game-result {
-      margin-top: 10px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #f472b6;
-      display: none;
-    }
-
-    /* Kupon */
-    .coupon-section {
-      background: rgba(0, 0, 0, 0.3);
-      padding: 15px;
-      border-radius: 15px;
-      border: 1px dashed #f59e0b;
-      margin-bottom: 20px;
-      opacity: 0.5;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-      width: 100%;
-    }
-    .coupon-section.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .coupon-card {
-      background: #fff;
-      color: #1e293b;
-      padding: 12px 15px;
-      border-radius: 10px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.9rem;
-      font-weight: bold;
-    }
-    .claim-btn {
-      background: #10b981;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
+    /* Mini Game & Kupon */
+    .game-section { background: rgba(244, 63, 94, 0.1); border: 1px dashed rgba(244, 63, 94, 0.4); border-radius: 16px; padding: 14px; margin-bottom: 15px; width: 100%; }
+    .coupon-section { background: rgba(0, 0, 0, 0.3); padding: 12px; border-radius: 14px; border: 1px dashed #f59e0b; margin-bottom: 15px; opacity: 0.5; pointer-events: none; width: 100%; }
+    .coupon-section.active { opacity: 1; pointer-events: auto; }
+    .coupon-card { background: #fff; color: #1e293b; padding: 8px 12px; border-radius: 8px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-weight: bold; }
+    .claim-btn { background: #10b981; color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
 
     /* Bucket List */
-    .bucket-section {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 22px;
-      text-align: left;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      width: 100%;
-    }
-    .bucket-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.9rem;
-      color: #e2e8f0;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-    .bucket-item input {
-      accent-color: #fb7185;
-      width: 18px;
-      height: 18px;
-    }
+    .bucket-section { background: rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 14px; margin-bottom: 15px; text-align: left; border: 1px solid rgba(255, 255, 255, 0.1); width: 100%; }
+    .bucket-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #e2e8f0; margin-bottom: 8px; }
 
-    /* Tombol Navigasi Halaman Utama - DIPERBAIKI */
-    .btn-action {
-      background: linear-gradient(135deg, #e11d48, #be123c);
-      color: white;
-      border: none;
-      padding: 14px 20px;
-      font-size: 0.95rem;
-      border-radius: 25px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.1s;
-      width: 100%;
-      -webkit-appearance: none;
-    }
-    .btn-action:active {
-      transform: scale(0.97);
-    }
-    .btn-hearts {
-      background: linear-gradient(135deg, #d946ef, #a21caf);
-    }
-    .btn-riddle {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-    }
+    /* Action Buttons */
+    .btn-action { background: linear-gradient(135deg, #e11d48, #be123c); color: white; border: none; padding: 12px 18px; font-size: 0.85rem; border-radius: 20px; cursor: pointer; font-weight: bold; width: 100%; -webkit-appearance: none; }
+    .btn-action:active { transform: scale(0.97); }
+    .btn-nav-group { display: flex; gap: 8px; width: 100%; margin-top: 15px; }
+    .btn-page-nav { background: #4b5563; padding: 10px; font-size: 0.85rem; flex: 1; border-radius: 15px; }
 
-    .btn-nav-group {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-      margin-top: 20px;
-    }
-    .btn-page-nav {
-      background: #4b5563;
-      padding: 12px;
-      font-size: 0.9rem;
-      flex: 1;
-    }
-    .btn-page-nav:active {
-      background: #6b7280;
-    }
+    /* Modals */
+    .secret-modal, .riddle-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(20px); z-index: 3000; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
+    .secret-modal.active, .riddle-modal.active { opacity: 1; visibility: visible; }
+    .secret-content-card, .riddle-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(251, 113, 133, 0.3); border-radius: 20px; padding: 20px; max-width: 400px; width: 100%; max-height: 85vh; overflow-y: auto; text-align: left; }
 
-    /* Modal Pesan Rahasia LDR */
-    .secret-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.96);
-      backdrop-filter: blur(20px);
-      z-index: 3000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-    .secret-modal.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .secret-content-card {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(251, 113, 133, 0.3);
-      border-radius: 24px;
-      padding: 25px 20px;
-      max-width: 420px;
-      width: 100%;
-      color: #f1f5f9;
-      text-align: left;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-    .secret-text {
-      font-size: 0.95rem;
-      line-height: 1.8;
-    }
-    .secret-text p {
-      margin-bottom: 14px;
-    }
-
-    /* Modal Teka-Teki */
-    .riddle-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.96);
-      backdrop-filter: blur(20px);
-      z-index: 3100;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-    .riddle-modal.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .riddle-card {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      border-radius: 24px;
-      padding: 25px 20px;
-      max-width: 380px;
-      width: 100%;
-      text-align: center;
-    }
-    .riddle-question {
-      font-size: 1rem;
-      color: #e2e8f0;
-      font-style: italic;
-      line-height: 1.7;
-      background: rgba(0,0,0,0.2);
-      padding: 15px;
-      border-radius: 12px;
-      border-left: 3px solid #f59e0b;
-      margin-bottom: 15px;
-    }
-    .riddle-input {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: white;
-      padding: 14px;
-      border-radius: 12px;
-      font-size: 1rem;
-      margin-bottom: 10px;
-      -webkit-appearance: none;
-    }
-    .riddle-error {
-      color: #f87171;
-      font-size: 0.85rem;
-      margin-bottom: 10px;
-      display: none;
-    }
-
-    /* Lainnya */
-    .floating-heart {
-      position: fixed;
-      bottom: -20px;
-      font-size: 24px;
-      pointer-events: none;
-      animation: floatUpAnimation 3s linear forwards;
-      z-index: 2500;
-    }
-    
     /* Animations */
-    @keyframes fadeInIntro { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInPageContainer { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes bounceGift { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
     @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-    @keyframes bounceGift { 0% { transform: translateY(0); } 100% { transform: translateY(-12px); } }
     @keyframes dashMoveSVG { to { stroke-dashoffset: -20; } }
     @keyframes spinVinyl { 100% { transform: rotate(360deg); } }
     @keyframes bounceBar { 0% { height: 4px; } 100% { height: 16px; } }
-    @keyframes floatUpAnimation { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
   </style>
 </head>
 <body>
 
-  <!-- ====================================
-       OVERLAY INTRO (HALAMAN PEMBUKA)
-       DIPERBAIKI UNTUK RESPONSIF SENTUHAN HP
-  ==================================== -->
   <div id="introOverlay" class="intro-overlay">
-    
-    <!-- Step 1: Validasi Akses -->
     <div id="introStep1" class="intro-card">
       <div class="scan-icon">🔒</div>
       <div class="scan-title">Akses Kejutan Khusus</div>
       <div class="scan-name">Abdul Latif Hidayatulloh</div>
-      <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 25px;">Halaman ini dibuat khusus hanya untuk kamu. Siap membuka kejutannya? ✨</p>
-      <!-- GUNAKAN ONCLICK LANGSUNG DI HTML AGAR LEBIH ANDAL DI HP -->
-      <button class="btn-intro" id="btnContinue" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
+      <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 20px;">Halaman ini dibuat khusus hanya untuk kamu. Siap membuka kejutannya? ✨</p>
+      <button class="btn-intro" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
     </div>
 
-    <!-- Step 2: Boarding Pass -->
     <div id="introStep2" class="intro-card" style="display: none;">
-      <div style="font-size: 0.95rem; color: #fb7185; font-weight: bold; margin-bottom: 12px;">🎟️ Boarding Pass Special Flight</div>
+      <div style="font-size: 0.85rem; color: #fb7185; font-weight: bold; margin-bottom: 10px;">🎟️ Boarding Pass Special Flight</div>
       <div class="boarding-pass">
         <div class="pass-header"><span class="pass-title">LOVE AIRWAYS ✈️</span><span style="font-size: 0.75rem;">#2026</span></div>
         <div class="pass-route">
-          <div class="city"><div class="city-code">LOP</div><div class="city-name">Lombok</div></div>
+          <div><div class="city-code">LOP</div><div class="city-name">Lombok</div></div>
           <div class="flight-icon">✈️ ➔</div>
-          <div class="city"><div class="city-code">JWG</div><div class="city-name">Jawa</div></div>
+          <div><div class="city-code">JWG</div><div class="city-name">Jawa</div></div>
         </div>
         <div class="pass-details">
-          <div><div class="detail-label">Passenger</div><div class="detail-val">Abdul Latif H.Waduh, maaf banget ya! Kemungkinan besar ada sedikit kesalahan ketik di bagian Javascript atau struktur CSS-nya yang bikin tombol itu jadi nggak responsif pas diklik di HP.
+          <div><div class="detail-label">Passenger</div><div class="detail-val">Abdul Latif H.</div></div>
+          <div><div class="detail-label">Destination</div><div class="detail-val">Meylinda ❤️</div></div>
+        </div>
+      </div>
+      <button class="btn-intro btn-intro-pink" onclick="goToIntroStep3()">Terima Tiket & Buka Kado 🎁</button>
+    </div>
 
-Saya sudah perbaiki kodenya, terutama di bagian cara Javascript mendeteksi klik, dan memastikan posisi tombolnya nggak tertutup elemen transparan lain.
+    <div id="introStep3" class="intro-card" style="display: none;">
+      <div class="gift-box-icon" onclick="finishIntro()">🎁</div>
+      <div style="font-size: 1.1rem; color: #fb7185; font-weight: bold; margin-bottom: 8px;">Pesan Siap Dibuka!</div>
+      <p style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 18px;">Klik kado di atas untuk membuka ucapan spesial dari aku ✨</p>
+      <button class="btn-intro btn-intro-pink" onclick="finishIntro()">Buka Sekarang 🎉</button>
+    </div>
+  </div>
 
-Yuk, ganti kode di file `index.html` GitHub kamu dengan kode terbaru ini:
+  <div id="mainContainer" class="main-container">
 
-```html
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday My Love! ❤️</title>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: linear-gradient(135deg, #0f172a, #1e1b4b); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; color: #fff; position: relative; }
+    <div id="page1" class="card-page active">
+      <div class="special-badge">Special Birthday Wishes ✨</div>
+      <h1>Happy Birthday, Mas! ❤️</h1>
+      <p class="intro-text">Selamat ulang tahun untuk sosok terfavorit dalam hidupku! Semoga di usia yang baru ini kamu selalu sehat, dilimpahkan kebahagiaan, dan makin sukses.</p>
 
-    /* --- OVERLAY INTRO (HALAMAN PEMBUKA) --- */
-    .intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(15px); z-index: 1000; display: flex; justify-content: center; align-items: center; padding: 20px; transition: opacity 0.8s ease, visibility 0.8s ease; }
-    .intro-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .intro-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; padding: 30px 20px; max-width: 380px; width: 100%; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.6); animation: fadeIn 0.5s ease-out; }
+      <div class="player-container">
+        <div class="vinyl-box">
+          <div id="vinylDisk" class="vinyl"><div class="vinyl-center">🎵</div></div>
+        </div>
+        <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">Nadhif Basalamah - Penjaga Hati</div>
+        <div id="visualizer" class="visualizer" style="margin-bottom: 10px;">
+          <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+        <audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+        <button class="btn-action" onclick="toggleMusic()" style="font-size: 0.8rem; padding: 8px 16px;">Putar Lagu 🎵</button>
+      </div>
 
-    /* Icon Scan */
-    .scan-icon { font-size: 50px; margin-bottom: 20px; animation: pulse 2s infinite; }
-    .scan-title { font-size: 0.9rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; margin-bottom: 10px; }
-    .scan-name { font-size: 1.4rem; color: #fb7185; font-weight: bold; margin-bottom: 25px; }
+      <div class="lyrics-quote">"Tak sadar ku temukan... ditemukan orang sepertimu. Yang sanggup menepi, berada di sampingku..."</div>
+      <div class="song-reason-box">
+        <div style="font-size: 0.8rem; font-weight: bold; color: #fb7185; margin-bottom: 4px;">Kenapa lagu ini? 💭</div>
+        <div class="reason-text">Lagu ini selalu bikin aku ingat kamu. Kamu benar-benar jadi tempat pulang dan penjaga hati terbaikku meski jarak memisahkan kita.</div>
+      </div>
 
-    /* Boarding Pass */
-    .boarding-pass { background: #ffffff; color: #0f172a; border-radius: 16px; padding: 18px; text-align: left; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
-    .pass-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #cbd5e1; padding-bottom: 10px; margin-bottom: 12px; }
-    .pass-title { font-size: 0.75rem; font-weight: bold; color: #e11d48; text-transform: uppercase; }
-    .pass-route { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .city-code { font-size: 1.5rem; font-weight: 800; }
-    .city-name { font-size: 0.75rem; color: #64748b; }
-    .flight-icon { font-size: 20px; color: #fb7185; }
-    .pass-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.8rem; background: #f8fafc; padding: 10px; border-radius: 10px; }
-    .detail-label { color: #64748b; font-size: 0.7rem; text-transform: uppercase; }
-    .detail-val { font-weight: bold; }
+      <button class="btn-action" onclick="openSecretModal()">Baca Surat Rahasia LDR 💌</button>
+      <div class="btn-nav-group">
+        <button class="btn-action btn-page-nav" onclick="switchPage(2)">Lanjut ke Kenangan ➔</button>
+      </div>
+    </div>
 
-    /* Gift Box */
-    .gift-box-icon { font-size: 60px; margin-bottom: 15px; cursor: pointer; animation: bounce 1.5s infinite alternate; }
+    <div id="page2" class="card-page">
+      <div class="special-badge">Our Distance & Memories ✈️</div>
+      <h1>Jarak Lombok — Jawa</h1>
+      <p class="intro-text">Ratusan kilometer laut dan daratan nggak akan mengurangi rasa sayangku ke kamu!</p>
 
-    /* Tombol Utama Intro */
-    .btn-intro { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 15px 25px; font-size: 1rem; border-radius: 25px; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); transition: transform 0.2s; position: relative; z-index: 1100; /* Pastikan paling atas */ }
-    .btn-intro:hover { transform: scale(1.02); }
-    .btn-intro:active { transform: scale(0.98); } /* Efek tekan */
-    
-    .btn-intro-pink { background: linear-gradient(135deg, #e11d48, #be123c); box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4); }
+      <div class="map-card">
+        <div class="map-canvas">
+          <svg class="flight-svg" viewBox="0 0 300 110">
+            <path class="flight-line" d="M 260 85 Q 150 20 40 50" />
+          </svg>
+        </div>
+      </div>
 
+      <div class="flight-status-card">
+        <div><span>Status LDR:</span> <strong style="color:#fb7185">Lombok ➔ Jawa</strong></div>
+        <div class="status-badge">CONNECTED ❤️</div>
+      </div>
 
-    /* --- KONTEN UTAMA (HALAMAN-HALAMAN KADO) --- */
-    .main-container { max-width: 420px; width: 100%; display: none; flex-direction: column; align-items: center; gap: 15px; z-index: 10; animation: fadeInPage 1s ease-in-out; }
-    .main-container.active { display: flex; }
+      <p style="font-size: 0.8rem; margin-bottom: 10px;">Klik foto di bawah untuk melihat pesan tersembunyi! 📸</p>
+      <div class="photo-grid">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="https://picsum.photos/200/200?random=1" alt="Foto 1">
+              <div class="photo-caption">Momen Indah #1</div>
+            </div>
+            <div class="flip-card-back">Terima kasih selalu sabar dan bikin aku tersenyum setiap hari! 😊</div>
+          </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="https://picsum.photos/200/200?random=2" alt="Foto 2">
+              <div class="photo-caption">Momen Indah #2</div>
+            </div>
+            <div class="flip-card-back">Nggak sabar buat ketemu dan jalan-jalan bareng lagi! ✈️</div>
+          </div>
+        </div>
+      </div>
 
-    /* Gaya dasar card halaman */
-    .card-page { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); padding:
+      <div class="btn-nav-group">
+        <button class="btn-action btn-page-nav" onclick="switchPage(1)">⬅️ Kembali</button>
+        <button class="btn-action btn-page-nav" onclick="switchPage(3)">Ke Game & Hadiah ➔</button>
+      </div>
+    </div>
+
+    <div id="page3" class="card-page">
+      <div class="special-badge">Interactive Fun 🎮</div>
+      <h1>Game & Hadiah Khusus</h1>
+      <p class="intro-text">Mainkan mini game di bawah untuk membuka kupon hadiah ulang tahunmu!</p>
+
+      <div class="game-section">
+        <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 10px;">Tebak Angka Keberuntungan! 🎲</div>
+        <button class="btn-action" onclick="playGame()" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">Putar Dadu Kejutan 🎯</button>
+        <div id="gameResult" style="margin-top: 8px; font-weight: bold; color: #f472b6; display: none;"></div>
+      </div>
+
+      <div id="couponSection" class="coupon-section">
+        <div style="font-size: 0.85rem; font-weight: bold; color: #f59e0b; margin-bottom: 8px;">Kupon Spesial Ulang Tahun 🎟️</div>
+        <div class="coupon-card">
+          <span>☕ Traktiran Kopi Favorit</span>
+          <button class="claim-btn" onclick="alert('Kupon berhasil diklaim! Kirim screenshot ini ke WhatsApp-ku ya! ❤️')">Klaim</button>
+        </div>
+        <div class="coupon-card">
+          <span>🎬 Free Choice Movie Night</span>
+          <button class="claim-btn" onclick="alert('Kupon berhasil diklaim! Kamu yang pilih filmnya nanti! 🍿')">Klaim</button>
+        </div>
+      </div>
+
+      <div class="bucket-section">
+        <div style="font-size: 0.85rem; font-weight: bold; color: #fb7185; margin-bottom: 8px;">Our Next Bucket List 📝</div>
+        <label class="bucket-item"><input type="checkbox" checked> Ketemu & Quality Time tanpa LDR</label>
+        <label class="bucket-item"><input type="checkbox"> Cobain tempat makan baru bareng</label>
+        <label class="bucket-item"><input type="checkbox"> Liburan bareng ke tempat impian</label>
+      </div>
+
+      <div class="btn-nav-group">
+        <button class="btn-action btn-page-nav" onclick="switchPage(2)">⬅️ Kembali</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="secretModal" class="secret-modal">
+    <div class="secret-content-card">
+      <h2 style="color: #fb7185; margin-bottom: 10px; font-size: 1.2rem;">Surat Rahasia Untukmu 💌</h2>
+      <div style="font-size: 0.85rem; line-height: 1.6; color: #e2e8f0;">
+        <p>Halo sayang,</p>
+        <p>Selamat ulang tahun ya! Di hari yang spesial ini, aku cuma mau mengucapkan terima kasih banyak atas semua hal baik yang sudah kamu berikan selama ini.</p>
+        <p>Meskipun kita terpisah jarak Lombok dan Jawa, rasa sayang dan doaku buat kamu nggak pernah berkurang sedikit pun. Kamu selalu jadi penyemangat terbesarku.</p>
+        <p>Semoga di usiamu yang baru ini, segala hal yang kamu cita-citakan bisa tercapai satu per satu. Tetap jadi pribadi yang baik, sabar, dan penyayang ya!</p>
+        <p>With lots of love,<br><strong>Meylinda ❤️</strong></p>
+      </div>
+      <button class="btn-action" onclick="closeSecretModal()" style="margin-top: 15px;">Tutup Surat</button>
+    </div>
+  </div>
+
+  <script>
+    // Navigation Functions
+    function goToIntroStep2() {
+      document.getElementById('introStep1').style.display = 'none';
+      document.getElementById('introStep2').style.display = 'block';
+    }
+
+    function goToIntroStep3() {
+      document.getElementById('introStep2').style.display = 'none';
+      document.getElementById('introStep3').style.display = 'block';
+    }
+
+    function finishIntro() {
+      document.getElementById('introOverlay').classList.add('hidden');
+      document.getElementById('mainContainer').classList.add('active');
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      }
+    }
+
+    function switchPage(pageNumber) {
+      document.querySelectorAll('.card-page').forEach(page => page.classList.remove('active'));
+      document.getElementById('page' + pageNumber).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Music Player
+    let isPlaying = false;
+    function toggleMusic() {
+      const music = document.getElementById('bgMusic');
+      const vinyl = document.getElementById('vinylDisk');
+      const visualizer = document.getElementById('visualizer');
+      
+      if (isPlaying) {
+        music.pause();
+        vinyl.classList.remove('spinning');
+        visualizer.classList.remove('playing');
+      } else {
+        music.play().catch(() => alert('Silakan klik layar sekali lagi untuk memutar musik.'));
+        vinyl.classList.add('spinning');
+        visualizer.classList.add('playing');
+      }
+      isPlaying = !isPlaying;
+    }
+
+    // Modal
+    function openSecretModal() { document.getElementById('secretModal').classList.add('active'); }
+    function closeSecretModal() { document.getElementById('secretModal').classList.remove('active'); }
+
+    // Game
+    function playGame() {
+      const result = document.getElementById('gameResult');
+      result.style.display = 'block';
+      result.innerText = '🎉 Selamat! Kamu mendapat Angka Keberuntungan 100! Kupon Terbuka!';
+      document.getElementById('couponSection').classList.add('active');
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 50, spread: 50 });
+      }
+    }
+  </script>
+</body>
+</html>
