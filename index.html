@@ -188,7 +188,52 @@
       max-width: 420px;
       width: 100%;
       z-index: 10;
+      position: relative;
     }
+
+    /* PAGE SYSTEM STYLES */
+    .page-content {
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+    .page-content.active {
+      display: block;
+    }
+    .page-indicator {
+      font-size: 0.75rem;
+      color: #38bdf8;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .btn-nav {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      flex: 1;
+    }
+    .btn-nav:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.02);
+    }
+    .btn-nav-next {
+      background: linear-gradient(135deg, #fb7185, #e11d48);
+      border: none;
+    }
+
     .special-badge {
       display: inline-block;
       background: rgba(251, 113, 133, 0.2);
@@ -567,12 +612,6 @@
     }
 
     /* TOMBOL UTAMA */
-    .btn-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 22px;
-    }
     .btn {
       background: linear-gradient(135deg, #e11d48, #be123c);
       color: white;
@@ -583,6 +622,8 @@
       cursor: pointer;
       font-weight: bold;
       transition: transform 0.2s, opacity 0.2s;
+      width: 100%;
+      margin-bottom: 10px;
     }
     .btn:hover {
       transform: scale(1.03);
@@ -591,9 +632,6 @@
     .btn-hearts {
       background: linear-gradient(135deg, #d946ef, #a21caf);
     }
-    .btn-coupon {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-    }
     .btn-secret {
       background: linear-gradient(135deg, #8b5cf6, #6d28d9);
       box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
@@ -601,7 +639,6 @@
 
     /* KUPON */
     .coupon-section {
-      display: none;
       margin-bottom: 20px;
       background: rgba(0, 0, 0, 0.3);
       padding: 15px;
@@ -638,36 +675,11 @@
     }
 
     /* SURAT INTI */
-    .envelope-wrapper {
-      display: none;
-      margin-bottom: 20px;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-    .envelope {
-      background: #f43f5e;
-      border-radius: 12px;
-      padding: 18px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
-      transition: transform 0.3s ease;
-    }
-    .envelope-title {
-      font-weight: bold;
-      color: #fff;
-      font-size: 0.95rem;
-    }
-    .envelope-hint {
-      font-size: 0.8rem;
-      color: #ffe4e6;
-      margin-top: 5px;
-    }
     .letter-content {
-      display: none;
       background: rgba(255, 255, 255, 0.95);
       color: #1e293b;
       padding: 20px;
       border-radius: 15px;
-      margin-top: 15px;
       text-align: left;
       font-size: 0.92rem;
       line-height: 1.7;
@@ -684,12 +696,11 @@
       margin-top: 15px;
     }
 
-    /* BUCKET LIST DIPINDAH KE PALING BAWAH */
+    /* BUCKET LIST */
     .bucket-section {
       background: rgba(255, 255, 255, 0.05);
       border-radius: 18px;
       padding: 16px;
-      margin-top: 10px;
       text-align: left;
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
@@ -811,10 +822,8 @@
 </head>
 <body>
 
-  <!-- OVERLAY INTRO -->
   <div id="introOverlay" class="intro-overlay">
     
-    <!-- Step 1 -->
     <div id="introStep1" class="intro-card">
       <div class="scan-icon">🔒</div>
       <div class="scan-title">Akses Kejutan Khusus</div>
@@ -825,7 +834,6 @@
       <button class="btn-intro" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
     </div>
 
-    <!-- Step 2 -->
     <div id="introStep2" class="intro-card" style="display: none;">
       <div style="font-size: 0.85rem; color: #fb7185; font-weight: bold; margin-bottom: 12px;">
         🎟️ Boarding Pass Special Flight
@@ -862,7 +870,6 @@
       <button class="btn-intro btn-intro-pink" onclick="goToIntroStep3()">Terima Tiket & Buka Kado 🎁</button>
     </div>
 
-    <!-- Step 3 -->
     <div id="introStep3" class="intro-card" style="display: none;">
       <div class="gift-box-icon" onclick="finishIntro()">🎁</div>
       <div style="font-size: 1.1rem; color: #fb7185; font-weight: bold; margin-bottom: 8px;">
@@ -876,144 +883,133 @@
 
   </div>
 
-  <!-- HALAMAN UTAMA -->
   <div class="card">
     <div class="special-badge">✨ Special Day With You ✨</div>
     <h1>Happy Early Birthday! 🎉✨</h1>
     <p class="intro">Spesial buat <b>Abdul Latif Hidayatulloh</b> 🤍</p>
 
-    <!-- PLAYER PIRINGAN HITAM -->
-    <div class="player-container">
-      <div class="vinyl-box">
-        <div id="vinylRecord" class="vinyl">
-          <div class="vinyl-center">🎵</div>
+    <div id="page1" class="page-content active">
+      <div class="page-indicator">Halaman 1 dari 7 • Lagu Spesial</div>
+      <div class="player-container">
+        <div class="vinyl-box">
+          <div id="vinylRecord" class="vinyl">
+            <div class="vinyl-center">🎵</div>
+          </div>
+          <div id="tonearm" class="tonearm"></div>
         </div>
-        <div id="tonearm" class="tonearm"></div>
-      </div>
-      <div class="song-title">🎶 Nuca - Masa Ini, Nanti, & Masa Indah Lainnya</div>
-      <div id="visualizer" class="visualizer">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
-      <button class="btn-play-inside" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu</button>
-    </div>
-
-    <div class="lyrics-quote">
-      "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
-    </div>
-
-    <div class="song-reason-box">
-      <div class="reason-header">
-        <span>💌</span> Kenapa Aku Pilih Lagu Ini?
-      </div>
-      <div class="reason-text">
-        Lagu ini rasanya pas banget menggambarkan perasaan aku. Di setiap liriknya, aku selalu ingat gimana bersyukurnya aku punya kamu di hidupku. Dari masa ini, nanti, sampai masa-masa indah kita ke depannya! 🤍
-      </div>
-    </div>
-
-    <!-- PETA LOMBOK -> JAWA -->
-    <div class="map-card">
-      <div class="map-canvas">
-        <svg class="flight-svg" viewBox="0 0 340 130">
-          <path class="flight-line" d="M 280 85 Q 160 15 50 50" />
-        </svg>
-        <div class="pin pin-lombok">
-          <div class="pin-icon">🏝️</div>
-          <div class="pin-label">Lombok</div>
+        <div class="song-title">🎶 Nuca - Masa Ini, Nanti, & Masa Indah Lainnya</div>
+        <div id="visualizer" class="visualizer">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
         </div>
-        <div class="pin pin-jawa">
-          <div class="pin-icon">🏞️</div>
-          <div class="pin-label">Jawa</div>
+        <button class="btn-play-inside" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu</button>
+      </div>
+
+      <div class="lyrics-quote">
+        "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
+      </div>
+
+      <div class="song-reason-box">
+        <div class="reason-header">
+          <span>💌</span> Kenapa Aku Pilih Lagu Ini?
         </div>
-        <div class="animated-plane">✈️</div>
-        <div class="destination-heart">💖</div>
+        <div class="reason-text">
+          Lagu ini rasanya pas banget menggambarkan perasaan aku. Di setiap liriknya, aku selalu ingat gimana bersyukurnya aku punya kamu di hidupku. Dari masa ini, nanti, sampai masa-masa indah kita ke depannya! 🤍
+        </div>
       </div>
     </div>
 
-    <div class="flight-status-card">
-      <div class="status-badge">🟢 Status: Landed Safely</div>
-      <div class="status-text">Akhirnya ketemu kamu! 🪂✨</div>
+    <div id="page2" class="page-content">
+      <div class="page-indicator">Halaman 2 dari 7 • Perjalanan Kita</div>
+      <div class="map-card">
+        <div class="map-canvas">
+          <svg class="flight-svg" viewBox="0 0 340 130">
+            <path class="flight-line" d="M 280 85 Q 160 15 50 50" />
+          </svg>
+          <div class="pin pin-lombok">
+            <div class="pin-icon">🏝️</div>
+            <div class="pin-label">Lombok</div>
+          </div>
+          <div class="pin pin-jawa">
+            <div class="pin-icon">🏞️</div>
+            <div class="pin-label">Jawa</div>
+          </div>
+          <div class="animated-plane">✈️</div>
+          <div class="destination-heart">💖</div>
+        </div>
+      </div>
+
+      <div class="flight-status-card">
+        <div class="status-badge">🟢 Status: Landed Safely</div>
+        <div class="status-text">Akhirnya ketemu kamu! 🪂✨</div>
+      </div>
     </div>
 
-    <!-- GALERI FOTO BISA DIBALIK (FLIP CARD) -->
-    <div class="gallery-section">
-      <div class="gallery-title">📸 Snapshots of Us (Klik Foto Buat Balik) 🤍</div>
-      <div class="photo-grid">
-        
-        <!-- Card Foto 1 -->
-        <div class="flip-card" onclick="this.classList.toggle('flipped')">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&auto=format&fit=crop&q=80" alt="Moment 1">
-              <div class="photo-caption">Momen Favorit ✨</div>
+    <div id="page3" class="page-content">
+      <div class="page-indicator">Halaman 3 dari 7 • Galeri Momen</div>
+      <div class="gallery-section">
+        <div class="gallery-title">📸 Snapshots of Us (Klik Foto Buat Balik) 🤍</div>
+        <div class="photo-grid">
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&auto=format&fit=crop&q=80" alt="Moment 1">
+                <div class="photo-caption">Momen Favorit ✨</div>
+              </div>
+              <div class="flip-card-back">
+                <b>Foto Kunjungan Pertama! 💖</b><br>
+                <span style="font-size: 0.68rem; margin-top:4px;">"Selalu suka senyum kamu tiap kali kita pertama ketemu!"</span>
+              </div>
             </div>
-            <div class="flip-card-back">
-              <b>Foto Kunjungan Pertama! 💖</b><br>
-              <span style="font-size: 0.68rem; margin-top:4px;">"Selalu suka senyum kamu tiap kali kita pertama ketemu!"</span>
+          </div>
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&auto=format&fit=crop&q=80" alt="Moment 2">
+                <div class="photo-caption">Ketemu Kamu! 💖</div>
+              </div>
+              <div class="flip-card-back">
+                <b>Hari Ini! 🥳</b><br>
+                <span style="font-size: 0.68rem; margin-top:4px;">"Akhirnya bisa duduk berdua begini tanpa terhalang jarak!"</span>
+              </div>
             </div>
           </div>
         </div>
-
-        <!-- Card Foto 2 -->
-        <div class="flip-card" onclick="this.classList.toggle('flipped')">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&auto=format&fit=crop&q=80" alt="Moment 2">
-              <div class="photo-caption">Ketemu Kamu! 💖</div>
-            </div>
-            <div class="flip-card-back">
-              <b>Hari Ini! 🥳</b><br>
-              <span style="font-size: 0.68rem; margin-top:4px;">"Akhirnya bisa duduk berdua begini tanpa terhalang jarak!"</span>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
-    <!-- MINI GAME LOVE METER -->
-    <div class="game-section">
-      <div class="game-title">🎰 Cek Berapa Poin Sayang Kamu Hari Ini?</div>
-      <button class="game-btn" onclick="playLoveMeter()">Hitung Poin Cinta 💘</button>
-      <div id="gameResult" class="game-result"></div>
-    </div>
-
-    <!-- TOMBOL UTAMA -->
-    <div class="btn-group">
+    <div id="page4" class="page-content">
+      <div class="page-indicator">Halaman 4 dari 7 • Mini Game</div>
+      <div class="game-section">
+        <div class="game-title">🎰 Cek Berapa Poin Sayang Kamu Hari Ini?</div>
+        <button class="game-btn" onclick="playLoveMeter()">Hitung Poin Cinta 💘</button>
+        <div id="gameResult" class="game-result"></div>
+      </div>
       <button class="btn btn-hearts" onclick="sendHearts()">💖 Tabur Love Buat Kamu!</button>
-      <button class="btn btn-coupon" onclick="toggleCoupons()">🎟️ Klaim Kupon Spesial Ultah!</button>
-      <button class="btn" onclick="showEnvelope()">Buka Surat Kejutan ✉️🎁</button>
-      <button class="btn btn-secret" onclick="openSecretModal()">🔒 Baca Pesan Rahasia LDR 🤍</button>
     </div>
 
-    <!-- Area Kupon -->
-    <div id="couponSection" class="coupon-section">
-      <div class="coupon-title">🎟️ Birthday Vouchers (Klaim Sekarang!)</div>
-      <div class="coupon-card">
-        <span>🍦 Ditraktir Es Krim / Snack</span>
-        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
-      </div>
-      <div class="coupon-card">
-        <span>💆‍♂️ Pijat Bahu 10 Menit</span>
-        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
-      </div>
-      <div class="coupon-card">
-        <span>👑 Bebas Pilih Nonton / Aktivitas</span>
-        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
+    <div id="page5" class="page-content">
+      <div class="page-indicator">Halaman 5 dari 7 • Kupon Ulang Tahun</div>
+      <div class="coupon-section">
+        <div class="coupon-title">🎟️ Birthday Vouchers (Klaim Sekarang!)</div>
+        <div class="coupon-card">
+          <span>🍦 Ditraktir Es Krim / Snack</span>
+          <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
+        </div>
+        <div class="coupon-card">
+          <span>💆‍♂️ Pijat Bahu 10 Menit</span>
+          <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
+        </div>
       </div>
     </div>
 
-    <!-- Area Surat Inti -->
-    <div id="envelopeWrapper" class="envelope-wrapper">
-      <div id="envelopeBtn" class="envelope" onclick="openLetter()">
-        <div class="envelope-title">📩 Ada Surat Khusus Buat Kamu!</div>
-        <div class="envelope-hint">(Klik amplop ini untuk membuka suratnya)</div>
-      </div>
-
-      <div id="letterContent" class="letter-content">
+    <div id="page6" class="page-content">
+      <div class="page-indicator">Halaman 6 dari 7 • Surat Untukmu</div>
+      <div class="letter-content" style="margin-bottom: 15px;">
         <p><b>Hai, Abdul Latif Hidayatulloh!</b></p>
         <p>Meskipun ulang tahunmu sebenarnya baru di bulan Desember nanti, aku sengaja banget mau nyuri start buat merayakannya lebih awal khusus hari ini, mumpung kita akhirnya bisa duduk berdua dan ketemu langsung secara nyata! 🥳✨</p>
         <p>Terima kasih ya sudah hadir dan jadi salah satu alasan terbaik aku tersenyum setiap hari. Terima kasih selalu sabar, dewasa, dan bikin aku merasa beruntung punya kamu.</p>
@@ -1021,21 +1017,28 @@
         <p>Aku bakal selalu ada buat dukung kamu—di masa ini, nanti, dan masa indah lainnya. Selamat merayakan momen ini bareng aku ya! 🤍</p>
         <div class="letter-footer">Happy Birthday, Sayang! 🥳✨</div>
       </div>
+      <button class="btn btn-secret" onclick="openSecretModal()">🔒 Baca Pesan Rahasia LDR 🤍</button>
     </div>
 
-    <!-- BUCKET LIST DIPINDAH KE PALING BAWAH -->
-    <div class="bucket-section">
-      <div class="bucket-title">🗺️ Lombok Trip Bucket List With You 🤍</div>
-      <label class="bucket-item"><input type="checkbox"> Explore indahnya Lombok bareng 🏝️</label>
-      <label class="bucket-item"><input type="checkbox"> Main & nikmati udara sejuk Sembalun ⛰️</label>
-      <label class="bucket-item"><input type="checkbox"> Savor pemandangan gagah Gunung Rinjani 🌋</label>
-      <label class="bucket-item"><input type="checkbox"> Nyantai & bersepeda di Gili Trawangan 🌊</label>
-      <label class="bucket-item"><input type="checkbox"> Basah-basahan & foto di Air Terjun 🌊✨</label>
+    <div id="page7" class="page-content">
+      <div class="page-indicator">Halaman 7 dari 7 • Harapan Kita</div>
+      <div class="bucket-section">
+        <div class="bucket-title">🗺️ Lombok Trip Bucket List With You 🤍</div>
+        <label class="bucket-item"><input type="checkbox"> Explore indahnya Lombok bareng 🏝️</label>
+        <label class="bucket-item"><input type="checkbox"> Main & nikmati udara sejuk Sembalun ⛰️</label>
+        <label class="bucket-item"><input type="checkbox"> Savor pemandangan gagah Gunung Rinjani 🌋</label>
+        <label class="bucket-item"><input type="checkbox"> Nyantai & bersepeda di Gili Trawangan 🌊</label>
+        <label class="bucket-item"><input type="checkbox"> Basah-basahan & foto di Air Terjun 🌊✨</label>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button id="btnPrev" class="btn-nav" onclick="prevPage()" style="display: none;">⬅️ Kembali</button>
+      <button id="btnNext" class="btn-nav btn-nav-next" onclick="nextPage()">Lanjut ➔</button>
     </div>
 
   </div>
 
-  <!-- MODAL PESAN RAHASIA LDR -->
   <div id="secretModal" class="secret-modal">
     <div class="secret-content-card">
       <div class="secret-title">🤍 Curahan Hati & Pesan Rahasia LDR</div>
@@ -1062,6 +1065,51 @@
     const tonearm = document.getElementById('tonearm');
     const visualizer = document.getElementById('visualizer');
 
+    let currentPage = 1;
+    const totalPages = 7;
+
+    function updatePageVisibility() {
+      for (let i = 1; i <= totalPages; i++) {
+        const page = document.getElementById('page' + i);
+        if (page) {
+          page.classList.remove('active');
+        }
+      }
+      const activePage = document.getElementById('page' + currentPage);
+      if (activePage) {
+        activePage.classList.add('active');
+      }
+
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+
+      if (currentPage === 1) {
+        btnPrev.style.display = 'none';
+      } else {
+        btnPrev.style.display = 'block';
+      }
+
+      if (currentPage === totalPages) {
+        btnNext.style.display = 'none';
+      } else {
+        btnNext.style.display = 'block';
+      }
+    }
+
+    function nextPage() {
+      if (currentPage < totalPages) {
+        currentPage++;
+        updatePageVisibility();
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        updatePageVisibility();
+      }
+    }
+
     function goToIntroStep2() {
       document.getElementById('introStep1').style.display = 'none';
       document.getElementById('introStep2').style.display = 'block';
@@ -1074,123 +1122,71 @@
 
     function finishIntro() {
       document.getElementById('introOverlay').classList.add('hidden');
-      music.play().then(() => {
-        updatePlayerUI(true);
-      }).catch(() => {});
-      triggerCelebration();
+      toggleMusic();
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
     }
 
     function toggleMusic() {
       if (music.paused) {
-        music.play();
-        updatePlayerUI(true);
+        music.play().then(() => {
+          vinyl.classList.add('spinning');
+          tonearm.classList.add('playing');
+          visualizer.classList.add('playing');
+          if (musicBtn) musicBtn.innerText = '⏸️ Jeda Lagu';
+        }).catch(err => {
+          console.log("Autoplay blocked: ", err);
+        });
       } else {
         music.pause();
-        updatePlayerUI(false);
-      }
-    }
-
-    function updatePlayerUI(isPlaying) {
-      if (isPlaying) {
-        musicBtn.innerText = "⏸ Pause Lagu";
-        vinyl.classList.add('spinning');
-        tonearm.classList.add('playing');
-        visualizer.classList.add('playing');
-      } else {
-        musicBtn.innerText = "🎵 Putar Lagu";
         vinyl.classList.remove('spinning');
         tonearm.classList.remove('playing');
         visualizer.classList.remove('playing');
+        if (musicBtn) musicBtn.innerText = '🎵 Putar Lagu';
+      }
+    }
+
+    function sendHearts() {
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('div');
+          heart.classList.add('floating-heart');
+          heart.innerHTML = ['💖', '💗', '❤️', '💕', '✨'][Math.floor(Math.random() * 5)];
+          heart.style.left = Math.random() * 90 + 5 + 'vw';
+          heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 3000);
+        }, i * 150);
       }
     }
 
     function playLoveMeter() {
-      const resultDiv = document.getElementById('gameResult');
-      resultDiv.style.display = 'block';
-      resultDiv.innerText = "Sedang menghitung...";
-      
+      const res = document.getElementById('gameResult');
+      res.style.display = 'block';
+      res.innerHTML = 'Menghitung... ⏳';
       setTimeout(() => {
-        const score = Math.floor(Math.random() * 900) + 99900;
-        resultDiv.innerText = `🎉 Poin Cinta: ${score.toLocaleString()} %! (Tercatat Maksimal! ✨)`;
-        triggerCelebration();
-        sendHearts();
-      }, 800);
-    }
-
-    function sendHearts() {
-      const emojis = ['💖', '❤️', '✨', '🧸', '🤍', '🥳'];
-      for (let i = 0; i < 12; i++) {
-        setTimeout(() => {
-          const heart = document.createElement('div');
-          heart.classList.add('floating-heart');
-          heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-          heart.style.left = Math.random() * 80 + 10 + 'vw';
-          heart.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
-          document.body.appendChild(heart);
-
-          setTimeout(() => { heart.remove(); }, 3000);
-        }, i * 100);
-      }
-    }
-
-    function toggleCoupons() {
-      const section = document.getElementById('couponSection');
-      section.style.display = section.style.display === 'block' ? 'none' : 'block';
-      if (section.style.display === 'block') {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
+        res.innerHTML = '💯 Infinity / 100! (Gak Terhingga Sayangnya! 💖)';
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+      }, 1000);
     }
 
     function claimCoupon(btn) {
-      btn.innerText = "Terklaim! ✅";
-      btn.style.background = "#6b7280";
+      btn.innerText = 'Sudah Diklaim ✅';
+      btn.style.background = '#64748b';
       btn.disabled = true;
-      triggerCelebration();
-    }
-
-    function showEnvelope() {
-      document.getElementById('envelopeWrapper').style.display = 'block';
-      document.getElementById('envelopeWrapper').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function openLetter() {
-      const letter = document.getElementById('letterContent');
-      const envelopeBtn = document.getElementById('envelopeBtn');
-
-      if (letter.style.display !== 'block') {
-        letter.style.display = 'block';
-        envelopeBtn.style.background = '#be123c';
-        envelopeBtn.querySelector('.envelope-title').innerText = '💌 Surat Terbuka';
-        envelopeBtn.querySelector('.envelope-hint').innerText = 'Selamat membaca!';
-        triggerCelebration();
-      }
+      confetti({ particleCount: 30, spread: 50 });
     }
 
     function openSecretModal() {
       document.getElementById('secretModal').classList.add('active');
-      triggerCelebration();
-      sendHearts();
     }
 
     function closeSecretModal() {
       document.getElementById('secretModal').classList.remove('active');
     }
-
-    function triggerCelebration() {
-      var count = 150;
-      var defaults = { origin: { y: 0.7 } };
-
-      function fire(particleRatio, opts) {
-        confetti(Object.assign({}, defaults, opts, {
-          particleCount: Math.floor(count * particleRatio)
-        }));
-      }
-
-      fire(0.25, { spread: 26, startVelocity: 55 });
-      fire(0.2, { spread: 60 });
-      fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-    }
   </script>
-
 </body>
 </html>
