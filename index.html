@@ -189,7 +189,7 @@
     }
     .reason-text { font-size: 0.8rem; color: #cbd5e1; line-height: 1.4; }
 
-    /* Peta Animasi */
+    /* Peta Animasi LDR */
     .map-card {
       background: rgba(15, 23, 42, 0.6); border-radius: 16px; padding: 10px;
       margin-bottom: 12px; border: 1px solid rgba(255, 255, 255, 0.1); width: 100%;
@@ -206,7 +206,7 @@
       align-items: center; justify-content: space-between; font-size: 0.8rem; width: 100%;
     }
 
-    /* Flip Cards Фото */
+    /* Flip Cards Foto */
     .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; width: 100%; }
     .flip-card { background-color: transparent; height: 140px; perspective: 1000px; cursor: pointer; }
     .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
@@ -235,9 +235,9 @@
     .btn-page-nav { background: #4b5563; padding: 10px; font-size: 0.85rem; flex: 1; border-radius: 15px; }
 
     /* Modals */
-    .secret-modal, .riddle-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(20px); z-index: 3000; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
-    .secret-modal.active, .riddle-modal.active { opacity: 1; visibility: visible; }
-    .secret-content-card, .riddle-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(251, 113, 133, 0.3); border-radius: 20px; padding: 20px; max-width: 400px; width: 100%; max-height: 85vh; overflow-y: auto; text-align: left; }
+    .secret-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(20px); z-index: 3000; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
+    .secret-modal.active { opacity: 1; visibility: visible; }
+    .secret-content-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(251, 113, 133, 0.3); border-radius: 20px; padding: 20px; max-width: 400px; width: 100%; max-height: 85vh; overflow-y: auto; text-align: left; }
 
     /* Animations */
     @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
@@ -250,7 +250,9 @@
 </head>
 <body>
 
+  <!-- ================= OVERLAY INTRO ================= -->
   <div id="introOverlay" class="intro-overlay">
+    <!-- Step 1 -->
     <div id="introStep1" class="intro-card">
       <div class="scan-icon">🔒</div>
       <div class="scan-title">Akses Kejutan Khusus</div>
@@ -259,6 +261,7 @@
       <button class="btn-intro" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
     </div>
 
+    <!-- Step 2 -->
     <div id="introStep2" class="intro-card" style="display: none;">
       <div style="font-size: 0.85rem; color: #fb7185; font-weight: bold; margin-bottom: 10px;">🎟️ Boarding Pass Special Flight</div>
       <div class="boarding-pass">
@@ -276,6 +279,7 @@
       <button class="btn-intro btn-intro-pink" onclick="goToIntroStep3()">Terima Tiket & Buka Kado 🎁</button>
     </div>
 
+    <!-- Step 3 -->
     <div id="introStep3" class="intro-card" style="display: none;">
       <div class="gift-box-icon" onclick="finishIntro()">🎁</div>
       <div style="font-size: 1.1rem; color: #fb7185; font-weight: bold; margin-bottom: 8px;">Pesan Siap Dibuka!</div>
@@ -284,18 +288,21 @@
     </div>
   </div>
 
+  <!-- ================= HALAMAN UTAMA ================= -->
   <div id="mainContainer" class="main-container">
 
+    <!-- PAGE 1: UCAPAN & PLAYER LAGU NUCA -->
     <div id="page1" class="card-page active">
       <div class="special-badge">Special Birthday Wishes ✨</div>
       <h1>Happy Birthday, Mas! ❤️</h1>
       <p class="intro-text">Selamat ulang tahun untuk sosok terfavorit dalam hidupku! Semoga di usia yang baru ini kamu selalu sehat, dilimpahkan kebahagiaan, dan makin sukses.</p>
 
+      <!-- Music Player -->
       <div class="player-container">
         <div class="vinyl-box">
           <div id="vinylDisk" class="vinyl"><div class="vinyl-center">🎵</div></div>
         </div>
-        <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">Nadhif Basalamah - Penjaga Hati</div>
+        <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">Nuca - Masa Ini, Nanti, dan Masa Indah Lainnya</div>
         <div id="visualizer" class="visualizer" style="margin-bottom: 10px;">
           <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
         </div>
@@ -303,10 +310,10 @@
         <button class="btn-action" onclick="toggleMusic()" style="font-size: 0.8rem; padding: 8px 16px;">Putar Lagu 🎵</button>
       </div>
 
-      <div class="lyrics-quote">"Tak sadar ku temukan... ditemukan orang sepertimu. Yang sanggup menepi, berada di sampingku..."</div>
+      <div class="lyrics-quote">"Masa ini, nanti, dan masa indah lainnya... Ku inginkan kamu ada di sana, menemani setiap langkah dan waktuku."</div>
       <div class="song-reason-box">
         <div style="font-size: 0.8rem; font-weight: bold; color: #fb7185; margin-bottom: 4px;">Kenapa lagu ini? 💭</div>
-        <div class="reason-text">Lagu ini selalu bikin aku ingat kamu. Kamu benar-benar jadi tempat pulang dan penjaga hati terbaikku meski jarak memisahkan kita.</div>
+        <div class="reason-text">Lagu Nuca ini selalu mengingatkan aku kalau aku mau terus jalanin hari-hari indah, sekarang dan nanti, sama kamu.</div>
       </div>
 
       <button class="btn-action" onclick="openSecretModal()">Baca Surat Rahasia LDR 💌</button>
@@ -315,11 +322,13 @@
       </div>
     </div>
 
+    <!-- PAGE 2: PETA LDR & FLIP CARDS FOTO -->
     <div id="page2" class="card-page">
       <div class="special-badge">Our Distance & Memories ✈️</div>
       <h1>Jarak Lombok — Jawa</h1>
       <p class="intro-text">Ratusan kilometer laut dan daratan nggak akan mengurangi rasa sayangku ke kamu!</p>
 
+      <!-- Map -->
       <div class="map-card">
         <div class="map-canvas">
           <svg class="flight-svg" viewBox="0 0 300 110">
@@ -361,6 +370,7 @@
       </div>
     </div>
 
+    <!-- PAGE 3: MINI GAME, KUPON & BUCKET LIST -->
     <div id="page3" class="card-page">
       <div class="special-badge">Interactive Fun 🎮</div>
       <h1>Game & Hadiah Khusus</h1>
@@ -398,6 +408,7 @@
 
   </div>
 
+  <!-- MODAL SURAT RAHASIA -->
   <div id="secretModal" class="secret-modal">
     <div class="secret-content-card">
       <h2 style="color: #fb7185; margin-bottom: 10px; font-size: 1.2rem;">Surat Rahasia Untukmu 💌</h2>
