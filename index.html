@@ -6,10 +6,198 @@
   <title>Happy Birthday My Love! ❤️</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: linear-gradient(135deg, #0f172a, #1e1b4b); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; color: #fff; position: relative; }
+
+    /* --- OVERLAY INTRO (HALAMAN PEMBUKA) --- */
+    .intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(15px); z-index: 1000; display: flex; justify-content: center; align-items: center; padding: 20px; transition: opacity 0.8s ease, visibility 0.8s ease; }
+    .intro-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .intro-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; padding: 30px 20px; max-width: 380px; width: 100%; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.6); animation: fadeIn 0.5s ease-out; }
+
+    /* Icon Scan */
+    .scan-icon { font-size: 50px; margin-bottom: 20px; animation: pulse 2s infinite; }
+    .scan-title { font-size: 0.9rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; margin-bottom: 10px; }
+    .scan-name { font-size: 1.4rem; color: #fb7185; font-weight: bold; margin-bottom: 25px; }
+
+    /* Boarding Pass */
+    .boarding-pass { background: #ffffff; color: #0f172a; border-radius: 16px; padding: 18px; text-align: left; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    .pass-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #cbd5e1; padding-bottom: 10px; margin-bottom: 12px; }
+    .pass-title { font-size: 0.75rem; font-weight: bold; color: #e11d48; text-transform: uppercase; }
+    .pass-route { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .city-code { font-size: 1.5rem; font-weight: 800; }
+    .city-name { font-size: 0.75rem; color: #64748b; }
+    .flight-icon { font-size: 20px; color: #fb7185; }
+    .pass-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.8rem; background: #f8fafc; padding: 10px; border-radius: 10px; }
+    .detail-label { color: #64748b; font-size: 0.7rem; text-transform: uppercase; }
+    .detail-val { font-weight: bold; }
+
+    /* Gift Box */
+    .gift-box-icon { font-size: 60px; margin-bottom: 15px; cursor: pointer; animation: bounce 1.5s infinite alternate; }
+
+    /* Tombol Utama Intro */
+    .btn-intro { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 15px 25px; font-size: 1rem; border-radius: 25px; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); transition: transform 0.2s; position: relative; z-index: 1100; /* Pastikan paling atas */ }
+    .btn-intro:hover { transform: scale(1.02); }
+    .btn-intro:active { transform: scale(0.98); } /* Efek tekan */
+    
+    .btn-intro-pink { background: linear-gradient(135deg, #e11d48, #be123c); box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4); }
+
+
+    /* --- KONTEN UTAMA (HALAMAN-HALAMAN KADO) --- */
+    .main-container { max-width: 420px; width: 100%; display: none; flex-direction: column; align-items: center; gap: 15px; z-index: 10; animation: fadeInPage 1s ease-in-out; }
+    .main-container.active { display: flex; }
+
+    /* Gaya dasar card halaman */
+    .card-page { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); padding: 30px 22px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.2); text-align: center; width: 100%; display: none; }
+    .card-page.active { display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.5s ease-out; }
+
+    .special-badge { display: inline-block; background: rgba(251, 113, 133, 0.2); color: #fda4af; padding: 6px 18px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-bottom: 15px; border: 1px solid rgba(251, 113, 133, 0.4); }
+    h1 { color: #fb7185; font-size: 1.7rem; margin-bottom: 6px; }
+    p.intro-text { color: #e2e8f0; font-size: 1rem; margin-bottom: 20px; }
+
+    /* Player Musik */
+    .player-container { background: rgba(0, 0, 0, 0.35); border-radius: 18px; padding: 16px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.12); display: flex; flex-direction: column; align-items: center; position: relative; }
+    .vinyl-box { position: relative; width: 110px; height: 110px; margin-bottom: 12px; }
+    .vinyl { width: 100%; height: 100%; background: radial-gradient(circle, #333 18%, #111 20%, #111 35%, #222 36%, #111 50%, #222 51%, #000 70%); border-radius: 50%; border: 3px solid #333; box-shadow: 0 0 15px rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; }
+    .vinyl-center { width: 36px; height: 36px; background: #fb7185; border-radius: 50%; border: 3px solid #fff; font-size: 12px; display: flex; justify-content: center; align-items: center; }
+    .spinning { animation: spinVinyl 4s linear infinite; }
+    .tonearm { position: absolute; top: -5px; right: 5px; width: 30px; height: 55px; border-top: 3px solid #cbd5e1; border-right: 3px solid #cbd5e1; border-top-right-radius: 10px; transform-origin: top right; transform: rotate(-30deg); transition: transform 0.5s ease; pointer-events: none; }
+    .tonearm.playing { transform: rotate(10deg); }
+    .visualizer { display: flex; gap: 4px; height: 16px; align-items: flex-end; }
+    .bar { width: 4px; height: 4px; background: #fb7185; border-radius: 2px; }
+    .playing .bar { animation: bounceBar 0.8s ease-in-out infinite alternate; }
+
+    /* Kutipan Lirik */
+    .lyrics-quote { font-style: italic; color: #fda4af; font-size: 0.9rem; margin-bottom: 15px; background: rgba(0, 0, 0, 0.25); padding: 12px 15px; border-radius: 12px; border-left: 3px solid #fb7185; line-height: 1.4; }
+    .song-reason-box { background: rgba(251, 113, 133, 0.08); border: 1px dashed rgba(251, 113, 133, 0.35); border-radius: 16px; padding: 14px; text-align: left; }
+    .reason-text { font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; }
+
+    /* Peta Animasi */
+    .map-card { background: rgba(15, 23, 42, 0.6); border-radius: 18px; padding: 14px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; }
+    .map-canvas { position: relative; width: 100%; height: 130px; background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%); border-radius: 12px; }
+    .flight-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .flight-line { fill: none; stroke: #fb7185; stroke-width: 2.5; stroke-dasharray: 6 4; animation: dashMoveSVG 2s linear infinite; }
+    .pin { position: absolute; display: flex; flex-direction: column; align-items: center; z-index: 3; }
+    .pin-lombok { right: 20px; bottom: 20px; }
+    .pin-jawa { left: 20px; top: 35px; }
+    .animated-plane { position: absolute; font-size: 20px; z-index: 5; offset-path: path("M 280 85 Q 160 15 50 50"); animation: flyFromLombokToJawaAnimation 4s ease-in-out infinite; }
+    .flight-status-card { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; }
+    .status-badge { color: #10b981; font-weight: bold; }
+
+    /* Snapshots (Flip Cards) */
+    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .flip-card { background-color: transparent; height: 150px; perspective: 1000px; cursor: pointer; }
+    .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; overflow: hidden; }
+    .flip-card-front { background: #fff; padding: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    .flip-card-front img { width: 100%; height: 115px; object-fit: cover; border-radius: 8px; }
+    .photo-caption { font-size: 0.7rem; color: #334155; font-weight: bold; margin-top: 4px; }
+    .flip-card-back { background: linear-gradient(135deg, #fb7185, #e11d48); color: white; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; font-size: 0.75rem; line-height: 1.4; }
+
+    /* Mini Game */
+    .game-section { background: rgba(244, 63, 94, 0.1); border: 1px dashed rgba(244, 63, 94, 0.4); border-radius: 18px; padding: 16px; margin-bottom: 22px; width: 100%; }
+    .game-btn { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; border: none; padding: 10px 18px; font-size: 0.85rem; border-radius: 15px; font-weight: bold; cursor: pointer; }
+    .game-result { margin-top: 10px; font-size: 1.1rem; font-weight: bold; color: #f472b6; display: none; }
+
+    /* Kupon */
+    .coupon-section { background: rgba(0, 0, 0, 0.3); padding: 15px; border-radius: 15px; border: 1px dashed #f59e0b; margin-bottom: 20px; opacity: 0.5; pointer-events: none; transition: opacity 0.5s ease; width: 100%; }
+    .coupon-section.active { opacity: 1; pointer-events: auto; }
+    .coupon-card { background: #fff; color: #1e293b; padding: 10px 15px; border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: bold; }
+    .claim-btn { background: #10b981; color: white; border: none; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
+
+    /* Bucket List */
+    .bucket-section { background: rgba(255, 255, 255, 0.05); border-radius: 18px; padding: 16px; margin-bottom: 22px; text-align: left; border: 1px solid rgba(255, 255, 255, 0.1); width: 100%; }
+    .bucket-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #e2e8f0; margin-bottom: 8px; cursor: pointer; }
+    .bucket-item input { accent-color: #fb7185; width: 16px; height: 16px; }
+
+    /* Tombol Navigasi Halaman */
+    .btn-nav-group { display: flex; gap: 10px; width: 100%; margin-top: 20px; }
+    .btn-page-nav { background: #4b5563; padding: 12px; font-size: 0.9rem; flex: 1; }
+    .btn-page-nav:hover { background: #6b7280; }
+
+    /* Modal Pesan Rahasia LDR */
+    .secret-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(20px); z-index: 1500; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s ease; }
+    .secret-modal.active { opacity: 1; visibility: visible; }
+    .secret-content-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(251, 113, 133, 0.3); border-radius: 24px; padding: 25px 20px; max-width: 420px; width: 100%; color: #f1f5f9; text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+    .secret-text { font-size: 0.9rem; line-height: 1.8; }
+    .secret-text p { margin-bottom: 14px; }
+
+    /* Modal Teka-Teki */
+    .riddle-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(20px); z-index: 1600; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s ease; }
+    .riddle-modal.active { opacity: 1; visibility: visible; }
+    .riddle-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 24px; padding: 25px 20px; max-width: 380px; width: 100%; text-align: center; }
+    .riddle-question { font-size: 0.95rem; color: #e2e8f0; font-style: italic; line-height: 1.7; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; border-left: 3px solid #f59e0b; margin-bottom: 15px; }
+    .riddle-input { width: 100%; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 12px; border-radius: 12px; font-size: 0.9rem; margin-bottom: 10px; }
+    .riddle-error { color: #f87171; font-size: 0.8rem; margin-bottom: 10px; display: none; }
+
+    /* Lainnya */
+    .floating-heart { position: fixed; bottom: -20px; font-size: 24px; pointer-events: none; animation: floatUp 3s linear forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInPage { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+    @keyframes dashMoveSVG { to { stroke-dashoffset: -20; } }
+    @keyframes spinVinyl { 100% { transform: rotate(360deg); } }
+    @keyframes bounceBar { 0% { height: 4px; } 100% { height: 16px; } }
+    @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
+  </style>
+</head>
+<body>
+
+  <!-- ====================================
+       OVERLAY INTRO (HALAMAN PEMBUKA)
+  ==================================== -->
+  <div id="introOverlay" class="intro-overlay">
+    
+    <!-- Step 1: Validasi Akses -->
+    <div id="introStep1" class="intro-card">
+      <div class="scan-icon">🔒</div>
+      <div class="scan-title">Akses Kejutan Khusus</div>
+      <div class="scan-name">Abdul Latif Hidayatulloh</div>
+      <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 25px;">Halaman ini dibuat khusus hanya untuk kamu. Siap membuka kejutannya? ✨</p>
+      <!-- GUNAKAN ONCLICK LANGSUNG DI HTML UNTUK KEANDALAN TERBAIK -->
+      <button class="btn-intro" id="btnContinue" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
+    </div>
+
+    <!-- Step 2: Boarding Pass -->
+    <div id="introStep2" class="intro-card" style="display: none;">
+      <div style="font-size: 0.9rem; color: #fb7185; font-weight: bold; margin-bottom: 12px;">🎟️ Boarding Pass Special Flight</div>
+      <div class="boarding-pass">
+        <div class="pass-header"><span class="pass-title">LOVE AIRWAYS ✈️</span><span style="font-size: 0.75rem;">#2026</span></div>
+        <div class="pass-route">
+          <div class="city"><div class="city-code">LOP</div><div class="city-name">Lombok</div></div>
+          <div class="flight-icon">✈️ ➔</div>
+          <div class="city"><div class="city-code">JWG</div><div class="city-name">Jawa</div></div>
+        </div>
+        <div class="pass-details">
+          <div><div class="detail-label">Passenger</div><div class="detail-val">Abdul Latif H.</div></div>
+          <div><div class="detail-label">Destination</div><div class="detail-val">Meylinda ❤️</div></div>
+        </div>
+      </div>
+      <button class="btn-intro btn-intro-pink" id="btnAcceptTicket" onclick="goToIntroStep3()">Terima Tiket & Buka Kado 🎁</button>
+    </div>
+
+    <!-- Step 3: Buka Kado -->
+    <div id="introStep3" class="intro-card" style="display: none;">
+      <div class="gift-box-icon" id="giftBox" onclick="finishIntro()">🎁</div>
+      <div style="font-size: 1.15rem; color: #fb7185; font-weight: bold; margin-bottom: 10px;">Pesan Siap Dibuka!Tentu! Ini adalah kode terbaru yang sudah saya perbaiki. Saya telah mengubah metode deteksi klik agar lebih andal di perangkat HP dan memastikan tombolnya berada di lapisan paling atas agar tidak terhalang.
+
+Maaf atas ketidaknyamanannya. Silakan *copy* seluruh kode di bawah ini dan gunakan untuk mengganti isi file `index.html` kamu di GitHub:
+
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Birthday My Love! ❤️</title>
+  <script src="[https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js](https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js)"></script>
+  <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent; /* Hilangkan highlight abu-abu di HP */
     }
     body {
       background: linear-gradient(135deg, #0f172a, #1e1b4b);
@@ -26,7 +214,7 @@
 
     /* ====================================
        OVERLAY INTRO (HALAMAN PEMBUKA)
-       SAMA SEPERTI AWAL
+       DIPERBAIKI UNTUK HP
     ==================================== */
     .intro-overlay {
       position: fixed;
@@ -34,14 +222,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(15, 23, 42, 0.95);
+      background: rgba(15, 23, 42, 0.98); /* Lebih gelap sedikit */
       backdrop-filter: blur(15px);
-      z-index: 1000;
+      z-index: 2000; /* Z-index sangat tinggi */
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
       transition: opacity 0.8s ease, visibility 0.8s ease;
+      touch-action: none; /* Cegah scroll background */
     }
     .intro-overlay.hidden {
       opacity: 0;
@@ -52,33 +241,37 @@
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 24px;
-      padding: 25px 20px;
+      padding: 30px 20px;
       max-width: 380px;
       width: 100%;
       text-align: center;
       box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-      animation: fadeIn 0.5s ease-out;
+      animation: fadeInIntro 0.5s ease-out;
+      position: relative;
+      z-index: 2001;
     }
 
     /* Icon Scan */
     .scan-icon {
-      font-size: 45px;
-      margin-bottom: 15px;
+      font-size: 50px;
+      margin-bottom: 20px;
       animation: pulse 2s infinite;
+      display: inline-block;
     }
     .scan-title {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #38bdf8;
       text-transform: uppercase;
       letter-spacing: 2px;
       font-weight: bold;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .scan-name {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       color: #fb7185;
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      word-wrap: break-word;
     }
 
     /* Boarding Pass */
@@ -106,27 +299,19 @@
       color: #e11d48;
       text-transform: uppercase;
     }
-    .pass-flight {
-      font-size: 0.75rem;
-      color: #64748b;
-      font-weight: bold;
-    }
     .pass-route {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
     }
-    .city {
-      text-align: center;
-    }
     .city-code {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 800;
       color: #0f172a;
     }
     .city-name {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: #64748b;
     }
     .flight-icon {
@@ -137,14 +322,14 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       background: #f8fafc;
       padding: 10px;
       border-radius: 10px;
     }
     .detail-label {
       color: #64748b;
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
     }
     .detail-val {
@@ -154,46 +339,86 @@
 
     /* Gift Box */
     .gift-box-icon {
-      font-size: 55px;
-      margin-bottom: 10px;
+      font-size: 60px;
+      margin-bottom: 15px;
       cursor: pointer;
-      animation: bounce 1.5s infinite alternate;
+      animation: bounceGift 1.5s infinite alternate;
+      display: inline-block;
+      position: relative;
+      z-index: 2002;
     }
 
-    /* Tombol Intro */
+    /* Tombol Utama Intro - DIPERBAIKI UTK TOUCH */
     .btn-intro {
       background: linear-gradient(135deg, #0284c7, #0369a1);
       color: white;
       border: none;
-      padding: 12px 24px;
-      font-size: 0.9rem;
-      border-radius: 20px;
+      padding: 16px 25px; /* Sedikit lebih besar */
+      font-size: 1rem;
+      border-radius: 25px;
       font-weight: bold;
       cursor: pointer;
       width: 100%;
-      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
-      transition: transform 0.2s;
+      box-shadow: 0 5px 15px rgba(2, 132, 199, 0.4);
+      transition: transform 0.1s, box-shadow 0.1s;
+      position: relative;
+      z-index: 2005; /* Paling atas di kartunya */
+      display: block;
+      -webkit-appearance: none; /* Matikan style default iOS */
     }
-    .btn-intro:hover {
-      transform: scale(1.02);
+    
+    /* Efek aktif saat disentuh di HP */
+    .btn-intro:active {
+      transform: scale(0.97) translateY(2px);
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.5);
     }
+    
     .btn-intro-pink {
       background: linear-gradient(135deg, #e11d48, #be123c);
-      box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
+      box-shadow: 0 5px 15px rgba(225, 29, 72, 0.4);
+    }
+    .btn-intro-pink:active {
+      box-shadow: 0 2px 10px rgba(225, 29, 72, 0.5);
     }
 
 
     /* ====================================
        STRUKTUR HALAMAN INTI (CARD STYLES)
     ==================================== */
-    .card-container {
+    .main-container {
       max-width: 420px;
       width: 100%;
-      display: flex;
+      display: none; /* Hidden until intro finished */
       flex-direction: column;
       align-items: center;
       gap: 15px; /* Jarak antar card */
       z-index: 10;
+      animation: fadeInPageContainer 1s ease-in-out;
+      padding-bottom: 30px;
+    }
+    /* Aktif setelah intro selesai */
+    .main-container.active {
+      display: flex;
+    }
+
+    /* Gaya dasar untuk card/halaman */
+    .card-page {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      padding: 30px 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      width: 100%;
+      display: none; /* Hidden initially */
+    }
+    /* Aktif untuk halaman yang sedang dilihat */
+    .card-page.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeInPage 0.5s ease-out;
     }
 
     .special-badge {
@@ -208,25 +433,14 @@
       border: 1px solid rgba(251, 113, 133, 0.4);
     }
 
-    .card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      padding: 30px 22px;
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      text-align: center;
-      width: 100%;
-    }
-
     h1 {
       color: #fb7185;
-      font-size: 1.65rem;
+      font-size: 1.7rem;
       margin-bottom: 6px;
     }
-    p.intro {
+    p.intro-text {
       color: #e2e8f0;
-      font-size: 0.95rem;
+      font-size: 1rem;
       line-height: 1.5;
       margin-bottom: 20px;
     }
@@ -273,7 +487,7 @@
       font-size: 12px;
     }
     .spinning {
-      animation: spin 4s linear infinite;
+      animation: spinVinyl 4s linear infinite;
     }
     .tonearm {
       position: absolute;
@@ -293,7 +507,7 @@
       transform: rotate(10deg);
     }
     .song-title {
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       color: #e2e8f0;
       margin-bottom: 8px;
       font-weight: 500;
@@ -323,7 +537,7 @@
     .lyrics-quote {
       font-style: italic;
       color: #fda4af;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       margin-bottom: 15px;
       background: rgba(0, 0, 0, 0.25);
       padding: 12px 15px;
@@ -345,13 +559,13 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: bold;
       color: #fb7185;
       margin-bottom: 6px;
     }
     .reason-text {
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       color: #cbd5e1;
       line-height: 1.5;
     }
@@ -385,7 +599,7 @@
       stroke: #fb7185;
       stroke-width: 2.5;
       stroke-dasharray: 6 4;
-      animation: dashMove 2s linear infinite;
+      animation: dashMoveSVG 2s linear infinite;
     }
     .pin {
       position: absolute;
@@ -402,32 +616,12 @@
       left: 20px;
       top: 35px;
     }
-    .pin-icon {
-      font-size: 20px;
-    }
-    .pin-label {
-      font-size: 0.7rem;
-      font-weight: bold;
-      color: #e2e8f0;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 2px 7px;
-      border-radius: 8px;
-      margin-top: 2px;
-    }
     .animated-plane {
       position: absolute;
       font-size: 20px;
       z-index: 5;
       offset-path: path("M 280 85 Q 160 15 50 50");
-      animation: flyFromLombokToJawa 4s ease-in-out infinite;
-    }
-    .destination-heart {
-      position: absolute;
-      left: 38px;
-      top: 18px;
-      font-size: 16px;
-      z-index: 4;
-      animation: heartPop 4s ease-in-out infinite;
+      animation: flyFromLombokToJawaAnimation 4s ease-in-out infinite;
     }
     .flight-status-card {
       background: rgba(16, 185, 129, 0.1);
@@ -438,38 +632,19 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
     }
     .status-badge {
       color: #10b981;
       font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .status-text {
-      color: #cbd5e1;
-      font-style: italic;
     }
 
     /* Snapshots (Flip Cards) */
-    .gallery-section {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .gallery-title {
-      font-size: 0.9rem;
-      color: #f472b6;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
     .photo-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
+      margin-bottom: 20px;
     }
     .flip-card {
       background-color: transparent;
@@ -498,12 +673,12 @@
     }
     .flip-card-front {
       background: #fff;
-      padding: 6px 6px 10px 6px;
+      padding: 6px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     .flip-card-front img {
       width: 100%;
-      height: 110px;
+      height: 115px;
       object-fit: cover;
       border-radius: 8px;
     }
@@ -522,7 +697,7 @@
       justify-content: center;
       align-items: center;
       padding: 10px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       line-height: 1.4;
     }
 
@@ -533,23 +708,17 @@
       border-radius: 18px;
       padding: 16px;
       margin-bottom: 22px;
-    }
-    .game-title {
-      font-size: 0.9rem;
-      color: #fb7185;
-      font-weight: bold;
-      margin-bottom: 8px;
+      width: 100%;
     }
     .game-btn {
       background: linear-gradient(135deg, #f43f5e, #e11d48);
       color: white;
       border: none;
-      padding: 8px 16px;
-      font-size: 0.8rem;
+      padding: 12px 18px;
+      font-size: 0.9rem;
       border-radius: 15px;
       font-weight: bold;
       cursor: pointer;
-      transition: transform 0.2s;
     }
     .game-result {
       margin-top: 10px;
@@ -557,53 +726,44 @@
       font-weight: bold;
       color: #f472b6;
       display: none;
-      animation: fadeIn 0.4s ease-out;
     }
 
-    /* Kupon (Birthday Vouchers) */
+    /* Kupon */
     .coupon-section {
       background: rgba(0, 0, 0, 0.3);
       padding: 15px;
       border-radius: 15px;
       border: 1px dashed #f59e0b;
       margin-bottom: 20px;
-      
-      /* Initially hidden/disabled */
       opacity: 0.5;
       pointer-events: none;
       transition: opacity 0.5s ease;
+      width: 100%;
     }
-    /* Aktif setelah teka-teki terjawab */
     .coupon-section.active {
       opacity: 1;
       pointer-events: auto;
     }
-    .coupon-title {
-      font-size: 0.95rem;
-      color: #fbbf24;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
     .coupon-card {
       background: #fff;
       color: #1e293b;
-      padding: 10px 15px;
+      padding: 12px 15px;
       border-radius: 10px;
       margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: bold;
     }
     .claim-btn {
       background: #10b981;
       color: white;
       border: none;
-      padding: 5px 10px;
+      padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
     }
 
     /* Bucket List */
@@ -614,82 +774,64 @@
       margin-bottom: 22px;
       text-align: left;
       border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .bucket-title {
-      font-size: 0.88rem;
-      color: #38bdf8;
-      font-weight: bold;
-      margin-bottom: 10px;
+      width: 100%;
     }
     .bucket-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: #e2e8f0;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       cursor: pointer;
     }
     .bucket-item input {
       accent-color: #fb7185;
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
     }
 
-    /* Tombol Interaksi Utama */
-    .btn-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .btn {
+    /* Tombol Navigasi Halaman Utama - DIPERBAIKI */
+    .btn-action {
       background: linear-gradient(135deg, #e11d48, #be123c);
       color: white;
       border: none;
-      padding: 12px 20px;
+      padding: 14px 20px;
       font-size: 0.95rem;
       border-radius: 25px;
       cursor: pointer;
       font-weight: bold;
-      transition: transform 0.2s, opacity 0.2s;
+      transition: transform 0.1s;
+      width: 100%;
+      -webkit-appearance: none;
+    }
+    .btn-action:active {
+      transform: scale(0.97);
     }
     .btn-hearts {
       background: linear-gradient(135deg, #d946ef, #a21caf);
     }
-    .btn-hearts:hover {
-      transform: scale(1.03);
-    }
     .btn-riddle {
       background: linear-gradient(135deg, #f59e0b, #d97706);
     }
-    .btn-riddle:hover {
-      transform: scale(1.03);
-    }
 
-    /* Tombol Navigasi Halaman */
-    .btn-nav {
-      background: #4b5563;
-      padding: 10px 18px;
-      font-size: 0.85rem;
+    .btn-nav-group {
+      display: flex;
+      gap: 10px;
+      width: 100%;
       margin-top: 20px;
     }
-    .btn-nav:hover {
+    .btn-page-nav {
+      background: #4b5563;
+      padding: 12px;
+      font-size: 0.9rem;
+      flex: 1;
+    }
+    .btn-page-nav:active {
       background: #6b7280;
     }
 
-    /* Halaman-halaman */
-    .page {
-      display: none;
-      animation: fadeInPage 0.8s ease-in-out forwards;
-    }
-    .page.active {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-
-    /* MODAL PESAN RAHASIA LDR */
+    /* Modal Pesan Rahasia LDR */
     .secret-modal {
       position: fixed;
       top: 0;
@@ -698,7 +840,7 @@
       height: 100%;
       background: rgba(15, 23, 42, 0.96);
       backdrop-filter: blur(20px);
-      z-index: 500;
+      z-index: 3000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -718,45 +860,21 @@
       padding: 25px 20px;
       max-width: 420px;
       width: 100%;
-      max-height: 85vh;
-      overflow-y: auto;
+      color: #f1f5f9;
       text-align: left;
       box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-      color: #f1f5f9;
-      position: relative;
-    }
-    .secret-title {
-      font-size: 1.2rem;
-      color: #f472b6;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 15px;
-      border-bottom: 1px dashed rgba(244, 114, 182, 0.3);
-      padding-bottom: 10px;
+      max-height: 90vh;
+      overflow-y: auto;
     }
     .secret-text {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       line-height: 1.8;
-      color: #e2e8f0;
     }
     .secret-text p {
       margin-bottom: 14px;
     }
-    .btn-close-secret {
-      background: linear-gradient(135deg, #e11d48, #be123c);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 0.85rem;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 15px;
-      text-align: center;
-    }
 
-    /* TEKA-TEKI 'PINTU HATI' MODAL */
+    /* Modal Teka-Teki */
     .riddle-modal {
       position: fixed;
       top: 0;
@@ -765,7 +883,7 @@
       height: 100%;
       background: rgba(15, 23, 42, 0.96);
       backdrop-filter: blur(20px);
-      z-index: 600;
+      z-index: 3100;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -788,7 +906,7 @@
       text-align: center;
     }
     .riddle-question {
-      font-size: 0.92rem;
+      font-size: 1rem;
       color: #e2e8f0;
       font-style: italic;
       line-height: 1.7;
@@ -803,211 +921,75 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.3);
       color: white;
-      padding: 12px;
+      padding: 14px;
       border-radius: 12px;
-      font-size: 0.9rem;
+      font-size: 1rem;
       margin-bottom: 10px;
+      -webkit-appearance: none;
     }
     .riddle-error {
       color: #f87171;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       margin-bottom: 10px;
       display: none;
     }
+
+    /* Lainnya */
     .floating-heart {
       position: fixed;
       bottom: -20px;
       font-size: 24px;
-      user-select: none;
       pointer-events: none;
-      z-index: 999;
-      animation: floatUp 3s linear forwards;
+      animation: floatUpAnimation 3s linear forwards;
+      z-index: 2500;
     }
-
-    /* Keyframe Animations */
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInPage { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-    @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
-    @keyframes dashMove { to { stroke-dashoffset: -20; } }
-    @keyframes heartPop { 0%, 80% { transform: scale(0); opacity: 0; } 90% { transform: scale(1.3); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
+    
+    /* Animations */
+    @keyframes fadeInIntro { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInPageContainer { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+    @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    @keyframes bounceGift { 0% { transform: translateY(0); } 100% { transform: translateY(-12px); } }
+    @keyframes dashMoveSVG { to { stroke-dashoffset: -20; } }
+    @keyframes spinVinyl { 100% { transform: rotate(360deg); } }
     @keyframes bounceBar { 0% { height: 4px; } 100% { height: 16px; } }
-    @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
+    @keyframes floatUpAnimation { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
   </style>
 </head>
 <body>
 
   <!-- ====================================
        OVERLAY INTRO (HALAMAN PEMBUKA)
-       SAMA SEPERTI AWAL
+       DIPERBAIKI UNTUK RESPONSIF SENTUHAN HP
   ==================================== -->
   <div id="introOverlay" class="intro-overlay">
     
-    <!-- Step 1: Validasi Akses Nama -->
+    <!-- Step 1: Validasi Akses -->
     <div id="introStep1" class="intro-card">
       <div class="scan-icon">🔒</div>
       <div class="scan-title">Akses Kejutan Khusus</div>
       <div class="scan-name">Abdul Latif Hidayatulloh</div>
-      <p style="font-size: 0.82rem; color: #cbd5e1; margin-bottom: 20px;">Halaman ini dibuat khusus hanya untuk kamu. Siap membuka kejutannya? ✨</p>
-      <button class="btn-intro" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
+      <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 25px;">Halaman ini dibuat khusus hanya untuk kamu. Siap membuka kejutannya? ✨</p>
+      <!-- GUNAKAN ONCLICK LANGSUNG DI HTML AGAR LEBIH ANDAL DI HP -->
+      <button class="btn-intro" id="btnContinue" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
     </div>
 
-    <!-- Step 2: Boarding Pass Digital -->
+    <!-- Step 2: Boarding Pass -->
     <div id="introStep2" class="intro-card" style="display: none;">
-      <div style="font-size: 0.85rem; color: #fb7185; font-weight: bold; margin-bottom: 12px;">🎟️ Boarding Pass Special Flight</div>
-
+      <div style="font-size: 0.95rem; color: #fb7185; font-weight: bold; margin-bottom: 12px;">🎟️ Boarding Pass Special Flight</div>
       <div class="boarding-pass">
-        <div class="pass-header">
-          <span class="pass-title">LOVE AIRWAYS ✈️</span>
-          <span class="pass-flight">FLIGHT #2026</span>
-        </div>
+        <div class="pass-header"><span class="pass-title">LOVE AIRWAYS ✈️</span><span style="font-size: 0.75rem;">#2026</span></div>
         <div class="pass-route">
-          <div class="city">
-            <div class="city-code">LOP</div>
-            <div class="city-name">Lombok</div>
-          </div>
+          <div class="city"><div class="city-code">LOP</div><div class="city-name">Lombok</div></div>
           <div class="flight-icon">✈️ ➔</div>
-          <div class="city">
-            <div class="city-code">JWG</div>
-            <div class="city-name">Jawa</div>
-          </div>
+          <div class="city"><div class="city-code">JWG</div><div class="city-name">Jawa</div></div>
         </div>
         <div class="pass-details">
-          <div>
-            <div class="detail-label">Passenger</div>
-            <div class="detail-val">Abdul Latif H.</div>
-          </div>
-          <div>
-            <div class="detail-label">Destination</div>
-            <div class="detail-val">Ketemu Meylinda ❤️</div>
-          </div>
-        </div>
-      </div>
+          <div><div class="detail-label">Passenger</div><div class="detail-val">Abdul Latif H.Waduh, maaf banget ya! Kemungkinan besar ada sedikit kesalahan ketik di bagian Javascript atau struktur CSS-nya yang bikin tombol itu jadi nggak responsif pas diklik di HP.
 
-      <button class="btn-intro btn-intro-pink" onclick="goToIntroStep3()">Terima Tiket & Buka Kado 🎁</button>
-    </div>
+Saya sudah perbaiki kodenya, terutama di bagian cara Javascript mendeteksi klik, dan memastikan posisi tombolnya nggak tertutup elemen transparan lain.
 
-    <!-- Step 3: Gembok Kado (Buka Halaman Utama) -->
-    <div id="introStep3" class="intro-card" style="display: none;">
-      <div class="gift-box-icon" onclick="finishIntro()">🎁</div>
-      <div style="font-size: 1.1rem; color: #fb7185; font-weight: bold; margin-bottom: 8px;">Pesan Siap Dibuka!</div>
-      <p style="font-size: 0.82rem; color: #cbd5e1; margin-bottom: 20px;">Klik kado di atas atau tombol di bawah ini untuk memulai lagu dan masuk ke kejutannya! ✨</p>
-      <button class="btn-intro btn-intro-pink" onclick="finishIntro()">Buka Kejutan Sekarang 🎉</button>
-    </div>
-
-  </div>
-
-  <!-- ====================================
-       STRUKTUR HALAMAN UTAMA (PER CARD)
-  ==================================== -->
-  <div class="card-container">
-
-    <!-- 1. BAGIAN HEADER (SELALU MUNCUL) -->
-    <div class="card" style="padding: 20px;">
-      <div class="special-badge">✨ Special Day With You ✨</div>
-      <h1>Happy Early Birthday! 🎉✨</h1>
-      <p class="intro" style="margin-bottom: 5px;">Spesial buat <b>Abdul Latif Hidayatulloh</b> 🤍</p>
-    </div>
-
-    <!-- ====================================
-         HALAMAN 1: MUSIK & ALASAN
-    ==================================== -->
-    <div id="page1" class="page active">
-      <div class="card">
-        <!-- Player Musik -->
-        <div class="player-container">
-          <div class="vinyl-box">
-            <div id="vinylRecord" class="vinyl"><div class="vinyl-center">🎵</div></div>
-            <div id="tonearm" class="tonearm"></div>
-          </div>
-          <div class="song-title">🎶 Nuca - Masa Ini, Nanti, & Masa Indah Lainnya</div>
-          <div id="visualizer" class="visualizer">
-            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-          </div>
-        </div>
-
-        <!-- Kutipan & Alasan -->
-        <div class="lyrics-quote">"Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨</div>
-        <div class="song-reason-box">
-          <div class="reason-header"><span>💌</span> Kenapa Aku Pilih Lagu Ini?</div>
-          <div class="reason-text">Lagu ini rasanya pas banget menggambarkan perasaan aku. Di setiap liriknya, aku selalu ingat gimana bersyukurnya aku punya kamu di hidupku. Dari masa ini, nanti, sampai masa-masa indah kita ke depannya! 🤍</div>
-        </div>
-
-        <button class="btn btn-nav" onclick="nextPage(2)">Lanjut ke Halaman 2 ✈️</button>
-      </div>
-    </div>
-
-    <!-- ====================================
-         HALAMAN 2: PETA & PESAN RAHASIA LDR
-    ==================================== -->
-    <div id="page2" class="page">
-      <div class="card">
-        <!-- Peta Animasi -->
-        <div class="map-card">
-          <div class="map-canvas">
-            <svg class="flight-svg" viewBox="0 0 340 130"><path class="flight-line" d="M 280 85 Q 160 15 50 50" /></svg>
-            <div class="pin pin-lombok"><div class="pin-icon">🏝️</div><div class="pin-label">Lombok</div></div>
-            <div class="pin pin-jawa"><div class="pin-icon">🏞️</div><div class="pin-label">Jawa</div></div>
-            <div class="animated-plane">✈️</div>
-            <div class="destination-heart">💖</div>
-          </div>
-        </div>
-        <div class="flight-status-card">
-          <div class="status-badge">🟢 Status: Landed Safely</div>
-          <div class="status-text">Akhirnya ketemu kamu! 🪂✨</div>
-        </div>
-
-        <!-- Tombol Pesan Rahasia LDR -->
-        <button class="btn" style="width: 100%; margin-top: 15px;" onclick="openSecretModal()">🔒 Baca Pesan Rahasia LDR 🤍</button>
-
-        <div style="display: flex; gap: 10px; width: 100%; margin-top: 20px;">
-          <button class="btn btn-nav" style="flex:1;" onclick="nextPage(1)">🔙 Hal 1</button>
-          <button class="btn btn-nav" style="flex:1;" onclick="nextPage(3)">Lanjut Hal 3 🔜</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ====================================
-         HALAMAN 3: SNAPSHOTS & LOVE METER
-    ==================================== -->
-    <div id="page3" class="page">
-      <div class="card">
-        <!-- Snapshots of Us (Flip Cards) -->
-        <div class="gallery-section">
-          <div class="gallery-title">📸 Snapshots of Us (Klik Foto Buat Balik) 🤍</div>
-          <div class="photo-grid">
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-              <div class="flip-card-inner">
-                <div class="flip-card-front"><img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400" alt="Moment 1"><div class="photo-caption">Momen Favorit ✨</div></div>
-                <div class="flip-card-back"><b>Pertama Ketemu! 💖</b><br><span style="font-size: 0.68rem;">"Nggak nyangka jarak bakal sejauh ini, tapi rasa ini tetap sama."</span></div>
-              </div>
-            </div>
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-              <div class="flip-card-inner">
-                <div class="flip-card-front"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400" alt="Moment 2"><div class="photo-caption">Ketemu Kamu! 💖</div></div>
-                <div class="flip-card-back"><b>Hari Ini! 🥳</b><br><span style="font-size: 0.68rem;">"Rasa capek nunggu langsung hilang pas lihat senyum kamu nyata."</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Hitung Poin (Mini Game) -->
-        <div class="game-section">
-          <div class="game-title">🎰 Cek Berapa Poin Sayang Kamu Hari Ini?Ide yang sangat bagus! Membuatnya menjadi per halaman dengan struktur yang terarah seperti itu akan memberikan pengalaman interaktif yang jauh lebih runtut dan berkesan bagi Abdul Latif.
-
-Berikut adalah kode utuh yang sudah direvisi total. Saya menyatukan struktur halaman inti yang kamu minta ke dalam satu halaman web yang terbagi menjadi kotak-kotak (*card*) interaktif dengan sistem navigasi halaman yang mulus.
-
-Sesuai permintaanmu:
-1.  **Halaman Pembuka** sama seperti awal.
-2.  **Struktur 5 Halaman Inti** sudah terimplementasi.
-3.  **Halaman 4 (Kupon)** terkunci dengan fitur teka-teki manis. Kupon baru bisa diklaim jika teka-teki terjawab benar.
-
----
-
-### Kode Terupdate: Halaman Utama Interaktif (5 Halaman)
-
-Silakan *copy* seluruh kode di bawah ini dan gunakan untuk mengganti isi file `index.html` kamu di GitHub:
+Yuk, ganti kode di file `index.html` GitHub kamu dengan kode terbaru ini:
 
 ```html
 <!DOCTYPE html>
@@ -1016,79 +998,47 @@ Silakan *copy* seluruh kode di bawah ini dan gunakan untuk mengganti isi file `i
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday My Love! ❤️</title>
-  <script src="[https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js](https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js)"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background: linear-gradient(135deg, #0f172a, #1e1b4b);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      overflow-x: hidden;
-      color: #fff;
-      position: relative;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: linear-gradient(135deg, #0f172a, #1e1b4b); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; color: #fff; position: relative; }
 
-    /* ====================================
-       OVERLAY INTRO (HALAMAN PEMBUKA)
-       SAMA SEPERTI AWAL
-    ==================================== */
-    .intro-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(15px);
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-    }
-    .intro-overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    .intro-card {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 24px;
-      padding: 25px 20px;
-      max-width: 380px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-      animation: fadeInIntro 0.5s ease-out;
-    }
+    /* --- OVERLAY INTRO (HALAMAN PEMBUKA) --- */
+    .intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(15px); z-index: 1000; display: flex; justify-content: center; align-items: center; padding: 20px; transition: opacity 0.8s ease, visibility 0.8s ease; }
+    .intro-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .intro-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; padding: 30px 20px; max-width: 380px; width: 100%; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.6); animation: fadeIn 0.5s ease-out; }
 
     /* Icon Scan */
-    .scan-icon {
-      font-size: 45px;
-      margin-bottom: 15px;
-      animation: pulse 2s infinite;
-    }
-    .scan-title {
-      font-size: 0.85rem;
-      color: #38bdf8;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-    .scan-name {
-      font-size: 1.3rem;
-      color: #fb7185;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
+    .scan-icon { font-size: 50px; margin-bottom: 20px; animation: pulse 2s infinite; }
+    .scan-title { font-size: 0.9rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; margin-bottom: 10px; }
+    .scan-name { font-size: 1.4rem; color: #fb7185; font-weight: bold; margin-bottom: 25px; }
+
+    /* Boarding Pass */
+    .boarding-pass { background: #ffffff; color: #0f172a; border-radius: 16px; padding: 18px; text-align: left; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    .pass-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #cbd5e1; padding-bottom: 10px; margin-bottom: 12px; }
+    .pass-title { font-size: 0.75rem; font-weight: bold; color: #e11d48; text-transform: uppercase; }
+    .pass-route { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .city-code { font-size: 1.5rem; font-weight: 800; }
+    .city-name { font-size: 0.75rem; color: #64748b; }
+    .flight-icon { font-size: 20px; color: #fb7185; }
+    .pass-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.8rem; background: #f8fafc; padding: 10px; border-radius: 10px; }
+    .detail-label { color: #64748b; font-size: 0.7rem; text-transform: uppercase; }
+    .detail-val { font-weight: bold; }
+
+    /* Gift Box */
+    .gift-box-icon { font-size: 60px; margin-bottom: 15px; cursor: pointer; animation: bounce 1.5s infinite alternate; }
+
+    /* Tombol Utama Intro */
+    .btn-intro { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 15px 25px; font-size: 1rem; border-radius: 25px; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); transition: transform 0.2s; position: relative; z-index: 1100; /* Pastikan paling atas */ }
+    .btn-intro:hover { transform: scale(1.02); }
+    .btn-intro:active { transform: scale(0.98); } /* Efek tekan */
+    
+    .btn-intro-pink { background: linear-gradient(135deg, #e11d48, #be123c); box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4); }
+
+
+    /* --- KONTEN UTAMA (HALAMAN-HALAMAN KADO) --- */
+    .main-container { max-width: 420px; width: 100%; display: none; flex-direction: column; align-items: center; gap: 15px; z-index: 10; animation: fadeInPage 1s ease-in-out; }
+    .main-container.active { display: flex; }
+
+    /* Gaya dasar card halaman */
+    .card-page { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); padding:
