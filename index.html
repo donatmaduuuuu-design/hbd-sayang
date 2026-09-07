@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday My Love! ❤️</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
@@ -10,7 +10,6 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
     }
     body {
       background: linear-gradient(135deg, #0f172a, #1e1b4b);
@@ -19,27 +18,27 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 15px;
+      padding: 20px;
+      overflow-x: hidden;
       color: #fff;
       position: relative;
-      overflow-x: hidden;
     }
 
-    /* --- OVERLAY INTRO (HALAMAN PEMBUKA) --- */
+    /* OVERLAY INTRO */
     .intro-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(15, 23, 42, 0.98);
+      background: rgba(15, 23, 42, 0.95);
       backdrop-filter: blur(15px);
-      z-index: 2000;
+      z-index: 100;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
     }
     .intro-overlay.hidden {
       opacity: 0;
@@ -55,376 +54,1014 @@
       width: 100%;
       text-align: center;
       box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-      position: relative;
-      z-index: 2001;
+      animation: fadeIn 0.5s ease-out;
     }
 
-    .scan-icon { font-size: 50px; margin-bottom: 15px; animation: pulse 2s infinite; display: inline-block; }
-    .scan-title { font-size: 0.85rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; margin-bottom: 8px; }
-    .scan-name { font-size: 1.3rem; color: #fb7185; font-weight: bold; margin-bottom: 20px; }
+    .scan-icon {
+      font-size: 45px;
+      margin-bottom: 15px;
+      animation: pulse 2s infinite;
+    }
+    .scan-title {
+      font-size: 0.85rem;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .scan-name {
+      font-size: 1.3rem;
+      color: #fb7185;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
 
-    /* Boarding Pass */
+    /* BOARDING PASS */
     .boarding-pass {
       background: #ffffff;
       color: #0f172a;
       border-radius: 16px;
-      padding: 16px;
+      padding: 18px;
       text-align: left;
       margin-bottom: 20px;
+      position: relative;
       box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
-    .pass-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #cbd5e1; padding-bottom: 8px; margin-bottom: 10px; }
-    .pass-title { font-size: 0.75rem; font-weight: bold; color: #e11d48; text-transform: uppercase; }
-    .pass-route { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .city-code { font-size: 1.4rem; font-weight: 800; color: #0f172a; }
-    .city-name { font-size: 0.7rem; color: #64748b; }
-    .flight-icon { font-size: 18px; color: #fb7185; }
-    .pass-details { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.75rem; background: #f8fafc; padding: 8px; border-radius: 8px; }
-    .detail-label { color: #64748b; font-size: 0.65rem; text-transform: uppercase; }
-    .detail-val { font-weight: bold; color: #0f172a; }
+    .pass-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px dashed #cbd5e1;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .pass-title {
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #e11d48;
+      text-transform: uppercase;
+    }
+    .pass-flight {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: bold;
+    }
+    .pass-route {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .city {
+      text-align: center;
+    }
+    .city-code {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .city-name {
+      font-size: 0.7rem;
+      color: #64748b;
+    }
+    .flight-icon {
+      font-size: 20px;
+      color: #fb7185;
+    }
+    .pass-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-size: 0.75rem;
+      background: #f8fafc;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .detail-label {
+      color: #64748b;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+    }
+    .detail-val {
+      font-weight: bold;
+      color: #0f172a;
+    }
 
-    .gift-box-icon { font-size: 60px; margin-bottom: 15px; cursor: pointer; animation: bounceGift 1.5s infinite alternate; display: inline-block; }
+    .gift-box-icon {
+      font-size: 55px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      animation: bounce 1.5s infinite alternate;
+    }
 
-    /* Tombol Utama Intro */
     .btn-intro {
       background: linear-gradient(135deg, #0284c7, #0369a1);
       color: white;
       border: none;
-      padding: 15px 20px;
-      font-size: 0.95rem;
-      border-radius: 25px;
+      padding: 12px 24px;
+      font-size: 0.9rem;
+      border-radius: 20px;
       font-weight: bold;
       cursor: pointer;
       width: 100%;
-      box-shadow: 0 5px 15px rgba(2, 132, 199, 0.4);
-      display: block;
-      -webkit-appearance: none;
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+      transition: transform 0.2s;
     }
-    .btn-intro:active { transform: scale(0.97); }
+    .btn-intro:hover {
+      transform: scale(1.02);
+    }
     .btn-intro-pink {
       background: linear-gradient(135deg, #e11d48, #be123c);
-      box-shadow: 0 5px 15px rgba(225, 29, 72, 0.4);
+      box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
     }
 
-    /* --- HALAMAN UTAMA --- */
-    .main-container {
-      max-width: 420px;
-      width: 100%;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      z-index: 10;
-      padding-bottom: 30px;
-    }
-    .main-container.active { display: flex; }
-
-    .card-page {
+    /* HALAMAN UTAMA */
+    .card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(12px);
-      padding: 25px 18px;
+      padding: 30px 22px;
       border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       text-align: center;
+      max-width: 420px;
       width: 100%;
-      display: none;
+      z-index: 10;
     }
-    .card-page.active {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeInPage 0.5s ease-out;
-    }
-
     .special-badge {
       display: inline-block;
       background: rgba(251, 113, 133, 0.2);
       color: #fda4af;
-      padding: 5px 14px;
+      padding: 6px 18px;
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: bold;
-      margin-bottom: 12px;
+      margin-bottom: 15px;
       border: 1px solid rgba(251, 113, 133, 0.4);
     }
+    h1 {
+      color: #fb7185;
+      font-size: 1.65rem;
+      margin-bottom: 6px;
+    }
+    p.intro {
+      color: #e2e8f0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
 
-    h1 { color: #fb7185; font-size: 1.5rem; margin-bottom: 6px; }
-    p.intro-text { color: #e2e8f0; font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px; }
-
-    /* Player Musik */
+    /* PLAYER PIRINGAN HITAM */
     .player-container {
       background: rgba(0, 0, 0, 0.35);
       border-radius: 18px;
-      padding: 15px;
+      padding: 18px 16px;
       margin-bottom: 15px;
       border: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 100%;
+      position: relative;
     }
-    .vinyl-box { position: relative; width: 100px; height: 100px; margin-bottom: 10px; }
+    .vinyl-box {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      margin-bottom: 12px;
+    }
     .vinyl {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       background: radial-gradient(circle, #333 18%, #111 20%, #111 35%, #222 36%, #111 50%, #222 51%, #000 70%);
-      border-radius: 50%; border: 3px solid #333;
-      display: flex; justify-content: center; align-items: center;
+      border-radius: 50%;
+      border: 3px solid #333;
+      box-shadow: 0 0 15px rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.5s ease;
     }
-    .vinyl-center { width: 32px; height: 32px; background: #fb7185; border-radius: 50%; border: 3px solid #fff; }
-    .spinning { animation: spinVinyl 4s linear infinite; }
-    .visualizer { display: flex; gap: 4px; height: 16px; align-items: flex-end; }
-    .bar { width: 4px; height: 4px; background: #fb7185; border-radius: 2px; }
-    .playing .bar { animation: bounceBar 0.8s ease-in-out infinite alternate; }
+    .vinyl-center {
+      width: 36px;
+      height: 36px;
+      background: #fb7185;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+    }
+    .spinning {
+      animation: spin 4s linear infinite;
+    }
+    .tonearm {
+      position: absolute;
+      top: -5px;
+      right: 5px;
+      width: 30px;
+      height: 55px;
+      border-top: 3px solid #cbd5e1;
+      border-right: 3px solid #cbd5e1;
+      border-top-right-radius: 10px;
+      transform-origin: top right;
+      transform: rotate(-30deg);
+      transition: transform 0.5s ease;
+      pointer-events: none;
+    }
+    .tonearm.playing {
+      transform: rotate(10deg);
+    }
+    .song-title {
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .visualizer {
+      display: flex;
+      gap: 4px;
+      height: 16px;
+      align-items: flex-end;
+      margin-bottom: 12px;
+    }
+    .bar {
+      width: 4px;
+      height: 4px;
+      background: #fb7185;
+      border-radius: 2px;
+    }
+    .playing .bar {
+      animation: bounceBar 0.8s ease-in-out infinite alternate;
+    }
+    .playing .bar:nth-child(1) { animation-delay: 0.1s; }
+    .playing .bar:nth-child(2) { animation-delay: 0.3s; }
+    .playing .bar:nth-child(3) { animation-delay: 0.2s; }
+    .playing .bar:nth-child(4) { animation-delay: 0.5s; }
+    .playing .bar:nth-child(5) { animation-delay: 0.4s; }
 
-    /* Lyrics & Reason */
+    .btn-play-inside {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s, opacity 0.2s;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+    }
+    .btn-play-inside:hover {
+      transform: scale(1.05);
+    }
+
     .lyrics-quote {
-      font-style: italic; color: #fda4af; font-size: 0.85rem; margin-bottom: 12px;
-      background: rgba(0, 0, 0, 0.25); padding: 10px 12px; border-radius: 12px;
-      border-left: 3px solid #fb7185; line-height: 1.4; text-align: left; width: 100%;
+      font-style: italic;
+      color: #fda4af;
+      font-size: 0.88rem;
+      margin-bottom: 15px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 12px 15px;
+      border-radius: 12px;
+      border-left: 3px solid #fb7185;
+      line-height: 1.4;
     }
-    .song-reason-box {
-      background: rgba(251, 113, 133, 0.08); border: 1px dashed rgba(251, 113, 133, 0.35);
-      border-radius: 14px; padding: 12px; margin-bottom: 15px; text-align: left; width: 100%;
-    }
-    .reason-text { font-size: 0.8rem; color: #cbd5e1; line-height: 1.4; }
 
-    /* Peta Animasi LDR */
+    .song-reason-box {
+      background: rgba(251, 113, 133, 0.08);
+      border: 1px dashed rgba(251, 113, 133, 0.35);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 20px;
+      position: relative;
+      text-align: left;
+    }
+    .reason-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #fb7185;
+      margin-bottom: 6px;
+    }
+    .reason-text {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    /* PETA LOMBOK -> JAWA */
     .map-card {
-      background: rgba(15, 23, 42, 0.6); border-radius: 16px; padding: 10px;
-      margin-bottom: 12px; border: 1px solid rgba(255, 255, 255, 0.1); width: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
     }
     .map-canvas {
-      position: relative; width: 100%; height: 110px;
-      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%); border-radius: 10px;
+      position: relative;
+      width: 100%;
+      height: 130px;
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .flight-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-    .flight-line { fill: none; stroke: #fb7185; stroke-width: 2.5; stroke-dasharray: 6 4; animation: dashMoveSVG 2s linear infinite; }
+    .flight-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .flight-line {
+      fill: none;
+      stroke: #fb7185;
+      stroke-width: 2.5;
+      stroke-dasharray: 6 4;
+      animation: dashMove 2s linear infinite;
+    }
+    .pin {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 3;
+    }
+    .pin-lombok {
+      right: 20px;
+      bottom: 20px;
+    }
+    .pin-jawa {
+      left: 20px;
+      top: 35px;
+    }
+    .pin-icon {
+      font-size: 20px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+    .pin-label {
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #e2e8f0;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 2px 7px;
+      border-radius: 8px;
+      margin-top: 2px;
+    }
+    .animated-plane {
+      position: absolute;
+      font-size: 20px;
+      z-index: 5;
+      offset-path: path("M 280 85 Q 160 15 50 50");
+      animation: flyFromLombokToJawa 4s ease-in-out infinite;
+    }
+    .destination-heart {
+      position: absolute;
+      left: 38px;
+      top: 18px;
+      font-size: 16px;
+      z-index: 4;
+      animation: heartPop 4s ease-in-out infinite;
+    }
+
     .flight-status-card {
-      background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);
-      border-radius: 10px; padding: 8px 12px; margin-bottom: 15px; display: flex;
-      align-items: center; justify-content: space-between; font-size: 0.8rem; width: 100%;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+    .status-badge {
+      color: #10b981;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .status-text {
+      color: #cbd5e1;
+      font-style: italic;
     }
 
-    /* Flip Cards Foto */
-    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; width: 100%; }
-    .flip-card { background-color: transparent; height: 140px; perspective: 1000px; cursor: pointer; }
-    .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
-    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-    .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; overflow: hidden; }
-    .flip-card-front { background: #fff; padding: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-    .flip-card-front img { width: 100%; height: 105px; object-fit: cover; border-radius: 8px; }
-    .photo-caption { font-size: 0.65rem; color: #334155; font-weight: bold; margin-top: 3px; }
-    .flip-card-back { background: linear-gradient(135deg, #fb7185, #e11d48); color: white; transform: rotateY(180deg); display: flex; justify-content: center; align-items: center; padding: 8px; font-size: 0.75rem; line-height: 1.3; }
+    /* GALERI FOTO FLIP CARD */
+    .gallery-section {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .gallery-title {
+      font-size: 0.9rem;
+      color: #f472b6;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .flip-card {
+      background-color: transparent;
+      height: 150px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .flip-card-front {
+      background: #fff;
+      padding: 6px 6px 10px 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .flip-card-front img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .photo-caption {
+      font-size: 0.7rem;
+      color: #334155;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+    .flip-card-back {
+      background: linear-gradient(135deg, #fb7185, #e11d48);
+      color: white;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
 
-    /* Mini Game & Kupon */
-    .game-section { background: rgba(244, 63, 94, 0.1); border: 1px dashed rgba(244, 63, 94, 0.4); border-radius: 16px; padding: 14px; margin-bottom: 15px; width: 100%; }
-    .coupon-section { background: rgba(0, 0, 0, 0.3); padding: 12px; border-radius: 14px; border: 1px dashed #f59e0b; margin-bottom: 15px; opacity: 0.5; pointer-events: none; width: 100%; }
-    .coupon-section.active { opacity: 1; pointer-events: auto; }
-    .coupon-card { background: #fff; color: #1e293b; padding: 8px 12px; border-radius: 8px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-weight: bold; }
-    .claim-btn { background: #10b981; color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
+    /* MINI GAME LOVE METER */
+    .game-section {
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px dashed rgba(244, 63, 94, 0.4);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 22px;
+    }
+    .game-title {
+      font-size: 0.9rem;
+      color: #fb7185;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .game-btn {
+      background: linear-gradient(135deg, #f43f5e, #e11d48);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      border-radius: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(244, 63, 94, 0.3);
+      transition: transform 0.2s;
+    }
+    .game-btn:hover {
+      transform: scale(1.05);
+    }
+    .game-result {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #f472b6;
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
 
-    /* Bucket List */
-    .bucket-section { background: rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 14px; margin-bottom: 15px; text-align: left; border: 1px solid rgba(255, 255, 255, 0.1); width: 100%; }
-    .bucket-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #e2e8f0; margin-bottom: 8px; }
+    /* TOMBOL UTAMA */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .btn {
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn:hover {
+      transform: scale(1.03);
+      opacity: 0.9;
+    }
+    .btn-hearts {
+      background: linear-gradient(135deg, #d946ef, #a21caf);
+    }
+    .btn-coupon {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+    .btn-secret {
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    }
 
-    /* Action Buttons */
-    .btn-action { background: linear-gradient(135deg, #e11d48, #be123c); color: white; border: none; padding: 12px 18px; font-size: 0.85rem; border-radius: 20px; cursor: pointer; font-weight: bold; width: 100%; -webkit-appearance: none; }
-    .btn-action:active { transform: scale(0.97); }
-    .btn-nav-group { display: flex; gap: 8px; width: 100%; margin-top: 15px; }
-    .btn-page-nav { background: #4b5563; padding: 10px; font-size: 0.85rem; flex: 1; border-radius: 15px; }
+    /* KUPON */
+    .coupon-section {
+      display: none;
+      margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 15px;
+      border-radius: 15px;
+      border: 1px dashed #f59e0b;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .coupon-title {
+      font-size: 0.95rem;
+      color: #fbbf24;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .coupon-card {
+      background: #fff;
+      color: #1e293b;
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+    .claim-btn {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
 
-    /* Modals */
-    .secret-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(20px); z-index: 3000; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.4s ease; }
-    .secret-modal.active { opacity: 1; visibility: visible; }
-    .secret-content-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(251, 113, 133, 0.3); border-radius: 20px; padding: 20px; max-width: 400px; width: 100%; max-height: 85vh; overflow-y: auto; text-align: left; }
+    /* SURAT INTI */
+    .envelope-wrapper {
+      display: none;
+      margin-bottom: 20px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .envelope {
+      background: #f43f5e;
+      border-radius: 12px;
+      padding: 18px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
+      transition: transform 0.3s ease;
+    }
+    .envelope-title {
+      font-weight: bold;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+    .envelope-hint {
+      font-size: 0.8rem;
+      color: #ffe4e6;
+      margin-top: 5px;
+    }
+    .letter-content {
+      display: none;
+      background: rgba(255, 255, 255, 0.95);
+      color: #1e293b;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 15px;
+      text-align: left;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      animation: openLetter 0.6s ease-out forwards;
+    }
+    .letter-content p {
+      margin-bottom: 12px;
+    }
+    .letter-footer {
+      text-align: right;
+      font-weight: bold;
+      color: #e11d48;
+      margin-top: 15px;
+    }
 
-    /* Animations */
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-    @keyframes bounceGift { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
-    @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes dashMoveSVG { to { stroke-dashoffset: -20; } }
-    @keyframes spinVinyl { 100% { transform: rotate(360deg); } }
+    /* BUCKET LIST DIPINDAH KE PALING BAWAH */
+    .bucket-section {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 18px;
+      padding: 16px;
+      margin-top: 10px;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .bucket-title {
+      font-size: 0.88rem;
+      color: #38bdf8;
+      font-weight: bold;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .bucket-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .bucket-item input {
+      accent-color: #fb7185;
+      width: 16px;
+      height: 16px;
+    }
+
+    /* MODAL PESAN RAHASIA LDR */
+    .secret-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(20px);
+      z-index: 200;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .secret-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .secret-content-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(251, 113, 133, 0.3);
+      border-radius: 24px;
+      padding: 25px 20px;
+      max-width: 420px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      text-align: left;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      color: #f1f5f9;
+      position: relative;
+    }
+    .secret-title {
+      font-size: 1.2rem;
+      color: #f472b6;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 15px;
+      border-bottom: 1px dashed rgba(244, 114, 182, 0.3);
+      padding-bottom: 10px;
+    }
+    .secret-text {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: #e2e8f0;
+    }
+    .secret-text p {
+      margin-bottom: 14px;
+    }
+    .btn-close-secret {
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .floating-heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      user-select: none;
+      pointer-events: none;
+      z-index: 999;
+      animation: floatUp 3s linear forwards;
+    }
+
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    @keyframes dashMove { to { stroke-dashoffset: -20; } }
+    @keyframes flyFromLombokToJawa {
+      0% { offset-distance: 0%; opacity: 0; transform: scale(0.6) rotate(45deg); }
+      12% { opacity: 1; transform: scale(1) rotate(45deg); }
+      85% { opacity: 1; transform: scale(1) rotate(45deg); }
+      100% { offset-distance: 100%; opacity: 0; transform: scale(0.6) rotate(45deg); }
+    }
+    @keyframes heartPop { 0%, 80% { transform: scale(0); opacity: 0; } 90% { transform: scale(1.3); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
     @keyframes bounceBar { 0% { height: 4px; } 100% { height: 16px; } }
+    @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+    @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes openLetter { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
   </style>
 </head>
 <body>
 
-  <!-- ================= OVERLAY INTRO ================= -->
+  <!-- OVERLAY INTRO -->
   <div id="introOverlay" class="intro-overlay">
+    
     <!-- Step 1 -->
     <div id="introStep1" class="intro-card">
       <div class="scan-icon">🔒</div>
       <div class="scan-title">Akses Kejutan Khusus</div>
       <div class="scan-name">Abdul Latif Hidayatulloh</div>
-      <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 20px;">Halaman ini dibuat khusus hanya untuk kamu. Siap membuka kejutannya? ✨</p>
+      <p style="font-size: 0.82rem; color: #cbd5e1; margin-bottom: 20px;">
+        Halaman ini dibuat khusus hanya untuk kamu. Siap membuka kejutannya? ✨
+      </p>
       <button class="btn-intro" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
     </div>
 
     <!-- Step 2 -->
     <div id="introStep2" class="intro-card" style="display: none;">
-      <div style="font-size: 0.85rem; color: #fb7185; font-weight: bold; margin-bottom: 10px;">🎟️ Boarding Pass Special Flight</div>
+      <div style="font-size: 0.85rem; color: #fb7185; font-weight: bold; margin-bottom: 12px;">
+        🎟️ Boarding Pass Special Flight
+      </div>
+
       <div class="boarding-pass">
-        <div class="pass-header"><span class="pass-title">LOVE AIRWAYS ✈️</span><span style="font-size: 0.75rem;">#2026</span></div>
+        <div class="pass-header">
+          <span class="pass-title">LOVE AIRWAYS ✈️</span>
+          <span class="pass-flight">FLIGHT #2026</span>
+        </div>
         <div class="pass-route">
-          <div><div class="city-code">LOP</div><div class="city-name">Lombok</div></div>
+          <div class="city">
+            <div class="city-code">LOP</div>
+            <div class="city-name">Lombok</div>
+          </div>
           <div class="flight-icon">✈️ ➔</div>
-          <div><div class="city-code">JWG</div><div class="city-name">Jawa</div></div>
+          <div class="city">
+            <div class="city-code">JWG</div>
+            <div class="city-name">Jawa</div>
+          </div>
         </div>
         <div class="pass-details">
-          <div><div class="detail-label">Passenger</div><div class="detail-val">Abdul Latif H.</div></div>
-          <div><div class="detail-label">Destination</div><div class="detail-val">Meylinda ❤️</div></div>
+          <div>
+            <div class="detail-label">Passenger</div>
+            <div class="detail-val">A. Latif. H</div>
+          </div>
+          <div>
+            <div class="detail-label">Destination</div>
+            <div class="detail-val">Meylinda ❤️</div>
+          </div>
         </div>
       </div>
+
       <button class="btn-intro btn-intro-pink" onclick="goToIntroStep3()">Terima Tiket & Buka Kado 🎁</button>
     </div>
 
     <!-- Step 3 -->
     <div id="introStep3" class="intro-card" style="display: none;">
       <div class="gift-box-icon" onclick="finishIntro()">🎁</div>
-      <div style="font-size: 1.1rem; color: #fb7185; font-weight: bold; margin-bottom: 8px;">Pesan Siap Dibuka!</div>
-      <p style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 18px;">Klik kado di atas untuk membuka ucapan spesial dari aku ✨</p>
-      <button class="btn-intro btn-intro-pink" onclick="finishIntro()">Buka Sekarang 🎉</button>
+      <div style="font-size: 1.1rem; color: #fb7185; font-weight: bold; margin-bottom: 8px;">
+        Pesan Siap Dibuka!
+      </div>
+      <p style="font-size: 0.82rem; color: #cbd5e1; margin-bottom: 20px;">
+        Klik kado di atas atau tombol di bawah ini untuk memulai lagu dan masuk ke kejutannya! ✨
+      </p>
+      <button class="btn-intro btn-intro-pink" onclick="finishIntro()">Buka Kejutan Sekarang 🎉</button>
     </div>
+
   </div>
 
-  <!-- ================= HALAMAN UTAMA ================= -->
-  <div id="mainContainer" class="main-container">
+  <!-- HALAMAN UTAMA -->
+  <div class="card">
+    <div class="special-badge">✨ Special Day With You ✨</div>
+    <h1>Happy Early Birthday! 🎉✨</h1>
+    <p class="intro">Spesial buat <b>Abdul Latif Hidayatulloh</b> 🤍</p>
 
-    <!-- PAGE 1: UCAPAN & PLAYER LAGU NUCA -->
-    <div id="page1" class="card-page active">
-      <div class="special-badge">Special Birthday Wishes ✨</div>
-      <h1>Happy Birthday, Mas! ❤️</h1>
-      <p class="intro-text">Selamat ulang tahun untuk sosok terfavorit dalam hidupku! Semoga di usia yang baru ini kamu selalu sehat, dilimpahkan kebahagiaan, dan makin sukses.</p>
-
-      <!-- Music Player -->
-      <div class="player-container">
-        <div class="vinyl-box">
-          <div id="vinylDisk" class="vinyl"><div class="vinyl-center">🎵</div></div>
+    <!-- PLAYER PIRINGAN HITAM -->
+    <div class="player-container">
+      <div class="vinyl-box">
+        <div id="vinylRecord" class="vinyl">
+          <div class="vinyl-center">🎵</div>
         </div>
-        <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">Nuca - Masa Ini, Nanti, dan Masa Indah Lainnya</div>
-        <div id="visualizer" class="visualizer" style="margin-bottom: 10px;">
-          <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-        </div>
-        <audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-        <button class="btn-action" onclick="toggleMusic()" style="font-size: 0.8rem; padding: 8px 16px;">Putar Lagu 🎵</button>
+        <div id="tonearm" class="tonearm"></div>
       </div>
-
-      <div class="lyrics-quote">"Masa ini, nanti, dan masa indah lainnya... Ku inginkan kamu ada di sana, menemani setiap langkah dan waktuku."</div>
-      <div class="song-reason-box">
-        <div style="font-size: 0.8rem; font-weight: bold; color: #fb7185; margin-bottom: 4px;">Kenapa lagu ini? 💭</div>
-        <div class="reason-text">Lagu Nuca ini selalu mengingatkan aku kalau aku mau terus jalanin hari-hari indah, sekarang dan nanti, sama kamu.</div>
+      <div class="song-title">🎶 Nuca - Masa Ini, Nanti, & Masa Indah Lainnya</div>
+      <div id="visualizer" class="visualizer">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
       </div>
+      <button class="btn-play-inside" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu</button>
+    </div>
 
-      <button class="btn-action" onclick="openSecretModal()">Baca Surat Rahasia LDR 💌</button>
-      <div class="btn-nav-group">
-        <button class="btn-action btn-page-nav" onclick="switchPage(2)">Lanjut ke Kenangan ➔</button>
+    <div class="lyrics-quote">
+      "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
+    </div>
+
+    <div class="song-reason-box">
+      <div class="reason-header">
+        <span>💌</span> Kenapa Aku Pilih Lagu Ini?
+      </div>
+      <div class="reason-text">
+        Lagu ini rasanya pas banget menggambarkan perasaan aku. Di setiap liriknya, aku selalu ingat gimana bersyukurnya aku punya kamu di hidupku. Dari masa ini, nanti, sampai masa-masa indah kita ke depannya! 🤍
       </div>
     </div>
 
-    <!-- PAGE 2: PETA LDR & FLIP CARDS FOTO -->
-    <div id="page2" class="card-page">
-      <div class="special-badge">Our Distance & Memories ✈️</div>
-      <h1>Jarak Lombok — Jawa</h1>
-      <p class="intro-text">Ratusan kilometer laut dan daratan nggak akan mengurangi rasa sayangku ke kamu!</p>
-
-      <!-- Map -->
-      <div class="map-card">
-        <div class="map-canvas">
-          <svg class="flight-svg" viewBox="0 0 300 110">
-            <path class="flight-line" d="M 260 85 Q 150 20 40 50" />
-          </svg>
+    <!-- PETA LOMBOK -> JAWA -->
+    <div class="map-card">
+      <div class="map-canvas">
+        <svg class="flight-svg" viewBox="0 0 340 130">
+          <path class="flight-line" d="M 280 85 Q 160 15 50 50" />
+        </svg>
+        <div class="pin pin-lombok">
+          <div class="pin-icon">🏝️</div>
+          <div class="pin-label">Lombok</div>
         </div>
+        <div class="pin pin-jawa">
+          <div class="pin-icon">🏞️</div>
+          <div class="pin-label">Jawa</div>
+        </div>
+        <div class="animated-plane">✈️</div>
+        <div class="destination-heart">💖</div>
       </div>
+    </div>
 
-      <div class="flight-status-card">
-        <div><span>Status LDR:</span> <strong style="color:#fb7185">Lombok ➔ Jawa</strong></div>
-        <div class="status-badge">CONNECTED ❤️</div>
-      </div>
+    <div class="flight-status-card">
+      <div class="status-badge">🟢 Status: Landed Safely</div>
+      <div class="status-text">Akhirnya ketemu kamu! 🪂✨</div>
+    </div>
 
-      <p style="font-size: 0.8rem; margin-bottom: 10px;">Klik foto di bawah untuk melihat pesan tersembunyi! 📸</p>
+    <!-- GALERI FOTO BISA DIBALIK (FLIP CARD) -->
+    <div class="gallery-section">
+      <div class="gallery-title">📸 Snapshots of Us (Klik Foto Buat Balik) 🤍</div>
       <div class="photo-grid">
+        
+        <!-- Card Foto 1 -->
         <div class="flip-card" onclick="this.classList.toggle('flipped')">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <img src="https://picsum.photos/200/200?random=1" alt="Foto 1">
-              <div class="photo-caption">Momen Indah #1</div>
+              <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&auto=format&fit=crop&q=80" alt="Moment 1">
+              <div class="photo-caption">Momen Favorit ✨</div>
             </div>
-            <div class="flip-card-back">Terima kasih selalu sabar dan bikin aku tersenyum setiap hari! 😊</div>
+            <div class="flip-card-back">
+              <b>Foto Kunjungan Pertama! 💖</b><br>
+              <span style="font-size: 0.68rem; margin-top:4px;">"Selalu suka senyum kamu tiap kali kita pertama ketemu!"</span>
+            </div>
           </div>
         </div>
-        <div class="flip-card" onclick="this.classList.toggle('flipped')">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="https://picsum.photos/200/200?random=2" alt="Foto 2">
-              <div class="photo-caption">Momen Indah #2</div>
-            </div>
-            <div class="flip-card-back">Nggak sabar buat ketemu dan jalan-jalan bareng lagi! ✈️</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="btn-nav-group">
-        <button class="btn-action btn-page-nav" onclick="switchPage(1)">⬅️ Kembali</button>
-        <button class="btn-action btn-page-nav" onclick="switchPage(3)">Ke Game & Hadiah ➔</button>
+        <!-- Card Foto 2 -->
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&auto=format&fit=crop&q=80" alt="Moment 2">
+              <div class="photo-caption">Ketemu Kamu! 💖</div>
+            </div>
+            <div class="flip-card-back">
+              <b>Hari Ini! 🥳</b><br>
+              <span style="font-size: 0.68rem; margin-top:4px;">"Akhirnya bisa duduk berdua begini tanpa terhalang jarak!"</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- PAGE 3: MINI GAME, KUPON & BUCKET LIST -->
-    <div id="page3" class="card-page">
-      <div class="special-badge">Interactive Fun 🎮</div>
-      <h1>Game & Hadiah Khusus</h1>
-      <p class="intro-text">Mainkan mini game di bawah untuk membuka kupon hadiah ulang tahunmu!</p>
+    <!-- MINI GAME LOVE METER -->
+    <div class="game-section">
+      <div class="game-title">🎰 Cek Berapa Poin Sayang Kamu Hari Ini?</div>
+      <button class="game-btn" onclick="playLoveMeter()">Hitung Poin Cinta 💘</button>
+      <div id="gameResult" class="game-result"></div>
+    </div>
 
-      <div class="game-section">
-        <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 10px;">Tebak Angka Keberuntungan! 🎲</div>
-        <button class="btn-action" onclick="playGame()" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">Putar Dadu Kejutan 🎯</button>
-        <div id="gameResult" style="margin-top: 8px; font-weight: bold; color: #f472b6; display: none;"></div>
+    <!-- TOMBOL UTAMA -->
+    <div class="btn-group">
+      <button class="btn btn-hearts" onclick="sendHearts()">💖 Tabur Love Buat Kamu!</button>
+      <button class="btn btn-coupon" onclick="toggleCoupons()">🎟️ Klaim Kupon Spesial Ultah!</button>
+      <button class="btn" onclick="showEnvelope()">Buka Surat Kejutan ✉️🎁</button>
+      <button class="btn btn-secret" onclick="openSecretModal()">🔒 Baca Pesan Rahasia LDR 🤍</button>
+    </div>
+
+    <!-- Area Kupon -->
+    <div id="couponSection" class="coupon-section">
+      <div class="coupon-title">🎟️ Birthday Vouchers (Klaim Sekarang!)</div>
+      <div class="coupon-card">
+        <span>🍦 Ditraktir Es Krim / Snack</span>
+        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
+      </div>
+      <div class="coupon-card">
+        <span>💆‍♂️ Pijat Bahu 10 Menit</span>
+        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
+      </div>
+      <div class="coupon-card">
+        <span>👑 Bebas Pilih Nonton / Aktivitas</span>
+        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
+      </div>
+    </div>
+
+    <!-- Area Surat Inti -->
+    <div id="envelopeWrapper" class="envelope-wrapper">
+      <div id="envelopeBtn" class="envelope" onclick="openLetter()">
+        <div class="envelope-title">📩 Ada Surat Khusus Buat Kamu!</div>
+        <div class="envelope-hint">(Klik amplop ini untuk membuka suratnya)</div>
       </div>
 
-      <div id="couponSection" class="coupon-section">
-        <div style="font-size: 0.85rem; font-weight: bold; color: #f59e0b; margin-bottom: 8px;">Kupon Spesial Ulang Tahun 🎟️</div>
-        <div class="coupon-card">
-          <span>☕ Traktiran Kopi Favorit</span>
-          <button class="claim-btn" onclick="alert('Kupon berhasil diklaim! Kirim screenshot ini ke WhatsApp-ku ya! ❤️')">Klaim</button>
-        </div>
-        <div class="coupon-card">
-          <span>🎬 Free Choice Movie Night</span>
-          <button class="claim-btn" onclick="alert('Kupon berhasil diklaim! Kamu yang pilih filmnya nanti! 🍿')">Klaim</button>
-        </div>
+      <div id="letterContent" class="letter-content">
+        <p><b>Hai, Abdul Latif Hidayatulloh!</b></p>
+        <p>Meskipun ulang tahunmu sebenarnya baru di bulan Desember nanti, aku sengaja banget mau nyuri start buat merayakannya lebih awal khusus hari ini, mumpung kita akhirnya bisa duduk berdua dan ketemu langsung secara nyata! 🥳✨</p>
+        <p>Terima kasih ya sudah hadir dan jadi salah satu alasan terbaik aku tersenyum setiap hari. Terima kasih selalu sabar, dewasa, dan bikin aku merasa beruntung punya kamu.</p>
+        <p>Semoga di usia yang baru nanti, semua proses, kerja keras, dan impian yang lagi kamu usahakan dipermudah dan membuahkan hasil terbaik.</p>
+        <p>Aku bakal selalu ada buat dukung kamu—di masa ini, nanti, dan masa indah lainnya. Selamat merayakan momen ini bareng aku ya! 🤍</p>
+        <div class="letter-footer">Happy Birthday, Sayang! 🥳✨</div>
       </div>
+    </div>
 
-      <div class="bucket-section">
-        <div style="font-size: 0.85rem; font-weight: bold; color: #fb7185; margin-bottom: 8px;">Our Next Bucket List 📝</div>
-        <label class="bucket-item"><input type="checkbox" checked> Ketemu & Quality Time tanpa LDR</label>
-        <label class="bucket-item"><input type="checkbox"> Cobain tempat makan baru bareng</label>
-        <label class="bucket-item"><input type="checkbox"> Liburan bareng ke tempat impian</label>
-      </div>
-
-      <div class="btn-nav-group">
-        <button class="btn-action btn-page-nav" onclick="switchPage(2)">⬅️ Kembali</button>
-      </div>
+    <!-- BUCKET LIST DIPINDAH KE PALING BAWAH -->
+    <div class="bucket-section">
+      <div class="bucket-title">🗺️ Lombok Trip Bucket List With You 🤍</div>
+      <label class="bucket-item"><input type="checkbox"> Explore indahnya Lombok bareng 🏝️</label>
+      <label class="bucket-item"><input type="checkbox"> Main & nikmati udara sejuk Sembalun ⛰️</label>
+      <label class="bucket-item"><input type="checkbox"> Savor pemandangan gagah Gunung Rinjani 🌋</label>
+      <label class="bucket-item"><input type="checkbox"> Nyantai & bersepeda di Gili Trawangan 🌊</label>
+      <label class="bucket-item"><input type="checkbox"> Basah-basahan & foto di Air Terjun 🌊✨</label>
     </div>
 
   </div>
 
-  <!-- MODAL SURAT RAHASIA -->
+  <!-- MODAL PESAN RAHASIA LDR -->
   <div id="secretModal" class="secret-modal">
     <div class="secret-content-card">
-      <h2 style="color: #fb7185; margin-bottom: 10px; font-size: 1.2rem;">Surat Rahasia Untukmu 💌</h2>
-      <div style="font-size: 0.85rem; line-height: 1.6; color: #e2e8f0;">
-        <p>Halo sayang,</p>
-        <p>Selamat ulang tahun ya! Di hari yang spesial ini, aku cuma mau mengucapkan terima kasih banyak atas semua hal baik yang sudah kamu berikan selama ini.</p>
-        <p>Meskipun kita terpisah jarak Lombok dan Jawa, rasa sayang dan doaku buat kamu nggak pernah berkurang sedikit pun. Kamu selalu jadi penyemangat terbesarku.</p>
-        <p>Semoga di usiamu yang baru ini, segala hal yang kamu cita-citakan bisa tercapai satu per satu. Tetap jadi pribadi yang baik, sabar, dan penyayang ya!</p>
-        <p>With lots of love,<br><strong>Meylinda ❤️</strong></p>
+      <div class="secret-title">🤍 Curahan Hati & Pesan Rahasia LDR</div>
+      <div class="secret-text">
+        <p>Haiii sayang... 🥺🤍</p>
+        <p>Jujur, menjalani LDR itu nggak pernah gampang ya. Kadang ada momen di mana aku merasa capek banget, kangen yang menumpuk sampai rasanya pengen nangis sendirian karena cuma bisa natap layar HP dan dengar suara kamu dari jauh.</p>
+        <p>Tapi tahu nggak? Di balik semua rasa capek dan tangisan itu, jumlah bahagianya jauh... jauh lebih banyak. Punya kamu di hidup aku itu adalah berkah yang luar biasa besar.</p>
+        <p>Jarak Lombok–Jawa ini memang memisahkan fisik kita, tapi sama sekali nggak mengurangi rasa sayang aku ke kamu. Malah setiap hari rasa sayang ini rasanya makin bertambah dan makin amat sangat dalam.</p>
+        <p>Terima kasih ya sudah bertahan, sudah terus berusaha, dan selalu menguatkan aku. Hari ini, saat kita bisa ketemu langsung begini, rasa capek dan kangen itu rasanya langsung terbayar tuntas!</p>
+        <p>Aku sayang banget sama kamu, A. Latif. H. Selalu dan akan seterusnya begitu. 💖✨</p>
       </div>
-      <button class="btn-action" onclick="closeSecretModal()" style="margin-top: 15px;">Tutup Surat</button>
+      <button class="btn-close-secret" onclick="closeSecretModal()">Tutup Pesan Rahasia 🤍</button>
     </div>
   </div>
 
+  <audio id="bgMusic" loop preload="auto">
+    <source src="Nuca_-_Masa_ini_Nanti_dan_Masa_Indah_Lainnya_(mp3.pm).mp3" type="audio/mpeg">
+  </audio>
+
   <script>
-    // Navigation Functions
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    const vinyl = document.getElementById('vinylRecord');
+    const tonearm = document.getElementById('tonearm');
+    const visualizer = document.getElementById('visualizer');
+
     function goToIntroStep2() {
       document.getElementById('introStep1').style.display = 'none';
       document.getElementById('introStep2').style.display = 'block';
@@ -437,51 +1074,123 @@
 
     function finishIntro() {
       document.getElementById('introOverlay').classList.add('hidden');
-      document.getElementById('mainContainer').classList.add('active');
-      if (typeof confetti === 'function') {
-        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-      }
+      music.play().then(() => {
+        updatePlayerUI(true);
+      }).catch(() => {});
+      triggerCelebration();
     }
 
-    function switchPage(pageNumber) {
-      document.querySelectorAll('.card-page').forEach(page => page.classList.remove('active'));
-      document.getElementById('page' + pageNumber).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Music Player
-    let isPlaying = false;
     function toggleMusic() {
-      const music = document.getElementById('bgMusic');
-      const vinyl = document.getElementById('vinylDisk');
-      const visualizer = document.getElementById('visualizer');
-      
-      if (isPlaying) {
-        music.pause();
-        vinyl.classList.remove('spinning');
-        visualizer.classList.remove('playing');
+      if (music.paused) {
+        music.play();
+        updatePlayerUI(true);
       } else {
-        music.play().catch(() => alert('Silakan klik layar sekali lagi untuk memutar musik.'));
-        vinyl.classList.add('spinning');
-        visualizer.classList.add('playing');
+        music.pause();
+        updatePlayerUI(false);
       }
-      isPlaying = !isPlaying;
     }
 
-    // Modal
-    function openSecretModal() { document.getElementById('secretModal').classList.add('active'); }
-    function closeSecretModal() { document.getElementById('secretModal').classList.remove('active'); }
-
-    // Game
-    function playGame() {
-      const result = document.getElementById('gameResult');
-      result.style.display = 'block';
-      result.innerText = '🎉 Selamat! Kamu mendapat Angka Keberuntungan 100! Kupon Terbuka!';
-      document.getElementById('couponSection').classList.add('active');
-      if (typeof confetti === 'function') {
-        confetti({ particleCount: 50, spread: 50 });
+    function updatePlayerUI(isPlaying) {
+      if (isPlaying) {
+        musicBtn.innerText = "⏸ Pause Lagu";
+        vinyl.classList.add('spinning');
+        tonearm.classList.add('playing');
+        visualizer.classList.add('playing');
+      } else {
+        musicBtn.innerText = "🎵 Putar Lagu";
+        vinyl.classList.remove('spinning');
+        tonearm.classList.remove('playing');
+        visualizer.classList.remove('playing');
       }
+    }
+
+    function playLoveMeter() {
+      const resultDiv = document.getElementById('gameResult');
+      resultDiv.style.display = 'block';
+      resultDiv.innerText = "Sedang menghitung...";
+      
+      setTimeout(() => {
+        const score = Math.floor(Math.random() * 900) + 99900;
+        resultDiv.innerText = `🎉 Poin Cinta: ${score.toLocaleString()} %! (Tercatat Maksimal! ✨)`;
+        triggerCelebration();
+        sendHearts();
+      }, 800);
+    }
+
+    function sendHearts() {
+      const emojis = ['💖', '❤️', '✨', '🧸', '🤍', '🥳'];
+      for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('div');
+          heart.classList.add('floating-heart');
+          heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+          heart.style.left = Math.random() * 80 + 10 + 'vw';
+          heart.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
+          document.body.appendChild(heart);
+
+          setTimeout(() => { heart.remove(); }, 3000);
+        }, i * 100);
+      }
+    }
+
+    function toggleCoupons() {
+      const section = document.getElementById('couponSection');
+      section.style.display = section.style.display === 'block' ? 'none' : 'block';
+      if (section.style.display === 'block') {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function claimCoupon(btn) {
+      btn.innerText = "Terklaim! ✅";
+      btn.style.background = "#6b7280";
+      btn.disabled = true;
+      triggerCelebration();
+    }
+
+    function showEnvelope() {
+      document.getElementById('envelopeWrapper').style.display = 'block';
+      document.getElementById('envelopeWrapper').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function openLetter() {
+      const letter = document.getElementById('letterContent');
+      const envelopeBtn = document.getElementById('envelopeBtn');
+
+      if (letter.style.display !== 'block') {
+        letter.style.display = 'block';
+        envelopeBtn.style.background = '#be123c';
+        envelopeBtn.querySelector('.envelope-title').innerText = '💌 Surat Terbuka';
+        envelopeBtn.querySelector('.envelope-hint').innerText = 'Selamat membaca!';
+        triggerCelebration();
+      }
+    }
+
+    function openSecretModal() {
+      document.getElementById('secretModal').classList.add('active');
+      triggerCelebration();
+      sendHearts();
+    }
+
+    function closeSecretModal() {
+      document.getElementById('secretModal').classList.remove('active');
+    }
+
+    function triggerCelebration() {
+      var count = 150;
+      var defaults = { origin: { y: 0.7 } };
+
+      function fire(particleRatio, opts) {
+        confetti(Object.assign({}, defaults, opts, {
+          particleCount: Math.floor(count * particleRatio)
+        }));
+      }
+
+      fire(0.25, { spread: 26, startVelocity: 55 });
+      fire(0.2, { spread: 60 });
+      fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
     }
   </script>
+
 </body>
 </html>
