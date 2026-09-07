@@ -6,800 +6,142 @@
   <title>Happy Birthday My Love! ❤️</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background: linear-gradient(135deg, #0f172a, #1e1b4b);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      overflow-x: hidden;
-      color: #fff;
-      position: relative;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: linear-gradient(135deg, #0f172a, #1e1b4b); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; overflow-x: hidden; color: #fff; position: relative; }
 
     /* OVERLAY INTRO */
-    .intro-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(15px);
-      z-index: 100;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-    }
-    .intro-overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    .intro-card {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 24px;
-      padding: 25px 20px;
-      max-width: 380px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    .scan-icon {
-      font-size: 45px;
-      margin-bottom: 15px;
-      animation: pulse 2s infinite;
-    }
-    .scan-title {
-      font-size: 0.85rem;
-      color: #38bdf8;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-    .scan-name {
-      font-size: 1.3rem;
-      color: #fb7185;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
+    .intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px); z-index: 100; display: flex; justify-content: center; align-items: center; padding: 20px; transition: opacity 0.8s ease, visibility 0.8s ease; }
+    .intro-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .intro-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; padding: 25px 20px; max-width: 380px; width: 100%; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.6); animation: fadeIn 0.5s ease-out; }
+    .scan-icon { font-size: 45px; margin-bottom: 15px; animation: pulse 2s infinite; }
+    .scan-title { font-size: 0.85rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; margin-bottom: 8px; }
+    .scan-name { font-size: 1.3rem; color: #fb7185; font-weight: bold; margin-bottom: 20px; }
 
     /* BOARDING PASS */
-    .boarding-pass {
-      background: #ffffff;
-      color: #0f172a;
-      border-radius: 16px;
-      padding: 18px;
-      text-align: left;
-      margin-bottom: 20px;
-      position: relative;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-    .pass-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px dashed #cbd5e1;
-      padding-bottom: 10px;
-      margin-bottom: 12px;
-    }
-    .pass-title {
-      font-size: 0.75rem;
-      font-weight: bold;
-      color: #e11d48;
-      text-transform: uppercase;
-    }
-    .pass-flight {
-      font-size: 0.75rem;
-      color: #64748b;
-      font-weight: bold;
-    }
-    .pass-route {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    .city {
-      text-align: center;
-    }
-    .city-code {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #0f172a;
-    }
-    .city-name {
-      font-size: 0.7rem;
-      color: #64748b;
-    }
-    .flight-icon {
-      font-size: 20px;
-      color: #fb7185;
-    }
-    .pass-details {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      font-size: 0.75rem;
-      background: #f8fafc;
-      padding: 10px;
-      border-radius: 10px;
-    }
-    .detail-label {
-      color: #64748b;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-    }
-    .detail-val {
-      font-weight: bold;
-      color: #0f172a;
-    }
-
-    .gift-box-icon {
-      font-size: 55px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      animation: bounce 1.5s infinite alternate;
-    }
-
-    .btn-intro {
-      background: linear-gradient(135deg, #0284c7, #0369a1);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      font-size: 0.9rem;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
-      transition: transform 0.2s;
-    }
-    .btn-intro:hover {
-      transform: scale(1.02);
-    }
-    .btn-intro-pink {
-      background: linear-gradient(135deg, #e11d48, #be123c);
-      box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
-    }
+    .boarding-pass { background: #ffffff; color: #0f172a; border-radius: 16px; padding: 18px; text-align: left; margin-bottom: 20px; position: relative; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    .pass-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #cbd5e1; padding-bottom: 10px; margin-bottom: 12px; }
+    .pass-title { font-size: 0.75rem; font-weight: bold; color: #e11d48; text-transform: uppercase; }
+    .pass-flight { font-size: 0.75rem; color: #64748b; font-weight: bold; }
+    .pass-route { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .city-code { font-size: 1.4rem; font-weight: 800; color: #0f172a; }
+    .city-name { font-size: 0.7rem; color: #64748b; }
+    .flight-icon { font-size: 20px; color: #fb7185; }
+    .pass-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.75rem; background: #f8fafc; padding: 10px; border-radius: 10px; }
+    .detail-label { color: #64748b; font-size: 0.65rem; text-transform: uppercase; }
+    .detail-val { font-weight: bold; color: #0f172a; }
+    .gift-box-icon { font-size: 55px; margin-bottom: 10px; cursor: pointer; animation: bounce 1.5s infinite alternate; }
+    .btn-intro { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 12px 24px; font-size: 0.9rem; border-radius: 20px; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); transition: transform 0.2s; }
+    .btn-intro-pink { background: linear-gradient(135deg, #e11d48, #be123c); box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4); }
 
     /* HALAMAN UTAMA */
-    .card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      padding: 30px 22px;
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      text-align: center;
-      max-width: 420px;
-      width: 100%;
-      z-index: 10;
-    }
-    .special-badge {
-      display: inline-block;
-      background: rgba(251, 113, 133, 0.2);
-      color: #fda4af;
-      padding: 6px 18px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      margin-bottom: 15px;
-      border: 1px solid rgba(251, 113, 133, 0.4);
-    }
-    h1 {
-      color: #fb7185;
-      font-size: 1.65rem;
-      margin-bottom: 6px;
-    }
-    p.intro {
-      color: #e2e8f0;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
+    .card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); padding: 30px 22px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); text-align: center; max-width: 420px; width: 100%; z-index: 10; overflow: hidden; }
+    .special-badge { display: inline-block; background: rgba(251, 113, 133, 0.2); color: #fda4af; padding: 6px 18px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-bottom: 15px; border: 1px solid rgba(251, 113, 133, 0.4); }
+    h1 { color: #fb7185; font-size: 1.65rem; margin-bottom: 6px; }
+    p.intro { color: #e2e8f0; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
 
     /* PLAYER PIRINGAN HITAM */
-    .player-container {
-      background: rgba(0, 0, 0, 0.35);
-      border-radius: 18px;
-      padding: 18px 16px;
-      margin-bottom: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-    .vinyl-box {
-      position: relative;
-      width: 110px;
-      height: 110px;
-      margin-bottom: 12px;
-    }
-    .vinyl {
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, #333 18%, #111 20%, #111 35%, #222 36%, #111 50%, #222 51%, #000 70%);
-      border-radius: 50%;
-      border: 3px solid #333;
-      box-shadow: 0 0 15px rgba(0,0,0,0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.5s ease;
-    }
-    .vinyl-center {
-      width: 36px;
-      height: 36px;
-      background: #fb7185;
-      border-radius: 50%;
-      border: 3px solid #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 12px;
-    }
-    .spinning {
-      animation: spin 4s linear infinite;
-    }
-    .tonearm {
-      position: absolute;
-      top: -5px;
-      right: 5px;
-      width: 30px;
-      height: 55px;
-      border-top: 3px solid #cbd5e1;
-      border-right: 3px solid #cbd5e1;
-      border-top-right-radius: 10px;
-      transform-origin: top right;
-      transform: rotate(-30deg);
-      transition: transform 0.5s ease;
-      pointer-events: none;
-    }
-    .tonearm.playing {
-      transform: rotate(10deg);
-    }
-    .song-title {
-      font-size: 0.82rem;
-      color: #e2e8f0;
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-    .visualizer {
-      display: flex;
-      gap: 4px;
-      height: 16px;
-      align-items: flex-end;
-      margin-bottom: 12px;
-    }
-    .bar {
-      width: 4px;
-      height: 4px;
-      background: #fb7185;
-      border-radius: 2px;
-    }
-    .playing .bar {
-      animation: bounceBar 0.8s ease-in-out infinite alternate;
-    }
-    .playing .bar:nth-child(1) { animation-delay: 0.1s; }
-    .playing .bar:nth-child(2) { animation-delay: 0.3s; }
-    .playing .bar:nth-child(3) { animation-delay: 0.2s; }
-    .playing .bar:nth-child(4) { animation-delay: 0.5s; }
-    .playing .bar:nth-child(5) { animation-delay: 0.4s; }
+    .player-container { background: rgba(0, 0, 0, 0.35); border-radius: 18px; padding: 18px 16px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.12); display: flex; flex-direction: column; align-items: center; position: relative; }
+    .vinyl-box { position: relative; width: 110px; height: 110px; margin-bottom: 12px; }
+    .vinyl { width: 100%; height: 100%; background: radial-gradient(circle, #333 18%, #111 20%, #111 35%, #222 36%, #111 50%, #222 51%, #000 70%); border-radius: 50%; border: 3px solid #333; box-shadow: 0 0 15px rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; transition: transform 0.5s ease; }
+    .vinyl-center { width: 36px; height: 36px; background: #fb7185; border-radius: 50%; border: 3px solid #fff; display: flex; justify-content: center; align-items: center; font-size: 12px; }
+    .spinning { animation: spin 4s linear infinite; }
+    .tonearm { position: absolute; top: -5px; right: 5px; width: 30px; height: 55px; border-top: 3px solid #cbd5e1; border-right: 3px solid #cbd5e1; border-top-right-radius: 10px; transform-origin: top right; transform: rotate(-30deg); transition: transform 0.5s ease; pointer-events: none; }
+    .tonearm.playing { transform: rotate(10deg); }
+    .song-title { font-size: 0.82rem; color: #e2e8f0; margin-bottom: 8px; font-weight: 500; }
+    .visualizer { display: flex; gap: 4px; height: 16px; align-items: flex-end; margin-bottom: 12px; }
+    .bar { width: 4px; height: 4px; background: #fb7185; border-radius: 2px; }
+    .playing .bar { animation: bounceBar 0.8s ease-in-out infinite alternate; }
+    .btn-play-inside { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 8px 18px; font-size: 0.85rem; border-radius: 20px; cursor: pointer; font-weight: bold; transition: transform 0.2s; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4); }
 
-    .btn-play-inside {
-      background: linear-gradient(135deg, #0284c7, #0369a1);
-      color: white;
-      border: none;
-      padding: 8px 18px;
-      font-size: 0.85rem;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.2s, opacity 0.2s;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
-    }
-    .btn-play-inside:hover {
-      transform: scale(1.05);
-    }
-
-    .lyrics-quote {
-      font-style: italic;
-      color: #fda4af;
-      font-size: 0.88rem;
-      margin-bottom: 15px;
-      background: rgba(0, 0, 0, 0.25);
-      padding: 12px 15px;
-      border-radius: 12px;
-      border-left: 3px solid #fb7185;
-      line-height: 1.4;
-    }
-
-    .song-reason-box {
-      background: rgba(251, 113, 133, 0.08);
-      border: 1px dashed rgba(251, 113, 133, 0.35);
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 20px;
-      position: relative;
-      text-align: left;
-    }
-    .reason-header {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      color: #fb7185;
-      margin-bottom: 6px;
-    }
-    .reason-text {
-      font-size: 0.82rem;
-      color: #cbd5e1;
-      line-height: 1.5;
-    }
+    .lyrics-quote { font-style: italic; color: #fda4af; font-size: 0.88rem; margin-bottom: 15px; background: rgba(0, 0, 0, 0.25); padding: 12px 15px; border-radius: 12px; border-left: 3px solid #fb7185; line-height: 1.4; }
+    .song-reason-box { background: rgba(251, 113, 133, 0.08); border: 1px dashed rgba(251, 113, 133, 0.35); border-radius: 16px; padding: 14px; margin-bottom: 20px; text-align: left; }
+    .reason-header { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: bold; color: #fb7185; margin-bottom: 6px; }
+    .reason-text { font-size: 0.82rem; color: #cbd5e1; line-height: 1.5; }
 
     /* PETA LOMBOK -> JAWA */
-    .map-card {
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 18px;
-      padding: 14px;
-      margin-bottom: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
-    .map-canvas {
-      position: relative;
-      width: 100%;
-      height: 130px;
-      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .flight-svg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .flight-line {
-      fill: none;
-      stroke: #fb7185;
-      stroke-width: 2.5;
-      stroke-dasharray: 6 4;
-      animation: dashMove 2s linear infinite;
-    }
-    .pin {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 3;
-    }
-    .pin-lombok {
-      right: 20px;
-      bottom: 20px;
-    }
-    .pin-jawa {
-      left: 20px;
-      top: 35px;
-    }
-    .pin-icon {
-      font-size: 20px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-    }
-    .pin-label {
-      font-size: 0.7rem;
-      font-weight: bold;
-      color: #e2e8f0;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 2px 7px;
-      border-radius: 8px;
-      margin-top: 2px;
-    }
-    .animated-plane {
-      position: absolute;
-      font-size: 20px;
-      z-index: 5;
-      offset-path: path("M 280 85 Q 160 15 50 50");
-      animation: flyFromLombokToJawa 4s ease-in-out infinite;
-    }
-    .destination-heart {
-      position: absolute;
-      left: 38px;
-      top: 18px;
-      font-size: 16px;
-      z-index: 4;
-      animation: heartPop 4s ease-in-out infinite;
-    }
-
-    .flight-status-card {
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      border-radius: 12px;
-      padding: 10px 14px;
-      margin-bottom: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.8rem;
-    }
-    .status-badge {
-      color: #10b981;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .status-text {
-      color: #cbd5e1;
-      font-style: italic;
-    }
+    .map-card { background: rgba(15, 23, 42, 0.6); border-radius: 18px; padding: 14px; margin-bottom: 12px; border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; }
+    .map-canvas { position: relative; width: 100%; height: 130px; background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); }
+    .flight-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .flight-line { fill: none; stroke: #fb7185; stroke-width: 2.5; stroke-dasharray: 6 4; animation: dashMove 2s linear infinite; }
+    .pin { position: absolute; display: flex; flex-direction: column; align-items: center; z-index: 3; }
+    .pin-lombok { right: 20px; bottom: 20px; }
+    .pin-jawa { left: 20px; top: 35px; }
+    .pin-icon { font-size: 20px; }
+    .pin-label { font-size: 0.7rem; font-weight: bold; color: #e2e8f0; background: rgba(0, 0, 0, 0.6); padding: 2px 7px; border-radius: 8px; margin-top: 2px; }
+    .animated-plane { position: absolute; font-size: 20px; z-index: 5; offset-path: path("M 280 85 Q 160 15 50 50"); animation: flyFromLombokToJawa 4s ease-in-out infinite; }
+    .destination-heart { position: absolute; left: 38px; top: 18px; font-size: 16px; z-index: 4; animation: heartPop 4s ease-in-out infinite; }
+    .flight-status-card { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 10px 14px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; }
+    .status-badge { color: #10b981; font-weight: bold; display: flex; align-items: center; gap: 5px; }
+    .status-text { color: #cbd5e1; font-style: italic; }
 
     /* GALERI FOTO FLIP CARD */
-    .gallery-section {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .gallery-title {
-      font-size: 0.9rem;
-      color: #f472b6;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-    .photo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .flip-card {
-      background-color: transparent;
-      height: 150px;
-      perspective: 1000px;
-      cursor: pointer;
-    }
-    .flip-card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-    }
-    .flip-card.flipped .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-    .flip-card-front, .flip-card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .flip-card-front {
-      background: #fff;
-      padding: 6px 6px 10px 6px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-    .flip-card-front img {
-      width: 100%;
-      height: 110px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .photo-caption {
-      font-size: 0.7rem;
-      color: #334155;
-      font-weight: bold;
-      margin-top: 4px;
-    }
-    .flip-card-back {
-      background: linear-gradient(135deg, #fb7185, #e11d48);
-      color: white;
-      transform: rotateY(180deg);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 10px;
-      font-size: 0.75rem;
-      line-height: 1.4;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
+    .gallery-section { background: rgba(0, 0, 0, 0.3); border-radius: 18px; padding: 16px; margin-bottom: 22px; border: 1px solid rgba(255, 255, 255, 0.1); }
+    .gallery-title { font-size: 0.9rem; color: #f472b6; font-weight: bold; margin-bottom: 12px; }
+    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .flip-card { background-color: transparent; height: 150px; perspective: 1000px; cursor: pointer; }
+    .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; overflow: hidden; }
+    .flip-card-front { background: #fff; padding: 6px 6px 10px 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    .flip-card-front img { width: 100%; height: 110px; object-fit: cover; border-radius: 8px; }
+    .photo-caption { font-size: 0.7rem; color: #334155; font-weight: bold; margin-top: 4px; }
+    .flip-card-back { background: linear-gradient(135deg, #fb7185, #e11d48); color: white; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; font-size: 0.75rem; line-height: 1.4; }
 
     /* MINI GAME LOVE METER */
-    .game-section {
-      background: rgba(244, 63, 94, 0.1);
-      border: 1px dashed rgba(244, 63, 94, 0.4);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 22px;
-    }
-    .game-title {
-      font-size: 0.9rem;
-      color: #fb7185;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-    .game-btn {
-      background: linear-gradient(135deg, #f43f5e, #e11d48);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      font-size: 0.8rem;
-      border-radius: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(244, 63, 94, 0.3);
-      transition: transform 0.2s;
-    }
-    .game-btn:hover {
-      transform: scale(1.05);
-    }
-    .game-result {
-      margin-top: 10px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #f472b6;
-      display: none;
-      animation: fadeIn 0.4s ease-out;
-    }
+    .game-section { background: rgba(244, 63, 94, 0.1); border: 1px dashed rgba(244, 63, 94, 0.4); border-radius: 18px; padding: 16px; margin-bottom: 22px; }
+    .game-title { font-size: 0.9rem; color: #fb7185; font-weight: bold; margin-bottom: 8px; }
+    .game-btn { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; border: none; padding: 8px 16px; font-size: 0.8rem; border-radius: 15px; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
+    .game-result { margin-top: 10px; font-size: 1.1rem; font-weight: bold; color: #f472b6; display: none; animation: fadeIn 0.4s ease-out; }
 
     /* TOMBOL UTAMA */
-    .btn-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 22px;
-    }
-    .btn {
-      background: linear-gradient(135deg, #e11d48, #be123c);
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 0.95rem;
-      border-radius: 25px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.2s, opacity 0.2s;
-    }
-    .btn:hover {
-      transform: scale(1.03);
-      opacity: 0.9;
-    }
-    .btn-hearts {
-      background: linear-gradient(135deg, #d946ef, #a21caf);
-    }
-    .btn-coupon {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-    }
-    .btn-secret {
-      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-    }
+    .btn-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+    .btn { background: linear-gradient(135deg, #e11d48, #be123c); color: white; border: none; padding: 12px 20px; font-size: 0.95rem; border-radius: 25px; cursor: pointer; font-weight: bold; transition: transform 0.2s; }
+    .btn-hearts { background: linear-gradient(135deg, #d946ef, #a21caf); }
+    .btn-coupon { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    
+    /* AREA PESAN RAHASIA & TEKA-TEKI */
+    .secret-section { background: rgba(139, 92, 246, 0.08); border: 1px dashed rgba(139, 92, 246, 0.4); border-radius: 18px; padding: 18px; margin-bottom: 22px; text-align: left; }
+    .riddle-title { font-size: 0.85rem; color: #a78bfa; font-weight: bold; margin-bottom: 10px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 5px; }
+    .riddle-text { font-size: 0.82rem; color: #e2e8f0; margin-bottom: 12px; line-height: 1.6; font-style: italic; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border-left: 3px solid #8b5cf6; }
+    .riddle-input-group { display: flex; gap: 8px; margin-bottom: 15px; }
+    .riddle-input { flex-grow: 1; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 12px; padding: 10px; color: #fff; font-size: 0.85rem; }
+    .riddle-input::placeholder { color: #94a3b8; }
+    .riddle-submit-btn { background: #8b5cf6; color: white; border: none; padding: 10px 18px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 0.8rem; transition: background 0.2s; }
+    .riddle-submit-btn:hover { background: #7c3aed; }
+    .riddle-error { color: #f87171; font-size: 0.75rem; margin-top: -10px; margin-bottom: 10px; display: none; }
 
-    /* KUPON */
-    .coupon-section {
-      display: none;
-      margin-bottom: 20px;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 15px;
-      border-radius: 15px;
-      border: 1px dashed #f59e0b;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-    .coupon-title {
-      font-size: 0.95rem;
-      color: #fbbf24;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .coupon-card {
-      background: #fff;
-      color: #1e293b;
-      padding: 10px 15px;
-      border-radius: 10px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      font-weight: bold;
-    }
-    .claim-btn {
-      background: #10b981;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.75rem;
-    }
+    .btn-secret-placeholder { background: linear-gradient(135deg, #6b7280, #4b5563); color: #d1d5db; border: none; padding: 12px 20px; font-size: 0.95rem; border-radius: 25px; cursor: not-allowed; font-weight: bold; width: 100%; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; opacity: 0.7; }
+    .btn-secret { background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; border: none; padding: 12px 20px; font-size: 0.95rem; border-radius: 25px; cursor: pointer; font-weight: bold; transition: transform 0.2s; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4); display: none; width: 100%; text-align: center; align-items: center; justify-content: center; gap: 8px; }
+    .btn-secret:hover { transform: scale(1.03); }
 
     /* SURAT INTI */
-    .envelope-wrapper {
-      display: none;
-      margin-bottom: 20px;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-    .envelope {
-      background: #f43f5e;
-      border-radius: 12px;
-      padding: 18px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
-      transition: transform 0.3s ease;
-    }
-    .envelope-title {
-      font-weight: bold;
-      color: #fff;
-      font-size: 0.95rem;
-    }
-    .envelope-hint {
-      font-size: 0.8rem;
-      color: #ffe4e6;
-      margin-top: 5px;
-    }
-    .letter-content {
-      display: none;
-      background: rgba(255, 255, 255, 0.95);
-      color: #1e293b;
-      padding: 20px;
-      border-radius: 15px;
-      margin-top: 15px;
-      text-align: left;
-      font-size: 0.92rem;
-      line-height: 1.7;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      animation: openLetter 0.6s ease-out forwards;
-    }
-    .letter-content p {
-      margin-bottom: 12px;
-    }
-    .letter-footer {
-      text-align: right;
-      font-weight: bold;
-      color: #e11d48;
-      margin-top: 15px;
-    }
+    .envelope-wrapper { display: none; margin-bottom: 22px; animation: fadeIn 0.5s ease-in-out; }
+    .envelope { background: #f43f5e; border-radius: 12px; padding: 18px; cursor: pointer; box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3); transition: transform 0.3s ease; }
+    .envelope-title { font-weight: bold; color: #fff; font-size: 0.95rem; }
+    .envelope-hint { font-size: 0.8rem; color: #ffe4e6; margin-top: 5px; }
+    .letter-content { display: none; background: rgba(255, 255, 255, 0.95); color: #1e293b; padding: 20px; border-radius: 15px; margin-top: 15px; text-align: left; font-size: 0.92rem; line-height: 1.7; box-shadow: 0 10px 25px rgba(0,0,0,0.3); animation: openLetter 0.6s ease-out forwards; }
+    .letter-footer { text-align: right; font-weight: bold; color: #e11d48; margin-top: 15px; }
 
-    /* BUCKET LIST DIPINDAH KE PALING BAWAH */
-    .bucket-section {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 18px;
-      padding: 16px;
-      margin-top: 10px;
-      text-align: left;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .bucket-title {
-      font-size: 0.88rem;
-      color: #38bdf8;
-      font-weight: bold;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-    .bucket-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.8rem;
-      color: #e2e8f0;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-    .bucket-item input {
-      accent-color: #fb7185;
-      width: 16px;
-      height: 16px;
-    }
+    /* BUCKET LIST */
+    .bucket-section { background: rgba(255, 255, 255, 0.05); border-radius: 18px; padding: 16px; text-align: left; border: 1px solid rgba(255, 255, 255, 0.1); }
+    .bucket-title { font-size: 0.88rem; color: #38bdf8; font-weight: bold; margin-bottom: 12px; text-align: center; }
+    .bucket-item { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: #e2e8f0; margin-bottom: 10px; cursor: pointer; }
+    .bucket-item input { accent-color: #fb7185; width: 16px; height: 16px; }
 
     /* MODAL PESAN RAHASIA LDR */
-    .secret-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.96);
-      backdrop-filter: blur(20px);
-      z-index: 200;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-    .secret-modal.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .secret-content-card {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(251, 113, 133, 0.3);
-      border-radius: 24px;
-      padding: 25px 20px;
-      max-width: 420px;
-      width: 100%;
-      max-height: 85vh;
-      overflow-y: auto;
-      text-align: left;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-      color: #f1f5f9;
-      position: relative;
-    }
-    .secret-title {
-      font-size: 1.2rem;
-      color: #f472b6;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 15px;
-      border-bottom: 1px dashed rgba(244, 114, 182, 0.3);
-      padding-bottom: 10px;
-    }
-    .secret-text {
-      font-size: 0.9rem;
-      line-height: 1.8;
-      color: #e2e8f0;
-    }
-    .secret-text p {
-      margin-bottom: 14px;
-    }
-    .btn-close-secret {
-      background: linear-gradient(135deg, #e11d48, #be123c);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 0.85rem;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 15px;
-      text-align: center;
-    }
+    .secret-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(20px); z-index: 200; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s ease; }
+    .secret-modal.active { opacity: 1; visibility: visible; }
+    .secret-content-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(251, 113, 133, 0.3); border-radius: 24px; padding: 25px 20px; max-width: 420px; width: 100%; max-height: 85vh; overflow-y: auto; text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.8); color: #f1f5f9; position: relative; }
+    .secret-title { font-size: 1.2rem; color: #f472b6; font-weight: bold; text-align: center; margin-bottom: 15px; border-bottom: 1px dashed rgba(244, 114, 182, 0.3); padding-bottom: 10px; }
+    .secret-text { font-size: 0.9rem; line-height: 1.8; color: #e2e8f0; }
+    .secret-text p { margin-bottom: 14px; }
+    .btn-close-secret { background: linear-gradient(135deg, #e11d48, #be123c); color: white; border: none; padding: 10px 20px; font-size: 0.85rem; border-radius: 20px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px; text-align: center; }
 
-    .floating-heart {
-      position: fixed;
-      bottom: -20px;
-      font-size: 24px;
-      user-select: none;
-      pointer-events: none;
-      z-index: 999;
-      animation: floatUp 3s linear forwards;
-    }
+    .floating-heart { position: fixed; bottom: -20px; font-size: 24px; user-select: none; pointer-events: none; z-index: 999; animation: floatUp 3s linear forwards; }
 
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
     @keyframes dashMove { to { stroke-dashoffset: -20; } }
-    @keyframes flyFromLombokToJawa {
-      0% { offset-distance: 0%; opacity: 0; transform: scale(0.6) rotate(45deg); }
-      12% { opacity: 1; transform: scale(1) rotate(45deg); }
-      85% { opacity: 1; transform: scale(1) rotate(45deg); }
-      100% { offset-distance: 100%; opacity: 0; transform: scale(0.6) rotate(45deg); }
-    }
+    @keyframes flyFromLombokToJawa { 0% { offset-distance: 0%; opacity: 0; transform: scale(0.6) rotate(45deg); } 12% { opacity: 1; transform: scale(1) rotate(45deg); } 85% { opacity: 1; transform: scale(1) rotate(45deg); } 100% { offset-distance: 100%; opacity: 0; transform: scale(0.6) rotate(45deg); } }
     @keyframes heartPop { 0%, 80% { transform: scale(0); opacity: 0; } 90% { transform: scale(1.3); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
     @keyframes spin { 100% { transform: rotate(360deg); } }
     @keyframes bounceBar { 0% { height: 4px; } 100% { height: 16px; } }
@@ -813,67 +155,38 @@
 
   <!-- OVERLAY INTRO -->
   <div id="introOverlay" class="intro-overlay">
-    
     <!-- Step 1 -->
     <div id="introStep1" class="intro-card">
       <div class="scan-icon">🔒</div>
       <div class="scan-title">Akses Kejutan Khusus</div>
       <div class="scan-name">Abdul Latif Hidayatulloh</div>
-      <p style="font-size: 0.82rem; color: #cbd5e1; margin-bottom: 20px;">
-        Halaman ini dibuat khusus hanya untuk kamu. Siap membuka kejutannya? ✨
-      </p>
+      <p style="font-size: 0.82rem; color: #cbd5e1; margin-bottom: 20px;">Halaman ini dibuat khusus hanya untuk kamu. Siap membuka kejutannya? ✨</p>
       <button class="btn-intro" onclick="goToIntroStep2()">Konfirmasi & Lanjutkan ✈️</button>
     </div>
-
     <!-- Step 2 -->
     <div id="introStep2" class="intro-card" style="display: none;">
-      <div style="font-size: 0.85rem; color: #fb7185; font-weight: bold; margin-bottom: 12px;">
-        🎟️ Boarding Pass Special Flight
-      </div>
-
+      <div style="font-size: 0.85rem; color: #fb7185; font-weight: bold; margin-bottom: 12px;">🎟️ Boarding Pass Special Flight</div>
       <div class="boarding-pass">
-        <div class="pass-header">
-          <span class="pass-title">LOVE AIRWAYS ✈️</span>
-          <span class="pass-flight">FLIGHT #2026</span>
-        </div>
+        <div class="pass-header"><span class="pass-title">LOVE AIRWAYS ✈️</span><span class="pass-flight">FLIGHT #2026</span></div>
         <div class="pass-route">
-          <div class="city">
-            <div class="city-code">LOP</div>
-            <div class="city-name">Lombok</div>
-          </div>
+          <div class="city"><div class="city-code">LOP</div><div class="city-name">Lombok</div></div>
           <div class="flight-icon">✈️ ➔</div>
-          <div class="city">
-            <div class="city-code">JWG</div>
-            <div class="city-name">Jawa</div>
-          </div>
+          <div class="city"><div class="city-code">JWG</div><div class="city-name">Jawa</div></div>
         </div>
         <div class="pass-details">
-          <div>
-            <div class="detail-label">Passenger</div>
-            <div class="detail-val">A. Latif. H</div>
-          </div>
-          <div>
-            <div class="detail-label">Destination</div>
-            <div class="detail-val">Meylinda ❤️</div>
-          </div>
+          <div><div class="detail-label">Passenger</div><div class="detail-val">A. Latif. H</div></div>
+          <div><div class="detail-label">Destination</div><div class="detail-val">Meylinda ❤️</div></div>
         </div>
       </div>
-
       <button class="btn-intro btn-intro-pink" onclick="goToIntroStep3()">Terima Tiket & Buka Kado 🎁</button>
     </div>
-
     <!-- Step 3 -->
     <div id="introStep3" class="intro-card" style="display: none;">
       <div class="gift-box-icon" onclick="finishIntro()">🎁</div>
-      <div style="font-size: 1.1rem; color: #fb7185; font-weight: bold; margin-bottom: 8px;">
-        Pesan Siap Dibuka!
-      </div>
-      <p style="font-size: 0.82rem; color: #cbd5e1; margin-bottom: 20px;">
-        Klik kado di atas atau tombol di bawah ini untuk memulai lagu dan masuk ke kejutannya! ✨
-      </p>
+      <div style="font-size: 1.1rem; color: #fb7185; font-weight: bold; margin-bottom: 8px;">Pesan Siap Dibuka!</div>
+      <p style="font-size: 0.82rem; color: #cbd5e1; margin-bottom: 20px;">Klik kado di atas atau tombol di bawah ini untuk memulai lagu dan masuk ke kejutannya! ✨</p>
       <button class="btn-intro btn-intro-pink" onclick="finishIntro()">Buka Kejutan Sekarang 🎉</button>
     </div>
-
   </div>
 
   <!-- HALAMAN UTAMA -->
@@ -885,92 +198,52 @@
     <!-- PLAYER PIRINGAN HITAM -->
     <div class="player-container">
       <div class="vinyl-box">
-        <div id="vinylRecord" class="vinyl">
-          <div class="vinyl-center">🎵</div>
-        </div>
+        <div id="vinylRecord" class="vinyl"><div class="vinyl-center">🎵</div></div>
         <div id="tonearm" class="tonearm"></div>
       </div>
       <div class="song-title">🎶 Nuca - Masa Ini, Nanti, & Masa Indah Lainnya</div>
-      <div id="visualizer" class="visualizer">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
+      <div id="visualizer" class="visualizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
       <button class="btn-play-inside" id="musicBtn" onclick="toggleMusic()">🎵 Putar Lagu</button>
     </div>
 
-    <div class="lyrics-quote">
-      "Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨
-    </div>
+    <div class="lyrics-quote">"Kau adalah semua jawaban dari doa yang ku panjatkan..." ✨</div>
 
     <div class="song-reason-box">
-      <div class="reason-header">
-        <span>💌</span> Kenapa Aku Pilih Lagu Ini?
-      </div>
-      <div class="reason-text">
-        Lagu ini rasanya pas banget menggambarkan perasaan aku. Di setiap liriknya, aku selalu ingat gimana bersyukurnya aku punya kamu di hidupku. Dari masa ini, nanti, sampai masa-masa indah kita ke depannya! 🤍
-      </div>
+      <div class="reason-header"><span>💌</span> Kenapa Aku Pilih Lagu Ini?</div>
+      <div class="reason-text">Lagu ini rasanya pas banget menggambarkan perasaan aku. Di setiap liriknya, aku selalu ingat gimana bersyukurnya aku punya kamu di hidupku. Dari masa ini, nanti, sampai masa-masa indah kita ke depannya! 🤍</div>
     </div>
 
     <!-- PETA LOMBOK -> JAWA -->
     <div class="map-card">
       <div class="map-canvas">
-        <svg class="flight-svg" viewBox="0 0 340 130">
-          <path class="flight-line" d="M 280 85 Q 160 15 50 50" />
-        </svg>
-        <div class="pin pin-lombok">
-          <div class="pin-icon">🏝️</div>
-          <div class="pin-label">Lombok</div>
-        </div>
-        <div class="pin pin-jawa">
-          <div class="pin-icon">🏞️</div>
-          <div class="pin-label">Jawa</div>
-        </div>
+        <svg class="flight-svg" viewBox="0 0 340 130"><path class="flight-line" d="M 280 85 Q 160 15 50 50" /></svg>
+        <div class="pin pin-lombok"><div class="pin-icon">🏝️</div><div class="pin-label">Lombok</div></div>
+        <div class="pin pin-jawa"><div class="pin-icon">🏞️</div><div class="pin-label">Jawa</div></div>
         <div class="animated-plane">✈️</div>
         <div class="destination-heart">💖</div>
       </div>
     </div>
-
     <div class="flight-status-card">
       <div class="status-badge">🟢 Status: Landed Safely</div>
       <div class="status-text">Akhirnya ketemu kamu! 🪂✨</div>
     </div>
 
-    <!-- GALERI FOTO BISA DIBALIK (FLIP CARD) -->
+    <!-- GALERI FOTO -->
     <div class="gallery-section">
       <div class="gallery-title">📸 Snapshots of Us (Klik Foto Buat Balik) 🤍</div>
       <div class="photo-grid">
-        
-        <!-- Card Foto 1 -->
         <div class="flip-card" onclick="this.classList.toggle('flipped')">
           <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&auto=format&fit=crop&q=80" alt="Moment 1">
-              <div class="photo-caption">Momen Favorit ✨</div>
-            </div>
-            <div class="flip-card-back">
-              <b>Foto Kunjungan Pertama! 💖</b><br>
-              <span style="font-size: 0.68rem; margin-top:4px;">"Selalu suka senyum kamu tiap kali kita pertama ketemu!"</span>
-            </div>
+            <div class="flip-card-front"><img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400" alt="Moment 1"><div class="photo-caption">Momen Favorit ✨</div></div>
+            <div class="flip-card-back"><b>Pertama Ketemu! 💖</b><br><span style="font-size: 0.68rem;">"Nggak nyangka jarak bakal sejauh ini, tapi rasa ini tetap sama."</span></div>
           </div>
         </div>
-
-        <!-- Card Foto 2 -->
         <div class="flip-card" onclick="this.classList.toggle('flipped')">
           <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&auto=format&fit=crop&q=80" alt="Moment 2">
-              <div class="photo-caption">Ketemu Kamu! 💖</div>
-            </div>
-            <div class="flip-card-back">
-              <b>Hari Ini! 🥳</b><br>
-              <span style="font-size: 0.68rem; margin-top:4px;">"Akhirnya bisa duduk berdua begini tanpa terhalang jarak!"</span>
-            </div>
+            <div class="flip-card-front"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400" alt="Moment 2"><div class="photo-caption">Ketemu Kamu! 💖</div></div>
+            <div class="flip-card-back"><b>Hari Ini! 🥳</b><br><span style="font-size: 0.68rem;">"Rasa capek nunggu langsung hilang pas lihat senyum kamu nyata."</span></div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -986,24 +259,14 @@
       <button class="btn btn-hearts" onclick="sendHearts()">💖 Tabur Love Buat Kamu!</button>
       <button class="btn btn-coupon" onclick="toggleCoupons()">🎟️ Klaim Kupon Spesial Ultah!</button>
       <button class="btn" onclick="showEnvelope()">Buka Surat Kejutan ✉️🎁</button>
-      <button class="btn btn-secret" onclick="openSecretModal()">🔒 Baca Pesan Rahasia LDR 🤍</button>
     </div>
 
     <!-- Area Kupon -->
     <div id="couponSection" class="coupon-section">
       <div class="coupon-title">🎟️ Birthday Vouchers (Klaim Sekarang!)</div>
-      <div class="coupon-card">
-        <span>🍦 Ditraktir Es Krim / Snack</span>
-        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
-      </div>
-      <div class="coupon-card">
-        <span>💆‍♂️ Pijat Bahu 10 Menit</span>
-        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
-      </div>
-      <div class="coupon-card">
-        <span>👑 Bebas Pilih Nonton / Aktivitas</span>
-        <button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button>
-      </div>
+      <div class="coupon-card"><span>🍦 Ditraktir Es Krim / Snack</span><button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button></div>
+      <div class="coupon-card"><span>💆‍♂️ Pijat Bahu 10 Menit</span><button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button></div>
+      <div class="coupon-card"><span>👑 Bebas Pilih Nonton / Aktivitas</span><button class="claim-btn" onclick="claimCoupon(this)">Klaim 💖</button></div>
     </div>
 
     <!-- Area Surat Inti -->
@@ -1012,7 +275,6 @@
         <div class="envelope-title">📩 Ada Surat Khusus Buat Kamu!</div>
         <div class="envelope-hint">(Klik amplop ini untuk membuka suratnya)</div>
       </div>
-
       <div id="letterContent" class="letter-content">
         <p><b>Hai, Abdul Latif Hidayatulloh!</b></p>
         <p>Meskipun ulang tahunmu sebenarnya baru di bulan Desember nanti, aku sengaja banget mau nyuri start buat merayakannya lebih awal khusus hari ini, mumpung kita akhirnya bisa duduk berdua dan ketemu langsung secara nyata! 🥳✨</p>
@@ -1023,7 +285,27 @@
       </div>
     </div>
 
-    <!-- BUCKET LIST DIPINDAH KE PALING BAWAH -->
+    <!-- FITUR BARU: AREA PESAN RAHASIA DENGAN TEKA-TEKI -->
+    <div class="secret-section">
+      <div class="riddle-title">🧩 Teka-Teki 'Pintu Hati' LDR</div>
+      <div class="riddle-text">
+        "Aku memisahkan kita secara fisik, tapi mendekatkan hati kita lewat rindu. Tanpaku, pertemuan hari ini takkan terasa seistimewa ini. Siapakah aku?"
+      </div>
+      <div id="riddleInputArea">
+        <div class="riddle-input-group">
+          <input type="text" id="riddleAnswer" class="riddle-input" placeholder="Jawabannya satu kata...">
+          <button class="riddle-submit-btn" onclick="checkRiddle()">Buka 🔓</button>
+        </div>
+        <div id="riddleError" class="riddle-error">Ups, tebakanmu masih kurang pas. Coba ingat-ingat lagi! 🤔</div>
+      </div>
+      <!-- Tombol yang awalnya terkunci -->
+      <div id="secretButtonArea">
+        <div class="btn-secret-placeholder">🔒 Jawab teka-teki di atas dulu, ya!</div>
+        <button id="realSecretBtn" class="btn-secret" onclick="openSecretModal()">🔓 Baca Pesan Rahasia LDR 🤍</button>
+      </div>
+    </div>
+
+    <!-- BUCKET LIST LOMBOK -->
     <div class="bucket-section">
       <div class="bucket-title">🗺️ Lombok Trip Bucket List With You 🤍</div>
       <label class="bucket-item"><input type="checkbox"> Explore indahnya Lombok bareng 🏝️</label>
@@ -1032,7 +314,6 @@
       <label class="bucket-item"><input type="checkbox"> Nyantai & bersepeda di Gili Trawangan 🌊</label>
       <label class="bucket-item"><input type="checkbox"> Basah-basahan & foto di Air Terjun 🌊✨</label>
     </div>
-
   </div>
 
   <!-- MODAL PESAN RAHASIA LDR -->
@@ -1051,9 +332,7 @@
     </div>
   </div>
 
-  <audio id="bgMusic" loop preload="auto">
-    <source src="Nuca_-_Masa_ini_Nanti_dan_Masa_Indah_Lainnya_(mp3.pm).mp3" type="audio/mpeg">
-  </audio>
+  <audio id="bgMusic" loop preload="auto"><source src="Nuca_-_Masa_ini_Nanti_dan_Masa_Indah_Lainnya_(mp3.pm).mp3" type="audio/mpeg"></audio>
 
   <script>
     const music = document.getElementById('bgMusic');
@@ -1062,61 +341,25 @@
     const tonearm = document.getElementById('tonearm');
     const visualizer = document.getElementById('visualizer');
 
-    function goToIntroStep2() {
-      document.getElementById('introStep1').style.display = 'none';
-      document.getElementById('introStep2').style.display = 'block';
-    }
-
-    function goToIntroStep3() {
-      document.getElementById('introStep2').style.display = 'none';
-      document.getElementById('introStep3').style.display = 'block';
-    }
-
-    function finishIntro() {
-      document.getElementById('introOverlay').classList.add('hidden');
-      music.play().then(() => {
-        updatePlayerUI(true);
-      }).catch(() => {});
-      triggerCelebration();
-    }
-
-    function toggleMusic() {
-      if (music.paused) {
-        music.play();
-        updatePlayerUI(true);
-      } else {
-        music.pause();
-        updatePlayerUI(false);
-      }
-    }
-
+    function goToIntroStep2() { document.getElementById('introStep1').style.display = 'none'; document.getElementById('introStep2').style.display = 'block'; }
+    function goToIntroStep3() { document.getElementById('introStep2').style.display = 'none'; document.getElementById('introStep3').style.display = 'block'; }
+    function finishIntro() { document.getElementById('introOverlay').classList.add('hidden'); music.play().then(() => updatePlayerUI(true)).catch(() => {}); triggerCelebration(); }
+    function toggleMusic() { music.paused ? (music.play(), updatePlayerUI(true)) : (music.pause(), updatePlayerUI(false)); }
     function updatePlayerUI(isPlaying) {
-      if (isPlaying) {
-        musicBtn.innerText = "⏸ Pause Lagu";
-        vinyl.classList.add('spinning');
-        tonearm.classList.add('playing');
-        visualizer.classList.add('playing');
-      } else {
-        musicBtn.innerText = "🎵 Putar Lagu";
-        vinyl.classList.remove('spinning');
-        tonearm.classList.remove('playing');
-        visualizer.classList.remove('playing');
-      }
+      musicBtn.innerText = isPlaying ? "⏸ Pause Lagu" : "🎵 Putar Lagu";
+      vinyl.classList.toggle('spinning', isPlaying);
+      tonearm.classList.toggle('playing', isPlaying);
+      visualizer.classList.toggle('playing', isPlaying);
     }
-
     function playLoveMeter() {
       const resultDiv = document.getElementById('gameResult');
-      resultDiv.style.display = 'block';
-      resultDiv.innerText = "Sedang menghitung...";
-      
+      resultDiv.style.display = 'block'; resultDiv.innerText = "Sedang menghitung...";
       setTimeout(() => {
         const score = Math.floor(Math.random() * 900) + 99900;
         resultDiv.innerText = `🎉 Poin Cinta: ${score.toLocaleString()} %! (Tercatat Maksimal! ✨)`;
-        triggerCelebration();
-        sendHearts();
+        triggerCelebration(); sendHearts();
       }, 800);
     }
-
     function sendHearts() {
       const emojis = ['💖', '❤️', '✨', '🧸', '🤍', '🥳'];
       for (let i = 0; i < 12; i++) {
@@ -1127,70 +370,52 @@
           heart.style.left = Math.random() * 80 + 10 + 'vw';
           heart.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
           document.body.appendChild(heart);
-
-          setTimeout(() => { heart.remove(); }, 3000);
+          setTimeout(() => heart.remove(), 3000);
         }, i * 100);
       }
     }
-
     function toggleCoupons() {
       const section = document.getElementById('couponSection');
       section.style.display = section.style.display === 'block' ? 'none' : 'block';
-      if (section.style.display === 'block') {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (section.style.display === 'block') section.scrollIntoView({ behavior: 'smooth' });
     }
-
-    function claimCoupon(btn) {
-      btn.innerText = "Terklaim! ✅";
-      btn.style.background = "#6b7280";
-      btn.disabled = true;
-      triggerCelebration();
-    }
-
-    function showEnvelope() {
-      document.getElementById('envelopeWrapper').style.display = 'block';
-      document.getElementById('envelopeWrapper').scrollIntoView({ behavior: 'smooth' });
-    }
-
+    function claimCoupon(btn) { btn.innerText = "Terklaim! ✅"; btn.style.background = "#6b7280"; btn.disabled = true; triggerCelebration(); }
+    function showEnvelope() { document.getElementById('envelopeWrapper').style.display = 'block'; document.getElementById('envelopeWrapper').scrollIntoView({ behavior: 'smooth' }); }
     function openLetter() {
       const letter = document.getElementById('letterContent');
       const envelopeBtn = document.getElementById('envelopeBtn');
-
       if (letter.style.display !== 'block') {
-        letter.style.display = 'block';
-        envelopeBtn.style.background = '#be123c';
-        envelopeBtn.querySelector('.envelope-title').innerText = '💌 Surat Terbuka';
-        envelopeBtn.querySelector('.envelope-hint').innerText = 'Selamat membaca!';
-        triggerCelebration();
+        letter.style.display = 'block'; envelopeBtn.style.background = '#be123c'; envelopeBtn.querySelector('.envelope-title').innerText = '💌 Surat Terbuka'; envelopeBtn.querySelector('.envelope-hint').innerText = 'Selamat membaca!'; triggerCelebration();
       }
     }
 
-    function openSecretModal() {
-      document.getElementById('secretModal').classList.add('active');
-      triggerCelebration();
-      sendHearts();
+    /* FUNGSI TEKA-TEKI */
+    function checkRiddle() {
+      const answer = document.getElementById('riddleAnswer').value.trim().toLowerCase();
+      const errorDiv = document.getElementById('riddleError');
+      const inputArea = document.getElementById('riddleInputArea');
+      const placeholder = document.querySelector('.btn-secret-placeholder');
+      const realBtn = document.getElementById('realSecretBtn');
+
+      // Jawabannya adalah "jarak"
+      if (answer === "jarak" || answer === "jarak Lombok Jawa") {
+        errorDiv.style.display = 'none';
+        inputArea.style.display = 'none'; // Sembunyikan area input
+        placeholder.style.display = 'none'; // Sembunyikan placeholder tombol terkunci
+        realBtn.style.display = 'flex'; // Tampilkan tombol pesan rahasia yang asli
+        triggerCelebration(); sendHearts(); // Efek perayaan
+      } else {
+        errorDiv.style.display = 'block'; // Tampilkan pesan error
+      }
     }
 
-    function closeSecretModal() {
-      document.getElementById('secretModal').classList.remove('active');
-    }
-
+    function openSecretModal() { document.getElementById('secretModal').classList.add('active'); triggerCelebration(); sendHearts(); }
+    function closeSecretModal() { document.getElementById('secretModal').classList.remove('active'); }
     function triggerCelebration() {
-      var count = 150;
-      var defaults = { origin: { y: 0.7 } };
-
-      function fire(particleRatio, opts) {
-        confetti(Object.assign({}, defaults, opts, {
-          particleCount: Math.floor(count * particleRatio)
-        }));
-      }
-
-      fire(0.25, { spread: 26, startVelocity: 55 });
-      fire(0.2, { spread: 60 });
-      fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+      var count = 150; var defaults = { origin: { y: 0.7 } };
+      function fire(particleRatio, opts) { confetti(Object.assign({}, defaults, opts, { particleCount: Math.floor(count * particleRatio) })); }
+      fire(0.25, { spread: 26, startVelocity: 55 }); fire(0.2, { spread: 60 }); fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
     }
   </script>
-
 </body>
 </html>
